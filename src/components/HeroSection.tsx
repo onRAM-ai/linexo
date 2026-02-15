@@ -1,8 +1,9 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Button, type ButtonProps } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import React from "react";
+import React, { useRef } from "react";
 import AnimatedCounter from "./AnimatedCounter";
+import SectionDivider from "./SectionDivider";
 
 interface StatProps {
   value: string;
@@ -31,70 +32,29 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.2 },
+    transition: { staggerChildren: 0.15, delayChildren: 0.1 },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20, scale: 0.97 },
+  hidden: { opacity: 0, y: 30, scale: 0.96 },
   visible: {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: 0.7, ease: "easeOut" as const },
+    transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
 
 const imageVariants = {
-  hidden: { opacity: 0, scale: 0.85 },
+  hidden: { opacity: 0, scale: 0.85, y: 20 },
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.7, ease: "easeOut" as const },
+    y: 0,
+    transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] as const },
   },
 };
-
-const floatingVariants = {
-  animate: {
-    y: [0, -10, 0],
-    transition: { duration: 4, repeat: Infinity, ease: "easeInOut" as const },
-  },
-};
-
-const WaveDivider = () => (
-  <div className="absolute -bottom-1 left-0 right-0 overflow-hidden leading-[0]">
-    <svg
-      className="animate-wave-drift-slow relative block w-[calc(100%+50px)] -ml-[25px] h-16 md:h-24"
-      viewBox="0 0 1200 120"
-      preserveAspectRatio="none"
-    >
-      <path
-        d="M0,40 C150,80 350,0 500,40 C650,80 800,10 1000,50 C1100,70 1150,30 1200,40 L1200,120 L0,120 Z"
-        className="fill-accent/10"
-      />
-    </svg>
-    <svg
-      className="animate-wave-drift absolute bottom-0 left-0 block w-[calc(100%+50px)] -ml-[25px] h-14 md:h-20"
-      viewBox="0 0 1200 120"
-      preserveAspectRatio="none"
-    >
-      <path
-        d="M0,60 C200,20 400,90 600,50 C800,10 1000,70 1200,40 L1200,120 L0,120 Z"
-        className="fill-primary/8"
-      />
-    </svg>
-    <svg
-      className="absolute bottom-0 left-0 block w-full h-10 md:h-14"
-      viewBox="0 0 1200 120"
-      preserveAspectRatio="none"
-    >
-      <path
-        d="M0,80 C300,40 600,100 900,60 C1050,40 1150,70 1200,60 L1200,120 L0,120 Z"
-        className="fill-background"
-      />
-    </svg>
-  </div>
-);
 
 /** Parse stat value like "5,000+" into { num: 5000, suffix: "+" } */
 function parseStatValue(value: string) {
@@ -108,17 +68,46 @@ function parseStatValue(value: string) {
 }
 
 const HeroSection = ({ title, subtitle, actions, stats, images, className }: HeroSectionProps) => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  const blob1Y = useTransform(scrollYProgress, [0, 1], [0, 80]);
+  const blob2Y = useTransform(scrollYProgress, [0, 1], [0, -60]);
+  const blob3Y = useTransform(scrollYProgress, [0, 1], [0, 50]);
+  const imageY = useTransform(scrollYProgress, [0, 1], [0, 40]);
+
   return (
-    <section className={cn("relative overflow-hidden bg-gradient-to-b from-primary/5 via-primary/8 to-primary/12 pb-32 pt-24 md:pb-40 md:pt-32", className)}>
-      {/* Soft organic background shapes */}
+    <section
+      ref={sectionRef}
+      className={cn(
+        "relative overflow-hidden bg-gradient-to-b from-primary/5 via-primary/8 to-primary/12 pb-0 pt-24 md:pt-32",
+        className
+      )}
+    >
+      {/* Parallax organic blobs */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -right-20 top-10 h-80 w-80 rounded-full bg-accent/5 blur-3xl" />
-        <div className="absolute -left-20 bottom-20 h-96 w-96 rounded-full bg-primary/5 blur-3xl" />
-        <div className="absolute left-1/2 top-1/4 h-64 w-64 -translate-x-1/2 rounded-full bg-accent/3 blur-3xl" />
+        <motion.div
+          style={{ y: blob1Y }}
+          className="absolute -right-20 top-10 h-80 w-80 rounded-full bg-accent/5 blur-3xl animate-blob"
+        />
+        <motion.div
+          style={{ y: blob2Y }}
+          className="absolute -left-20 bottom-20 h-96 w-96 rounded-full bg-primary/5 blur-3xl animate-blob-reverse"
+        />
+        <motion.div
+          style={{ y: blob3Y }}
+          className="absolute left-1/2 top-1/4 h-64 w-64 -translate-x-1/2 rounded-full bg-accent/3 blur-3xl animate-blob"
+        />
       </div>
 
+      {/* Floating dot grid */}
+      <div className="pointer-events-none absolute inset-0 bg-dot-grid opacity-40" />
+
       <motion.div
-        className="container relative z-10"
+        className="container relative z-10 pb-32 md:pb-40"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -175,22 +164,15 @@ const HeroSection = ({ title, subtitle, actions, stats, images, className }: Her
             </motion.div>
           </div>
 
-          {/* Right Column: Image Collage */}
+          {/* Right Column: Image Collage with parallax */}
           <motion.div
             variants={itemVariants}
+            style={{ y: imageY }}
             className="relative hidden min-h-[420px] lg:block"
           >
-            <motion.div
-              variants={floatingVariants}
-              animate="animate"
-              className="absolute -right-6 -top-6 h-72 w-72 rounded-full bg-primary/5 blur-3xl"
-            />
-            <motion.div
-              variants={floatingVariants}
-              animate="animate"
-              style={{ animationDelay: "1.5s" }}
-              className="absolute -bottom-6 -left-6 h-72 w-72 rounded-full bg-accent/5 blur-3xl"
-            />
+            {/* Decorative shapes */}
+            <div className="absolute -right-6 -top-6 h-72 w-72 rounded-full bg-primary/5 blur-3xl animate-blob" />
+            <div className="absolute -bottom-6 -left-6 h-72 w-72 rounded-full bg-accent/5 blur-3xl animate-blob-reverse" />
             <div className="absolute right-6 top-6 h-28 w-28 rounded-2xl border border-primary/15 bg-primary/5" />
 
             {images[0] && (
@@ -198,7 +180,7 @@ const HeroSection = ({ title, subtitle, actions, stats, images, className }: Her
                 variants={imageVariants}
                 className="absolute left-0 top-0 w-3/5 overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"
               >
-                <img src={images[0]} alt="Hero 1" className="h-full w-full object-cover" />
+                <img src={images[0]} alt="Hero 1" className="h-full w-full object-cover" loading="eager" />
               </motion.div>
             )}
             {images[1] && (
@@ -206,7 +188,7 @@ const HeroSection = ({ title, subtitle, actions, stats, images, className }: Her
                 variants={imageVariants}
                 className="absolute right-0 top-16 w-2/5 overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"
               >
-                <img src={images[1]} alt="Hero 2" className="h-full w-full object-cover" />
+                <img src={images[1]} alt="Hero 2" className="h-full w-full object-cover" loading="eager" />
               </motion.div>
             )}
             {images[2] && (
@@ -214,14 +196,46 @@ const HeroSection = ({ title, subtitle, actions, stats, images, className }: Her
                 variants={imageVariants}
                 className="absolute bottom-0 left-1/4 w-1/2 overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"
               >
-                <img src={images[2]} alt="Hero 3" className="h-full w-full object-cover" />
+                <img src={images[2]} alt="Hero 3" className="h-full w-full object-cover" loading="eager" />
               </motion.div>
             )}
           </motion.div>
         </div>
       </motion.div>
 
-      <WaveDivider />
+      {/* Multi-layer organic wave divider */}
+      <div className="absolute -bottom-1 left-0 right-0 overflow-hidden leading-[0]">
+        <svg
+          className="animate-wave-drift-slow relative block w-[calc(100%+50px)] -ml-[25px] h-20 md:h-28"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,40 C150,80 350,0 500,40 C650,80 800,10 1000,50 C1100,70 1150,30 1200,40 L1200,120 L0,120 Z"
+            className="fill-accent/10"
+          />
+        </svg>
+        <svg
+          className="animate-wave-drift absolute bottom-0 left-0 block w-[calc(100%+50px)] -ml-[25px] h-16 md:h-24"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,60 C200,20 400,90 600,50 C800,10 1000,70 1200,40 L1200,120 L0,120 Z"
+            className="fill-primary/8"
+          />
+        </svg>
+        <svg
+          className="absolute bottom-0 left-0 block w-full h-12 md:h-16"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,80 C300,40 600,100 900,60 C1050,40 1150,70 1200,60 L1200,120 L0,120 Z"
+            className="fill-foreground"
+          />
+        </svg>
+      </div>
     </section>
   );
 };
