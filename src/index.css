@@ -1,0 +1,210 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 210 15% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 210 15% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 15% 15%;
+
+    --primary: 207 55% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 207 30% 95%;
+    --secondary-foreground: 210 15% 15%;
+
+    --muted: 210 20% 96%;
+    --muted-foreground: 210 5% 45%;
+
+    --accent: 90 50% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 15% 90%;
+    --input: 210 15% 90%;
+    --ring: 207 55% 53%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 207 55% 53%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 207 30% 95%;
+    --sidebar-accent-foreground: 210 15% 15%;
+    --sidebar-border: 210 15% 90%;
+    --sidebar-ring: 207 55% 53%;
+  }
+
+  .dark {
+    --background: 210 15% 8%;
+    --foreground: 207 20% 96%;
+
+    --card: 210 15% 10%;
+    --card-foreground: 207 20% 96%;
+
+    --popover: 210 15% 10%;
+    --popover-foreground: 207 20% 96%;
+
+    --primary: 207 55% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 15% 15%;
+    --secondary-foreground: 207 20% 96%;
+
+    --muted: 210 15% 15%;
+    --muted-foreground: 210 10% 60%;
+
+    --accent: 90 50% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 15% 18%;
+    --input: 210 15% 18%;
+    --ring: 207 55% 53%;
+
+    --sidebar-background: 210 15% 8%;
+    --sidebar-foreground: 207 20% 96%;
+    --sidebar-primary: 207 55% 53%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 15% 15%;
+    --sidebar-accent-foreground: 207 20% 96%;
+    --sidebar-border: 210 15% 18%;
+    --sidebar-ring: 207 55% 53%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Heading font */
+h1, h2, h3 {
+  font-family: 'Poppins', system-ui, sans-serif;
+}
+
+/* Wavy linen animation */
+@keyframes wave-drift {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(-25px); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes wave-drift-slow {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(15px); }
+  100% { transform: translateX(0); }
+}
+
+.animate-wave-drift {
+  animation: wave-drift 6s ease-in-out infinite;
+}
+
+.animate-wave-drift-slow {
+  animation: wave-drift-slow 8s ease-in-out infinite;
+}
+
+/* Marquee animation */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 25s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+/* Dot grid pattern */
+.bg-dot-grid {
+  background-image: radial-gradient(circle, hsl(var(--primary) / 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* Gradient mesh backgrounds */
+.bg-mesh-blue {
+  background:
+    radial-gradient(ellipse at 20% 50%, hsl(207 55% 53% / 0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, hsl(207 55% 53% / 0.05) 0%, transparent 50%),
+    hsl(var(--secondary) / 0.5);
+}
+
+.bg-mesh-green {
+  background:
+    radial-gradient(ellipse at 70% 60%, hsl(90 50% 50% / 0.07) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 30%, hsl(207 55% 53% / 0.06) 0%, transparent 50%),
+    hsl(var(--secondary) / 0.5);
+}
+
+/* Angled section */
+.section-angled {
+  clip-path: polygon(0 3%, 100% 0, 100% 97%, 0 100%);
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.section-angled-reverse {
+  clip-path: polygon(0 0, 100% 3%, 100% 100%, 0 97%);
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+/* Frosted glass */
+.glass {
+  background: hsl(var(--background) / 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid hsl(var(--border) / 0.5);
+}
+
+/* Watermark text — oversized background labels */
+.watermark-text {
+  font-family: 'Poppins', system-ui, sans-serif;
+  font-size: clamp(5rem, 12vw, 10rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  color: hsl(var(--foreground) / 0.03);
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+/* Dark section variant — Tier1-inspired color blocking */
+.section-dark {
+  background-color: hsl(var(--foreground));
+  color: hsl(var(--background));
+}
+
+.section-dark h2,
+.section-dark h3 {
+  color: hsl(var(--background));
+}
+
+.section-dark p {
+  color: hsl(var(--background) / 0.7);
+}
+
+.section-dark .watermark-text {
+  color: hsl(var(--background) / 0.04);
+}
