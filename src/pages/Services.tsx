@@ -1,10 +1,8 @@
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import {
   Bed, Shirt, Layers, Bath, HardHat, Wrench, Package, Truck, Zap,
 } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 
 const services = [
@@ -52,51 +50,33 @@ const Services = () => (
     {/* Services list */}
     <section className="py-24 md:py-32">
       <div className="container">
-        <div className="mx-auto max-w-4xl">
-          {/* Connecting line */}
-          <div className="relative space-y-8">
-            <div className="absolute left-7 top-0 bottom-0 hidden w-0.5 bg-gradient-to-b from-primary/20 via-primary/10 to-transparent md:block" />
-            {services.map((s, i) => {
-              const isEven = i % 2 === 0;
-              return (
-                <motion.div
-                  key={s.title}
-                  custom={i}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={fadeUp}
-                  whileHover={{ scale: 1.01, transition: { duration: 0.3 } }}
-                  className={`group relative flex gap-6 rounded-2xl border border-border/50 bg-card p-8 overflow-hidden transition-all duration-300 hover:shadow-xl ${
-                    isEven ? "flex-row" : "flex-row-reverse"
-                  }`}
-                >
-                  <div className={`absolute top-0 h-full w-1 bg-primary scale-y-0 transition-transform duration-300 origin-bottom group-hover:scale-y-100 ${isEven ? "left-0" : "right-0"}`} />
-                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
-                    <s.icon className="h-7 w-7" />
-                  </div>
-                  <div className={isEven ? "" : "text-right"}>
-                    <h3 className="mb-2 text-lg font-semibold text-foreground">{s.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-
-          {/* CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="mt-16 text-center"
-          >
-            <p className="mb-4 text-lg text-muted-foreground">Need a tailored solution for your business?</p>
-            <Button asChild size="lg" className="text-base font-semibold">
-              <Link to="/contact">Get a Quote</Link>
-            </Button>
-          </motion.div>
+        <div className="mx-auto max-w-4xl space-y-8">
+          {services.map((s, i) => {
+            const isEven = i % 2 === 0;
+            return (
+              <motion.div
+                key={s.title}
+                custom={i}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeUp}
+                whileHover={{ scale: 1.01, transition: { duration: 0.3 } }}
+                className={`group relative flex gap-6 rounded-2xl border border-border/50 bg-card p-8 overflow-hidden transition-all duration-300 hover:shadow-xl ${
+                  isEven ? "flex-row" : "flex-row-reverse"
+                }`}
+              >
+                <div className={`absolute top-0 h-full w-1 bg-primary scale-y-0 transition-transform duration-300 origin-bottom group-hover:scale-y-100 ${isEven ? "left-0" : "right-0"}`} />
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
+                  <s.icon className="h-7 w-7" />
+                </div>
+                <div className={isEven ? "" : "text-right"}>
+                  <h3 className="mb-2 text-lg font-semibold text-foreground">{s.title}</h3>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

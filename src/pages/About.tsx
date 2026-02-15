@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ShieldCheck, Layers, TrendingUp, MapPin, Zap, Calendar } from "lucide-react";
+import { ShieldCheck, Layers, TrendingUp, MapPin, Zap } from "lucide-react";
 import Layout from "@/components/Layout";
 
 const values = [
@@ -7,13 +7,6 @@ const values = [
   { icon: Layers, title: "Hygiene", desc: "Commercial-grade laundering processes that meet the highest health and safety benchmarks." },
   { icon: TrendingUp, title: "Scalability", desc: "Purpose-built facility designed to handle volume surges without compromising quality." },
   { icon: MapPin, title: "Local Ownership", desc: "Goldfields-owned and operated — we're invested in the success of our community." },
-];
-
-const milestones = [
-  { year: "2021", title: "Founded", desc: "LinExo established in Kalgoorlie-Boulder to fill the Goldfields' laundry gap." },
-  { year: "2022", title: "Facility Built", desc: "Purpose-built commercial laundry facility commissioned and operational." },
-  { year: "2023", title: "50+ Clients", desc: "Reached 50 active clients across accommodation, hospitality, and mining." },
-  { year: "2024", title: "Surge Capacity", desc: "Expanded to 5,000+ pieces daily with new commercial-grade equipment." },
 ];
 
 const serviceAreas = [
@@ -66,51 +59,7 @@ const About = () => (
       </div>
     </section>
 
-    {/* Timeline */}
-    <section className="py-24 md:py-32 bg-secondary/30">
-      <div className="container">
-        <div className="mx-auto mb-16 max-w-2xl text-center">
-          <div className="mb-3 flex items-center justify-center gap-2 text-primary">
-            <Calendar className="h-5 w-5" />
-            <span className="text-sm font-semibold uppercase tracking-[0.2em] font-sans">Our Journey</span>
-          </div>
-          <h2 className="text-4xl font-bold text-foreground md:text-5xl">Milestones</h2>
-        </div>
-        <div className="mx-auto max-w-4xl">
-          {/* Horizontal timeline on md+, vertical on mobile */}
-          <div className="relative hidden md:block">
-            <div className="absolute left-0 right-0 top-6 h-0.5 bg-gradient-to-r from-primary/20 via-primary to-primary/20" />
-            <div className="grid grid-cols-4 gap-6">
-              {milestones.map((m, i) => (
-                <motion.div key={m.year} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="flex flex-col items-center text-center">
-                  <div className="relative z-10 mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-sm shadow-lg">
-                    {m.year}
-                  </div>
-                  <h3 className="mb-1 text-base font-bold text-foreground">{m.title}</h3>
-                  <p className="text-xs text-muted-foreground leading-relaxed">{m.desc}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-          {/* Mobile vertical */}
-          <div className="md:hidden space-y-8">
-            {milestones.map((m, i) => (
-              <motion.div key={m.year} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp} className="flex gap-4">
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground font-bold text-sm shadow-lg">
-                  {m.year}
-                </div>
-                <div>
-                  <h3 className="mb-1 text-base font-bold text-foreground">{m.title}</h3>
-                  <p className="text-sm text-muted-foreground">{m.desc}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-
-    {/* Capacity Callout */}
+    {/* Capacity Callout — color block */}
     <section className="section-dark relative py-24 md:py-32 overflow-hidden">
       <span className="watermark-text left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">CAPACITY</span>
       <div className="container relative z-10">
@@ -156,7 +105,7 @@ const About = () => (
       </div>
     </section>
 
-    {/* Values */}
+    {/* Values — color block */}
     <section className="relative bg-primary py-24 md:py-32 overflow-hidden">
       <span className="watermark-text left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" style={{ color: 'hsla(0,0%,100%,0.05)' }}>VALUES</span>
       <div className="container relative z-10">

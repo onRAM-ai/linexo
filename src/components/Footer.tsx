@@ -1,7 +1,5 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin } from "lucide-react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
 import BrandName from "@/components/BrandName";
 
 const serviceAreas = ["Kalgoorlie-Boulder", "Coolgardie", "Kambalda", "Leonora", "Laverton"];
@@ -21,25 +19,7 @@ const Footer = () => (
         />
       </svg>
     </div>
-
-    {/* Newsletter */}
-    <div className="container pt-20 pb-8">
-      <div className="mx-auto max-w-xl text-center">
-        <h3 className="mb-2 text-lg font-semibold text-primary-foreground">Stay in the Loop</h3>
-        <p className="mb-4 text-sm text-primary-foreground/60">Get updates on services, capacity, and Goldfields industry news.</p>
-        <form onSubmit={(e) => e.preventDefault()} className="flex gap-2">
-          <Input
-            type="email"
-            placeholder="your@email.com"
-            className="bg-primary-foreground/10 border-primary-foreground/20 text-primary-foreground placeholder:text-primary-foreground/40"
-          />
-          <Button type="submit" size="default" className="shrink-0">Subscribe</Button>
-        </form>
-      </div>
-    </div>
-
-    <div className="container pb-12">
-      <div className="mb-10 h-px bg-primary-foreground/10" />
+    <div className="container py-12 pt-20">
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-5">
         {/* Brand */}
         <div className="space-y-4 lg:col-span-2">
@@ -55,13 +35,7 @@ const Footer = () => (
           {/* Social Icons */}
           <div className="flex gap-3 pt-2">
             {[Facebook, Instagram, Linkedin].map((Icon, i) => (
-              <a
-                key={i}
-                href="#"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-foreground/10 text-primary-foreground/60 transition-colors hover:bg-primary hover:text-primary-foreground"
-              >
+              <a key={i} href="#" className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-foreground/10 text-primary-foreground/60 transition-colors hover:bg-primary hover:text-primary-foreground">
                 <Icon className="h-4 w-4" />
               </a>
             ))}
@@ -107,8 +81,7 @@ const Footer = () => (
       </div>
 
       <div className="mt-10 border-t border-primary-foreground/10 pt-6 text-center text-xs text-primary-foreground/50">
-        <p>© {new Date().getFullYear()} <BrandName />. All rights reserved.</p>
-        <p className="mt-1">ABN: 00 000 000 000 · Registered in Western Australia</p>
+        © {new Date().getFullYear()} <BrandName />. All rights reserved.
       </div>
     </div>
   </footer>

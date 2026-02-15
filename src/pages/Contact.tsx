@@ -1,14 +1,12 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Phone, Mail, MapPin, Clock, CheckCircle } from "lucide-react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { motion } from "framer-motion";
+import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
 import Layout from "@/components/Layout";
 
 const serviceOptions = [
@@ -28,33 +26,18 @@ const businessHours = [
   { day: "Sunday", hours: "Closed" },
 ];
 
-const contactSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  company: z.string().optional(),
-  email: z.string().email("Please enter a valid email"),
-  phone: z.string().optional(),
-  service: z.string().optional(),
-  message: z.string().min(10, "Message must be at least 10 characters"),
-});
-
-type ContactForm = z.infer<typeof contactSchema>;
-
 const Contact = () => {
-  const [submitted, setSubmitted] = useState(false);
+  const { toast } = useToast();
+  const [submitting, setSubmitting] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    formState: { errors, isSubmitting },
-  } = useForm<ContactForm>({
-    resolver: zodResolver(contactSchema),
-  });
-
-  const onSubmit = async (_data: ContactForm) => {
-    // Simulate network request
-    await new Promise((r) => setTimeout(r, 1000));
-    setSubmitted(true);
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setSubmitting(true);
+    setTimeout(() => {
+      setSubmitting(false);
+      toast({ title: "Message sent!", description: "We'll be in touch shortly." });
+      (e.target as HTMLFormElement).reset();
+    }, 1000);
   };
 
   return (
@@ -77,80 +60,48 @@ const Contact = () => {
             {/* Form */}
             <div className="lg:col-span-3">
               <div className="rounded-2xl border border-border/50 bg-secondary/20 p-6 md:p-8">
-                <AnimatePresence mode="wait">
-                  {submitted ? (
-                    <motion.div
-                      key="success"
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.5 }}
-                      className="flex flex-col items-center justify-center py-16 text-center"
-                    >
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ type: "spring", stiffness: 200, delay: 0.2 }}
-                      >
-                        <CheckCircle className="mb-6 h-16 w-16 text-accent" />
-                      </motion.div>
-                      <h3 className="mb-2 text-2xl font-bold text-foreground">Message Sent!</h3>
-                      <p className="mb-6 text-muted-foreground">We'll be in touch within one business day.</p>
-                      <Button variant="outline" onClick={() => setSubmitted(false)}>Send Another Message</Button>
-                    </motion.div>
-                  ) : (
-                    <motion.form
-                      key="form"
-                      initial={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      onSubmit={handleSubmit(onSubmit)}
-                      className="space-y-6"
-                    >
-                      <div className="grid gap-4 sm:grid-cols-2">
-                        <div className="space-y-2">
-                          <Label htmlFor="name">Name *</Label>
-                          <Input id="name" placeholder="Your name" {...register("name")} />
-                          {errors.name && <p className="text-xs text-destructive">{errors.name.message}</p>}
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="company">Company</Label>
-                          <Input id="company" placeholder="Your company" {...register("company")} />
-                        </div>
-                      </div>
-                      <div className="grid gap-4 sm:grid-cols-2">
-                        <div className="space-y-2">
-                          <Label htmlFor="email">Email *</Label>
-                          <Input id="email" type="email" placeholder="you@example.com" {...register("email")} />
-                          {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="phone">Phone</Label>
-                          <Input id="phone" type="tel" placeholder="04XX XXX XXX" {...register("phone")} />
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <Label>Service Required</Label>
-                        <Select onValueChange={(val) => setValue("service", val)}>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select a service" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {serviceOptions.map((s) => (
-                              <SelectItem key={s} value={s}>{s}</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="message">Message *</Label>
-                        <Textarea id="message" placeholder="Tell us about your requirements…" rows={5} {...register("message")} />
-                        {errors.message && <p className="text-xs text-destructive">{errors.message.message}</p>}
-                      </div>
-                      <Button type="submit" size="lg" disabled={isSubmitting} className="w-full sm:w-auto">
-                        {isSubmitting ? "Sending…" : "Send Message"}
-                      </Button>
-                    </motion.form>
-                  )}
-                </AnimatePresence>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <Label htmlFor="name">Name</Label>
+                      <Input id="name" placeholder="Your name" required />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="company">Company</Label>
+                      <Input id="company" placeholder="Your company" />
+                    </div>
+                  </div>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Email</Label>
+                      <Input id="email" type="email" placeholder="you@example.com" required />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="phone">Phone</Label>
+                      <Input id="phone" type="tel" placeholder="04XX XXX XXX" />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Service Required</Label>
+                    <Select>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a service" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {serviceOptions.map((s) => (
+                          <SelectItem key={s} value={s}>{s}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="message">Message</Label>
+                    <Textarea id="message" placeholder="Tell us about your requirements…" rows={5} required />
+                  </div>
+                  <Button type="submit" size="lg" disabled={submitting} className="w-full sm:w-auto">
+                    {submitting ? "Sending…" : "Send Message"}
+                  </Button>
+                </form>
               </div>
             </div>
 
@@ -184,22 +135,20 @@ const Contact = () => {
                 <h3 className="mb-4 text-lg font-semibold text-foreground">Service Area</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
                   We service the entire WA Goldfields region including Kalgoorlie-Boulder, Coolgardie,
-                  Kambalda, Leonora, Laverton, and surrounding communities.
+                  Kambalda, Leonora, Laverton, and surrounding communities. Contact us to confirm coverage
+                  for your location.
                 </p>
               </div>
 
-              {/* Google Maps Embed */}
-              <div className="overflow-hidden rounded-xl border border-border/50">
-                <iframe
-                  title="LinExo Service Area — Kalgoorlie-Boulder"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d109636.2507734725!2d121.41677!3d-30.7461!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2a4f5c2b20d1f3fb%3A0x504f0b535df4dc0!2sKalgoorlie-Boulder%20WA!5e0!3m2!1sen!2sau!4v1700000000000"
-                  width="100%"
-                  height="220"
-                  style={{ border: 0 }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                />
+              {/* Map Placeholder */}
+              <div className="overflow-hidden rounded-xl border border-border/50 bg-secondary/30">
+                <div className="flex flex-col items-center justify-center gap-3 py-16 px-6 text-center">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
+                    <MapPin className="h-6 w-6 text-primary" />
+                  </div>
+                  <p className="text-sm font-medium text-foreground">Goldfields Service Area</p>
+                  <p className="text-xs text-muted-foreground">Interactive map coming soon</p>
+                </div>
               </div>
             </div>
           </div>

@@ -89,17 +89,8 @@
     @apply border-border;
   }
 
-  html {
-    scroll-behavior: smooth;
-  }
-
   body {
     @apply bg-background text-foreground;
-  }
-
-  /* Focus-visible ring for keyboard navigation */
-  :focus-visible {
-    @apply outline-none ring-2 ring-ring ring-offset-2 ring-offset-background;
   }
 }
 
@@ -216,13 +207,4 @@ h1, h2, h3 {
 
 .section-dark .watermark-text {
   color: hsl(var(--background) / 0.04);
-}
-
-/* Global button hover polish */
-.btn-lift {
-  @apply transition-all duration-200;
-}
-
-.btn-lift:hover {
-  @apply scale-[1.02] shadow-lg;
 }
