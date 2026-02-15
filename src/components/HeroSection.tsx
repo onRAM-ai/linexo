@@ -212,7 +212,7 @@ const HeroSection = ({ title, subtitle, actions, stats, images, className }: Her
         >
           <path
             d="M0,40 C150,80 350,0 500,40 C650,80 800,10 1000,50 C1100,70 1150,30 1200,40 L1200,120 L0,120 Z"
-            className="fill-primary/8"
+            fill="hsl(207 40% 85%)"
           />
         </svg>
         <svg
@@ -222,7 +222,7 @@ const HeroSection = ({ title, subtitle, actions, stats, images, className }: Her
         >
           <path
             d="M0,60 C200,20 400,90 600,50 C800,10 1000,70 1200,40 L1200,120 L0,120 Z"
-            className="fill-primary/8"
+            fill="hsl(207 35% 89%)"
           />
         </svg>
         <svg
