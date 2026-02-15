@@ -74,7 +74,7 @@ const processSteps = [
 
 const sectors = [
   { icon: Hotel, title: "Accommodation", desc: "Hotels, serviced apartments, and short-stay providers — premium linen hire with reliable turnaround.", bg: "bg-primary", text: "text-primary-foreground" },
-  { icon: UtensilsCrossed, title: "Hospitality", desc: "Restaurants, pubs, and event venues — tablecloths, napkins, and service textiles laundered to standard.", bg: "bg-accent", text: "text-accent-foreground" },
+  { icon: UtensilsCrossed, title: "Hospitality", desc: "Restaurants, pubs, and event venues — tablecloths, napkins, and service textiles laundered to standard.", bg: "bg-primary/90", text: "text-primary-foreground" },
   { icon: Pickaxe, title: "Industrial & Mining", desc: "Mining camps and industrial sites — heavy-duty workwear, PPE, and overalls with surge capacity.", bg: "bg-foreground", text: "text-background" },
 ];
 
@@ -109,7 +109,7 @@ const ProcessStep = ({ step, index }: { step: typeof processSteps[0]; index: num
       {/* Number + icon container */}
       <div className="relative mb-5">
         {/* Step number */}
-        <span className="absolute -top-3 -left-3 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-accent text-accent-foreground text-sm font-bold shadow-md">
+        <span className="absolute -top-3 -left-3 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-bold shadow-md">
           {index + 1}
         </span>
         {/* Glass card icon */}
@@ -135,7 +135,7 @@ const Index = () => {
         title={
           <>
             Goldfields' Premier{" "}
-            <span className="text-accent">Linen & Laundry</span> Specialists
+            <span className="text-primary">Linen & Laundry</span> Specialists
           </>
         }
         subtitle="End-to-end linen supply, laundering, finishing, packing, and scheduled delivery — purpose-built for accommodation, hospitality, and industrial clients."
@@ -157,7 +157,7 @@ const Index = () => {
         {/* Organic background blobs */}
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -right-32 top-20 h-96 w-96 rounded-full bg-primary/5 blur-3xl animate-blob" />
-          <div className="absolute -left-20 bottom-10 h-80 w-80 rounded-full bg-accent/5 blur-3xl animate-blob-reverse" />
+          <div className="absolute -left-20 bottom-10 h-80 w-80 rounded-full bg-primary/5 blur-3xl animate-blob-reverse" />
         </div>
         <div className="container relative z-10">
           <div className="mx-auto mb-16 max-w-2xl text-center">
@@ -267,7 +267,7 @@ const Index = () => {
       <section className="relative py-24 md:py-32 bg-secondary/30 overflow-hidden">
         
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute left-1/3 top-10 h-80 w-80 rounded-full bg-accent/4 blur-3xl animate-blob-reverse" />
+          <div className="absolute left-1/3 top-10 h-80 w-80 rounded-full bg-primary/4 blur-3xl animate-blob-reverse" />
         </div>
         <div className="container relative z-10">
           <div className="mx-auto mb-16 max-w-2xl text-center">
@@ -305,7 +305,7 @@ const Index = () => {
         
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -left-20 top-1/3 h-96 w-96 rounded-full bg-primary/3 blur-3xl animate-blob" />
-          <div className="absolute -right-20 bottom-1/4 h-80 w-80 rounded-full bg-accent/4 blur-3xl animate-blob-reverse" />
+          <div className="absolute -right-20 bottom-1/4 h-80 w-80 rounded-full bg-primary/4 blur-3xl animate-blob-reverse" />
         </div>
         <div className="container relative z-10">
           <div className="mx-auto mb-16 max-w-2xl text-center">
@@ -386,7 +386,7 @@ const Index = () => {
                 className="relative md:col-span-2"
               >
                 <div className="absolute -left-4 -top-4 h-24 w-24 rounded-2xl bg-primary/10 animate-blob" />
-                <div className="absolute -bottom-4 -right-4 h-32 w-32 rounded-2xl bg-accent/10 animate-blob-reverse" />
+                <div className="absolute -bottom-4 -right-4 h-32 w-32 rounded-2xl bg-primary/10 animate-blob-reverse" />
                 <div className="glass-strong relative rounded-2xl p-8 shadow-xl md:-mr-8 md:z-10">
                   <Quote className="mb-4 h-10 w-10 text-primary/30" />
                   <p className="text-lg font-medium italic text-foreground leading-relaxed">
@@ -441,7 +441,7 @@ const Index = () => {
         <div className="bg-gradient-to-br from-primary via-primary to-primary/90 py-24 md:py-28">
           {/* Floating accent shapes */}
           <div className="pointer-events-none absolute inset-0 overflow-hidden">
-            <div className="absolute -right-20 top-10 h-64 w-64 rounded-full bg-accent/10 blur-3xl animate-blob" />
+            <div className="absolute -right-20 top-10 h-64 w-64 rounded-full bg-primary-foreground/10 blur-3xl animate-blob" />
             <div className="absolute -left-20 bottom-10 h-80 w-80 rounded-full bg-background/5 blur-3xl animate-blob-reverse" />
           </div>
           <div className="container text-center relative z-10">
