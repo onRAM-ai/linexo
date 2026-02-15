@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import BrandName from "@/components/BrandName";
-
+import { cn } from "@/lib/utils";
 
 const navLinks = [
   { label: "Home", to: "/" },
@@ -14,12 +14,37 @@ const navLinks = [
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/20 bg-background/70 backdrop-blur-xl supports-[backdrop-filter]:bg-background/50">
-      <div className="container flex h-16 items-center justify-between">
-        <Link to="/" className="flex items-center text-xl font-bold">
+    <header
+      className={cn(
+        "sticky top-0 z-50 w-full transition-all duration-500",
+        scrolled
+          ? "border-b border-border/20 bg-background/80 backdrop-blur-xl shadow-sm"
+          : "bg-transparent"
+      )}
+    >
+      <div
+        className={cn(
+          "container flex items-center justify-between transition-all duration-500",
+          scrolled ? "h-14" : "h-20"
+        )}
+      >
+        <Link
+          to="/"
+          className={cn(
+            "flex items-center font-bold transition-all duration-500",
+            scrolled ? "text-lg" : "text-xl"
+          )}
+        >
           <BrandName />
         </Link>
 
@@ -29,16 +54,17 @@ const Navbar = () => {
             <Link
               key={link.to}
               to={link.to}
-              className={`rounded-md px-4 py-2 text-sm font-medium transition-colors hover:text-primary ${
+              className={cn(
+                "rounded-md px-4 py-2 text-sm font-medium transition-colors hover:text-primary",
                 location.pathname === link.to
                   ? "text-primary"
                   : "text-muted-foreground"
-              }`}
+              )}
             >
               {link.label}
             </Link>
           ))}
-          <Button asChild size="sm" className="ml-4">
+          <Button asChild size="sm" className="ml-4 btn-premium">
             <Link to="/contact">Get In Touch</Link>
           </Button>
         </nav>
@@ -55,18 +81,19 @@ const Navbar = () => {
 
       {/* Mobile nav */}
       {open && (
-        <div className="border-t bg-background md:hidden">
+        <div className="border-t bg-background/95 backdrop-blur-xl md:hidden">
           <nav className="container flex flex-col gap-1 py-4">
             {navLinks.map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
                 onClick={() => setOpen(false)}
-                className={`rounded-md px-4 py-3 text-sm font-medium transition-colors hover:bg-secondary ${
+                className={cn(
+                  "rounded-md px-4 py-3 text-sm font-medium transition-colors hover:bg-secondary",
                   location.pathname === link.to
                     ? "text-primary bg-secondary"
                     : "text-foreground"
-                }`}
+                )}
               >
                 {link.label}
               </Link>

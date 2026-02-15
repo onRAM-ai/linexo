@@ -22,7 +22,7 @@
     --muted: 210 20% 96%;
     --muted-foreground: 210 5% 45%;
 
-    --accent: 90 50% 50%;
+    --accent: 145 58% 42%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
@@ -63,7 +63,7 @@
     --muted: 210 15% 15%;
     --muted-foreground: 210 10% 60%;
 
-    --accent: 90 50% 50%;
+    --accent: 145 58% 42%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62.8% 30.6%;
@@ -91,6 +91,22 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom selection color */
+  ::selection {
+    background: hsl(207 55% 53% / 0.25);
+    color: hsl(210 15% 15%);
+  }
+
+  /* Focus-visible for accessibility */
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
   }
 }
 
@@ -126,11 +142,21 @@ h1, h2, h3 {
   100% { transform: translateX(-50%); }
 }
 
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
 .animate-marquee {
   animation: marquee 25s linear infinite;
 }
 
-.animate-marquee:hover {
+.animate-marquee-reverse {
+  animation: marquee-reverse 30s linear infinite;
+}
+
+.animate-marquee:hover,
+.animate-marquee-reverse:hover {
   animation-play-state: paused;
 }
 
@@ -150,7 +176,7 @@ h1, h2, h3 {
 
 .bg-mesh-green {
   background:
-    radial-gradient(ellipse at 70% 60%, hsl(90 50% 50% / 0.07) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 60%, hsl(145 58% 42% / 0.07) 0%, transparent 50%),
     radial-gradient(ellipse at 20% 30%, hsl(207 55% 53% / 0.06) 0%, transparent 50%),
     hsl(var(--secondary) / 0.5);
 }
@@ -190,7 +216,7 @@ h1, h2, h3 {
   white-space: nowrap;
 }
 
-/* Dark section variant — Tier1-inspired color blocking */
+/* Dark section variant */
 .section-dark {
   background-color: hsl(var(--foreground));
   color: hsl(var(--background));
@@ -207,4 +233,43 @@ h1, h2, h3 {
 
 .section-dark .watermark-text {
   color: hsl(var(--background) / 0.04);
+}
+
+/* Shimmer effect for logo pills */
+.shimmer-pill {
+  background: linear-gradient(
+    110deg,
+    hsl(var(--background) / 0.6) 0%,
+    hsl(var(--background) / 0.8) 40%,
+    hsl(var(--primary) / 0.08) 50%,
+    hsl(var(--background) / 0.8) 60%,
+    hsl(var(--background) / 0.6) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Premium button hover */
+.btn-premium {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-premium:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px -8px hsl(var(--primary) / 0.4);
+}
+
+/* Smooth image fade-in on load */
+.img-fade {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.img-fade.loaded {
+  opacity: 1;
 }
