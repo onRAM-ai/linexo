@@ -22,7 +22,7 @@
     --muted: 210 20% 96%;
     --muted-foreground: 210 5% 45%;
 
-    --accent: 90 50% 50%;
+    --accent: 130 45% 48%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 84.2% 60.2%;
@@ -63,7 +63,7 @@
     --muted: 210 15% 15%;
     --muted-foreground: 210 10% 60%;
 
-    --accent: 90 50% 50%;
+    --accent: 130 45% 48%;
     --accent-foreground: 0 0% 100%;
 
     --destructive: 0 62.8% 30.6%;
@@ -183,7 +183,7 @@ h1, h2, h3 {
 
 .bg-mesh-green {
   background:
-    radial-gradient(ellipse at 70% 60%, hsl(90 50% 50% / 0.07) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 60%, hsl(207 55% 53% / 0.07) 0%, transparent 50%),
     radial-gradient(ellipse at 20% 30%, hsl(207 55% 53% / 0.06) 0%, transparent 50%),
     hsl(var(--secondary) / 0.5);
 }
@@ -265,7 +265,7 @@ h1, h2, h3 {
 }
 
 .glow-accent {
-  background: radial-gradient(ellipse at center, hsl(var(--accent) / 0.1) 0%, transparent 70%);
+  background: radial-gradient(ellipse at center, hsl(var(--primary) / 0.1) 0%, transparent 70%);
 }
 
 /* ─── Process Path Animation ─── */

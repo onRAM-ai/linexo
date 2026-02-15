@@ -91,7 +91,7 @@ const HeroSection = ({ title, subtitle, actions, stats, images, className }: Her
       <div className="pointer-events-none absolute inset-0">
         <motion.div
           style={{ y: blob1Y }}
-          className="absolute -right-20 top-10 h-80 w-80 rounded-full bg-accent/5 blur-3xl animate-blob"
+          className="absolute -right-20 top-10 h-80 w-80 rounded-full bg-primary/5 blur-3xl animate-blob"
         />
         <motion.div
           style={{ y: blob2Y }}
@@ -99,7 +99,7 @@ const HeroSection = ({ title, subtitle, actions, stats, images, className }: Her
         />
         <motion.div
           style={{ y: blob3Y }}
-          className="absolute left-1/2 top-1/4 h-64 w-64 -translate-x-1/2 rounded-full bg-accent/3 blur-3xl animate-blob"
+          className="absolute left-1/2 top-1/4 h-64 w-64 -translate-x-1/2 rounded-full bg-primary/3 blur-3xl animate-blob"
         />
       </div>
 
@@ -172,7 +172,7 @@ const HeroSection = ({ title, subtitle, actions, stats, images, className }: Her
           >
             {/* Decorative shapes */}
             <div className="absolute -right-6 -top-6 h-72 w-72 rounded-full bg-primary/5 blur-3xl animate-blob" />
-            <div className="absolute -bottom-6 -left-6 h-72 w-72 rounded-full bg-accent/5 blur-3xl animate-blob-reverse" />
+            <div className="absolute -bottom-6 -left-6 h-72 w-72 rounded-full bg-primary/5 blur-3xl animate-blob-reverse" />
             <div className="absolute right-6 top-6 h-28 w-28 rounded-2xl border border-primary/15 bg-primary/5" />
 
             {images[0] && (
@@ -212,7 +212,7 @@ const HeroSection = ({ title, subtitle, actions, stats, images, className }: Her
         >
           <path
             d="M0,40 C150,80 350,0 500,40 C650,80 800,10 1000,50 C1100,70 1150,30 1200,40 L1200,120 L0,120 Z"
-            className="fill-accent/10"
+            className="fill-primary/8"
           />
         </svg>
         <svg
