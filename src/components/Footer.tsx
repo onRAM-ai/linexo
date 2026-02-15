@@ -6,20 +6,32 @@ const serviceAreas = ["Kalgoorlie-Boulder", "Coolgardie", "Kambalda", "Leonora",
 
 const Footer = () => (
   <footer className="relative bg-foreground text-primary-foreground">
-    {/* Wave divider */}
+    {/* Multi-layer organic wave divider */}
     <div className="absolute -top-[1px] left-0 right-0 overflow-hidden leading-[0]">
       <svg
-        className="relative block w-full h-10 md:h-14"
+        className="animate-wave-drift-slow relative block w-[calc(100%+50px)] -ml-[25px] h-14 md:h-20"
         viewBox="0 0 1200 120"
         preserveAspectRatio="none"
       >
         <path
           d="M0,60 C200,100 400,20 600,60 C800,100 1000,30 1200,50 L1200,0 L0,0 Z"
-          className="fill-background"
+          fill="hsl(207 55% 53%)"
+          opacity="0.15"
+        />
+      </svg>
+      <svg
+        className="animate-wave-drift absolute top-0 left-0 block w-[calc(100%+50px)] -ml-[25px] h-12 md:h-16"
+        viewBox="0 0 1200 120"
+        preserveAspectRatio="none"
+      >
+        <path
+          d="M0,40 C150,80 350,0 500,40 C650,80 800,10 1000,50 C1100,70 1150,30 1200,40 L1200,0 L0,0 Z"
+          fill="hsl(90 50% 50%)"
+          opacity="0.06"
         />
       </svg>
     </div>
-    <div className="container py-12 pt-20">
+    <div className="container py-12 pt-24">
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-5">
         {/* Brand */}
         <div className="space-y-4 lg:col-span-2">
