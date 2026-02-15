@@ -192,7 +192,7 @@ const Index = () => {
       </section>
 
       {/* ═══ Floating Glass Stat Band ═══ */}
-      <div className="relative z-20 -mt-12 mb-8 px-4">
+      <div className="relative z-20 -mt-20 md:-mt-24 mb-8 px-4">
         <motion.div
           initial={{ opacity: 0, y: 30, scale: 0.97 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
