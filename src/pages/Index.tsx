@@ -281,8 +281,8 @@ const Index = () => {
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                variants={i % 2 === 0 ? fadeLeft : fadeRight}
-                className={`flex gap-6 items-start ${i % 2 === 1 ? "md:flex-row-reverse md:text-right" : ""}`}
+                variants={fadeLeft}
+                className="flex gap-6 items-start"
               >
                 <div className="relative z-10 flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-lg">
                   <v.icon className="h-7 w-7" />
