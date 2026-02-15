@@ -1,18 +1,23 @@
 
+## Remove Background Watermark Text
 
-## Remove Watermark Text from Sector Cards
+Remove all the large faded background text (e.g., "LINEN", "PROCESS", "VALUES", "SECTORS") from every section across all pages.
 
-The large, rotated watermark text (e.g., "HOSPITALITY") overlaying each sector tile will be removed.
+### Changes
 
-### Change
+**src/pages/Index.tsx** -- Remove 4 watermark `<span>` elements:
+- Line 152: `<span className="watermark-text ...">LINEN</span>`
+- Line 224: `<span className="watermark-text ...">PROCESS</span>`
+- Line 264: `<span className="watermark-text ...">VALUES</span>`
+- Line 301: `<span className="watermark-text ...">SECTORS</span>`
 
-**src/pages/Index.tsx** (lines 331-333): Delete the `<span>` element inside each sector card that renders the large rotated watermark label.
+**src/pages/Services.tsx** -- Remove 2 watermark `<span>` elements:
+- Line 38: `<span className="watermark-text ...">SERVICES</span>`
+- Line 86: `<span className="watermark-text ...">FAQ</span>`
 
-```
-// REMOVE this element:
-<span className="absolute -right-4 top-1/2 -translate-y-1/2 rotate-90 text-[5rem] ..." >
-  {s.title}
-</span>
-```
+**src/pages/About.tsx** -- Remove 3 watermark `<span>` elements:
+- Line 25: `<span className="watermark-text ...">ABOUT</span>`
+- Line 64: `<span className="watermark-text ...">CAPACITY</span>`
+- Line 110: `<span className="watermark-text ...">VALUES</span>`
 
-This is a single 3-line deletion. No other files are affected.
+Total: 9 lines deleted across 3 files. No other changes needed.
