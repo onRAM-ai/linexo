@@ -3,6 +3,7 @@ import { Button, type ButtonProps } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import React from "react";
 import AnimatedCounter from "./AnimatedCounter";
+import { ChevronDown } from "lucide-react";
 
 interface StatProps {
   value: string;
@@ -31,12 +32,12 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.2 },
+    transition: { staggerChildren: 0.15 },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 20, scale: 0.97 },
+  hidden: { opacity: 0, y: 30, scale: 0.97 },
   visible: {
     opacity: 1,
     y: 0,
@@ -46,18 +47,12 @@ const itemVariants = {
 };
 
 const imageVariants = {
-  hidden: { opacity: 0, scale: 0.85 },
+  hidden: { opacity: 0, scale: 0.85, y: 20 },
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.7, ease: "easeOut" as const },
-  },
-};
-
-const floatingVariants = {
-  animate: {
-    y: [0, -10, 0],
-    transition: { duration: 4, repeat: Infinity, ease: "easeInOut" as const },
+    y: 0,
+    transition: { duration: 0.8, ease: "easeOut" as const },
   },
 };
 
@@ -175,50 +170,75 @@ const HeroSection = ({ title, subtitle, actions, stats, images, className }: Her
             </motion.div>
           </div>
 
-          {/* Right Column: Image Collage */}
+          {/* Right Column: Image Collage — fixed with explicit aspect-ratio & height */}
           <motion.div
             variants={itemVariants}
-            className="relative hidden min-h-[420px] lg:block"
+            className="relative hidden lg:block"
+            style={{ minHeight: 480 }}
           >
-            <motion.div
-              variants={floatingVariants}
-              animate="animate"
-              className="absolute -right-6 -top-6 h-72 w-72 rounded-full bg-primary/5 blur-3xl"
-            />
-            <motion.div
-              variants={floatingVariants}
-              animate="animate"
-              style={{ animationDelay: "1.5s" }}
-              className="absolute -bottom-6 -left-6 h-72 w-72 rounded-full bg-accent/5 blur-3xl"
-            />
+            {/* Decorative blobs */}
+            <div className="absolute -right-6 -top-6 h-72 w-72 rounded-full bg-primary/5 blur-3xl" />
+            <div className="absolute -bottom-6 -left-6 h-72 w-72 rounded-full bg-accent/5 blur-3xl" />
             <div className="absolute right-6 top-6 h-28 w-28 rounded-2xl border border-primary/15 bg-primary/5" />
 
             {images[0] && (
               <motion.div
                 variants={imageVariants}
-                className="absolute left-0 top-0 w-3/5 overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"
+                className="absolute left-0 top-0 w-[58%] overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"
               >
-                <img src={images[0]} alt="Hero 1" className="h-full w-full object-cover" />
+                <img
+                  src={images[0]}
+                  alt="Professional linen service"
+                  className="aspect-[4/5] w-full object-cover"
+                  loading="eager"
+                />
               </motion.div>
             )}
             {images[1] && (
               <motion.div
                 variants={imageVariants}
-                className="absolute right-0 top-16 w-2/5 overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"
+                className="absolute right-0 top-12 w-[42%] overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"
               >
-                <img src={images[1]} alt="Hero 2" className="h-full w-full object-cover" />
+                <img
+                  src={images[1]}
+                  alt="Commercial laundry facility"
+                  className="aspect-[3/4] w-full object-cover"
+                  loading="eager"
+                />
               </motion.div>
             )}
             {images[2] && (
               <motion.div
                 variants={imageVariants}
-                className="absolute bottom-0 left-1/4 w-1/2 overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"
+                className="absolute bottom-0 left-[20%] w-[55%] overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"
               >
-                <img src={images[2]} alt="Hero 3" className="h-full w-full object-cover" />
+                <img
+                  src={images[2]}
+                  alt="Quality linen delivery"
+                  className="aspect-[16/10] w-full object-cover"
+                  loading="eager"
+                />
               </motion.div>
             )}
           </motion.div>
         </div>
+      </motion.div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        className="absolute bottom-20 left-1/2 z-10 -translate-x-1/2 md:bottom-28"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5 }}
+      >
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+          className="flex flex-col items-center gap-1 text-muted-foreground/50"
+        >
+          <span className="text-[10px] uppercase tracking-[0.2em] font-medium">Scroll</span>
+          <ChevronDown className="h-4 w-4" />
+        </motion.div>
       </motion.div>
 
       <WaveDivider />
