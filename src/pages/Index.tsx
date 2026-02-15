@@ -50,12 +50,12 @@ const scaleIn = {
 };
 
 const services = [
-  { icon: Bed, title: "Hotel Linen Hire", desc: "Premium sheets, pillowcases, and duvet covers for accommodation providers.", span: "md:col-span-2 md:row-span-1" },
-  { icon: Layers, title: "Flatwork Finishing", desc: "Professionally pressed and folded flat linens ready for service.", span: "" },
-  { icon: Bath, title: "Towels & Hospitality", desc: "Towels, bathmats, and hospitality textiles laundered to exacting standards.", span: "" },
-  { icon: HardHat, title: "Industrial Workwear", desc: "PPE and heavy-duty garment laundering for mining and industrial clients.", span: "md:col-span-2 md:row-span-1" },
-  { icon: Package, title: "Heat-Sealed Packaging", desc: "Continuous heat-sealed bag packaging for hygienic linen delivery.", span: "" },
-  { icon: Truck, title: "Scheduled Delivery", desc: "Reliable pickup and delivery across the Goldfields region.", span: "" },
+  { icon: Bed, title: "Hotel Linen Hire", desc: "Premium sheets, pillowcases, and duvet covers for accommodation providers." },
+  { icon: Layers, title: "Flatwork Finishing", desc: "Professionally pressed and folded flat linens ready for service." },
+  { icon: Bath, title: "Towels & Hospitality", desc: "Towels, bathmats, and hospitality textiles laundered to exacting standards." },
+  { icon: HardHat, title: "Industrial Workwear", desc: "PPE and heavy-duty garment laundering for mining and industrial clients." },
+  { icon: Package, title: "Heat-Sealed Packaging", desc: "Continuous heat-sealed bag packaging for hygienic linen delivery." },
+  { icon: Truck, title: "Scheduled Delivery", desc: "Reliable pickup and delivery across the Goldfields region." },
 ];
 
 const values = [
@@ -161,7 +161,7 @@ const Index = () => {
             <h2 className="text-4xl font-bold md:text-5xl lg:text-6xl">Our Services</h2>
           </div>
           {/* Staggered masonry-style grid */}
-          <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-4">
+          <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
             {services.map((s, i) => (
               <motion.div
                 key={s.title}
@@ -171,7 +171,7 @@ const Index = () => {
                 viewport={{ once: true }}
                 variants={scaleIn}
                 whileHover={{ scale: 1.03, y: -4, transition: { duration: 0.3 } }}
-                className={`group relative rounded-2xl border border-border/10 p-7 backdrop-blur-sm transition-all duration-300 hover-glow ${s.span}`}
+                className="group relative rounded-2xl border border-border/10 p-7 backdrop-blur-sm transition-all duration-300 hover-glow"
                 style={{
                   background: "linear-gradient(135deg, hsl(var(--background) / 0.06), hsl(var(--background) / 0.1))",
                 }}
