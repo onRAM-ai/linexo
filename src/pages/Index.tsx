@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 import HeroSection from "@/components/HeroSection";
 import AnimatedCounter from "@/components/AnimatedCounter";
+import TestimonialsCarousel from "@/components/TestimonialsCarousel";
 import heroImg1 from "@/assets/hero-laundry-1.jpg";
 import heroImg2 from "@/assets/hero-laundry-2.jpg";
 import heroImg3 from "@/assets/hero-laundry-3.jpg";
@@ -226,6 +227,9 @@ const Index = () => {
         </div>
       </div>
     </section>
+
+    {/* Testimonials */}
+    <TestimonialsCarousel />
 
     {/* Client Logos Marquee */}
     <section className="py-16 overflow-hidden bg-secondary/30">
