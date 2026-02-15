@@ -477,7 +477,10 @@ const Index = () => {
         </div>
         {/* Bottom wave divider */}
         <div className="absolute -bottom-1 left-0 right-0 overflow-hidden leading-[0] z-10">
-          <svg className="relative block w-full h-12 md:h-20" viewBox="0 0 1200 120" preserveAspectRatio="none">
+          <svg className="animate-wave-drift-slow relative block w-[calc(100%+50px)] -ml-[25px] h-12 md:h-20" viewBox="0 0 1200 120" preserveAspectRatio="none">
+            <path d="M0,60 C200,100 400,20 600,60 C800,100 1000,30 1200,50 L1200,120 L0,120 Z" fill="hsl(207 55% 53%)" opacity="0.15" />
+          </svg>
+          <svg className="animate-wave-drift absolute -bottom-0 left-0 block w-[calc(100%+50px)] -ml-[25px] h-12 md:h-20" viewBox="0 0 1200 120" preserveAspectRatio="none">
             <path d="M0,40 C150,80 350,0 500,40 C650,80 800,10 1000,50 C1100,70 1150,30 1200,40 L1200,120 L0,120 Z" className="fill-foreground" />
           </svg>
         </div>
