@@ -1,25 +1,49 @@
 
 
-## Tidy Up CTA-to-Footer Transition
+## Unified Color Palette: Logo Colors Only
 
-The current issue: the CTA section's bottom wave fills with the dark `foreground` color, but the footer also renders its own multi-layer wave SVGs at the top. This creates a visible clash with overlapping waves and color mismatches between the two sections.
+The logo uses two colors: **blue** (primary, dominant) and **green** (accent, secondary). Currently, the green accent is overused across blobs, badges, sector cards, wave fills, and decorative elements, creating visual noise. This plan strips back to a disciplined two-color system where blue dominates and green appears only in the brand name and subtle supporting touches.
 
-### Fix
+### Color Strategy
 
-**1. Remove the footer's top wave dividers (`src/components/Footer.tsx`)**
+- **Blue (primary)**: All interactive elements, icons, badges, section backgrounds, blobs, waves, glows
+- **Green (accent)**: Reserved for the LINEXO brand name only (the "EXO" portion)
+- **Neutral tones**: Backgrounds, text, borders stay as-is
 
-Delete the entire wave overlay block (lines 10-33) -- the two animated SVGs sitting inside the `absolute -top-[1px]` container. Since the CTA bottom wave already transitions cleanly into the dark footer background color, these are redundant and cause the visual clash.
+### Changes
 
-**2. Reduce footer top padding (`src/components/Footer.tsx`)**
+**1. CSS Variables (`src/index.css`)**
+- Adjust the accent green HSL to better match the logo's green (currently `90 50% 50%`, shift to approx `130 45% 48%` -- a truer mid-green matching the logo)
+- Update mesh/glow utility classes to use primary instead of accent
 
-Change `pt-24` to `pt-12` on the footer content container (line 34), since the extra padding was compensating for the now-removed wave height.
+**2. Hero Section (`src/components/HeroSection.tsx`)**
+- Replace all `bg-accent/*` blob references with `bg-primary/*` variants
+- Remove the `fill-accent/10` wave layer, keep only primary-toned waves
 
-**3. Refine CTA bottom wave (`src/pages/Index.tsx`)**
+**3. Index Page (`src/pages/Index.tsx`)**
+- Hero title: Change `text-accent` on "Linen & Laundry" to `text-primary`
+- Process step number badges: Change `bg-accent` to `bg-primary`
+- Sector cards: Change the Hospitality card from `bg-accent` to `bg-primary/90` so all three cards sit in the blue family
+- All decorative blobs: Replace `bg-accent/*` with `bg-primary/*`
+- CTA floating shapes: Replace `bg-accent/10` blob with `bg-primary/10`
+- About snippet: Replace `bg-accent/10` decorative square with `bg-primary/10`
 
-- Add the animated `animate-wave-drift-slow` class to the bottom wave SVG for consistency with the hero section's waves.
-- Add a subtle second wave layer with low-opacity primary fill to create a smoother, more organic blend rather than a single hard wave edge.
+**4. About Page (`src/pages/About.tsx`)**
+- Brand name in hero already uses BrandName component (keep green there)
+- No other accent overrides needed
 
-### Result
+**5. Services Page (`src/pages/Services.tsx`)**
+- No accent color usage found -- no changes needed
 
-A single, clean wave transition from the blue CTA into the dark footer -- no overlapping artifacts, no color mismatch.
+**6. BrandName Component (`src/components/BrandName.tsx`)**
+- Keep as-is: "LIN" in primary blue, "EXO" in accent green -- this is the one place green belongs
+
+### Technical Details
+
+Files modified:
+- `src/index.css` -- accent HSL tweak, utility class updates (mesh-green, glow-accent use primary instead)
+- `src/components/HeroSection.tsx` -- ~5 class changes (blobs + wave fills)
+- `src/pages/Index.tsx` -- ~10 class changes (badges, blobs, sector card, hero title)
+
+No dependency or structural changes. Purely className and CSS variable updates.
 
