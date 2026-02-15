@@ -149,7 +149,7 @@ const Index = () => {
 
       {/* ═══ Services — DARK section with staggered grid ═══ */}
       <section className="section-dark relative py-24 md:py-32 overflow-hidden">
-        <span className="watermark-text left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">LINEN</span>
+        
         {/* Organic background blobs */}
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -right-32 top-20 h-96 w-96 rounded-full bg-primary/5 blur-3xl animate-blob" />
@@ -221,7 +221,7 @@ const Index = () => {
 
       {/* ═══ How It Works — Zigzag Process Path ═══ */}
       <section className="relative py-24 md:py-32 overflow-hidden">
-        <span className="watermark-text left-[5%] top-1/2 -translate-y-1/2">PROCESS</span>
+        
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute right-10 top-20 h-72 w-72 rounded-full bg-primary/4 blur-3xl animate-blob" />
         </div>
@@ -261,7 +261,7 @@ const Index = () => {
 
       {/* ═══ Why LinExo — Staggered Left/Right Cards ═══ */}
       <section className="relative py-24 md:py-32 bg-secondary/30 overflow-hidden">
-        <span className="watermark-text right-[5%] top-1/2 -translate-y-1/2">VALUES</span>
+        
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute left-1/3 top-10 h-80 w-80 rounded-full bg-accent/4 blur-3xl animate-blob-reverse" />
         </div>
@@ -298,7 +298,7 @@ const Index = () => {
 
       {/* ═══ Sectors — Overlapping Cards with Parallax Tilt ═══ */}
       <section className="relative py-24 md:py-32 overflow-hidden">
-        <span className="watermark-text left-1/2 top-8 -translate-x-1/2">SECTORS</span>
+        
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -left-20 top-1/3 h-96 w-96 rounded-full bg-primary/3 blur-3xl animate-blob" />
           <div className="absolute -right-20 bottom-1/4 h-80 w-80 rounded-full bg-accent/4 blur-3xl animate-blob-reverse" />

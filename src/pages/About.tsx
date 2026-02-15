@@ -22,7 +22,7 @@ const About = () => (
   <Layout>
     {/* Hero */}
     <section className="relative bg-gradient-to-br from-primary/10 via-background to-secondary py-24 md:py-32 overflow-hidden">
-      <span className="watermark-text left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">ABOUT</span>
+      
       <div className="container relative z-10">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="mx-auto max-w-3xl text-center">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary font-sans">Who We Are</p>
@@ -61,7 +61,7 @@ const About = () => (
 
     {/* Capacity Callout — color block */}
     <section className="section-dark relative py-24 md:py-32 overflow-hidden">
-      <span className="watermark-text left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">CAPACITY</span>
+      
       <div className="container relative z-10">
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
@@ -107,7 +107,7 @@ const About = () => (
 
     {/* Values — color block */}
     <section className="relative bg-primary py-24 md:py-32 overflow-hidden">
-      <span className="watermark-text left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2" style={{ color: 'hsla(0,0%,100%,0.05)' }}>VALUES</span>
+      
       <div className="container relative z-10">
         <div className="mx-auto mb-16 max-w-2xl text-center">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary-foreground/60 font-sans">Our Promise</p>
