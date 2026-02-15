@@ -8,11 +8,11 @@ import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 import HeroSection from "@/components/HeroSection";
 import AnimatedCounter from "@/components/AnimatedCounter";
-import TestimonialCarousel from "@/components/TestimonialCarousel";
 import heroImg1 from "@/assets/hero-laundry-1.jpg";
 import heroImg2 from "@/assets/hero-laundry-2.jpg";
 import heroImg3 from "@/assets/hero-laundry-3.jpg";
 
+/* Tier1-inspired: slower, scale-in entrance */
 const fadeUp = {
   hidden: { opacity: 0, y: 30, scale: 0.97 },
   visible: (i: number) => ({
@@ -101,18 +101,13 @@ const Index = () => {
             <motion.div
               key={s.title} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
               whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
-              className="group relative rounded-2xl border border-border/10 bg-background/5 p-7 backdrop-blur-sm transition-all duration-300 hover:bg-background/10 hover:shadow-[0_0_30px_hsl(207_55%_53%/0.1)]"
+              className="group relative rounded-2xl border border-border/10 bg-background/5 p-7 backdrop-blur-sm transition-colors duration-300 hover:bg-background/10"
             >
-              {/* Gradient border accent on hover */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100 -z-10 blur-sm" />
-              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground transition-all duration-300 group-hover:scale-110 group-hover:shadow-[0_0_20px_hsl(207_55%_53%/0.4)]">
+              <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground transition-transform duration-300 group-hover:scale-110">
                 <s.icon className="h-6 w-6" />
               </div>
               <h3 className="mb-2 text-lg font-semibold text-background">{s.title}</h3>
-              <p className="mb-4 text-sm text-background/60 leading-relaxed">{s.desc}</p>
-              <Link to="/services" className="inline-flex items-center gap-1 text-xs font-medium text-primary transition-all duration-200 hover:gap-2">
-                Learn more <ArrowRight className="h-3 w-3" />
-              </Link>
+              <p className="text-sm text-background/60 leading-relaxed">{s.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -121,22 +116,17 @@ const Index = () => {
 
     {/* Stat Band */}
     <section className="relative bg-primary py-16 overflow-hidden">
-      <div className="absolute inset-0 bg-dot-grid opacity-30" />
       <div className="container relative z-10">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
           {statBandItems.map((stat, i) => (
             <motion.div
               key={stat.label} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
-              className="relative text-center"
+              className="text-center"
             >
-              <div className="text-4xl font-bold text-primary-foreground md:text-5xl drop-shadow-[0_2px_10px_rgba(255,255,255,0.15)]">
+              <div className="text-4xl font-bold text-primary-foreground md:text-5xl">
                 <AnimatedCounter value={stat.value} suffix={stat.suffix} />
               </div>
               <p className="mt-2 text-sm font-medium text-primary-foreground/70">{stat.label}</p>
-              {/* Separator on desktop */}
-              {i < statBandItems.length - 1 && (
-                <div className="absolute right-0 top-1/2 hidden h-12 w-px -translate-y-1/2 bg-primary-foreground/15 md:block" />
-              )}
             </motion.div>
           ))}
         </div>
@@ -152,29 +142,22 @@ const Index = () => {
           <h2 className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">How It Works</h2>
         </div>
         <div className="relative mx-auto max-w-4xl">
-          {/* Connected line */}
-          <div className="absolute top-8 left-[10%] right-[10%] hidden h-0.5 md:block">
-            <div className="h-full w-full bg-gradient-to-r from-primary/20 via-primary to-primary/20" />
-          </div>
-          {/* Mobile dotted connector */}
-          <div className="absolute left-8 top-20 bottom-20 w-px border-l-2 border-dashed border-primary/20 md:hidden" />
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-5">
+          <div className="absolute top-8 left-[10%] right-[10%] hidden h-0.5 bg-gradient-to-r from-primary/20 via-primary to-primary/20 md:block" />
+          <div className="grid grid-cols-2 gap-8 md:grid-cols-5">
             {processSteps.map((step, i) => (
               <motion.div
                 key={step.label} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
-                whileHover={{ y: -4, transition: { duration: 0.3 } }}
-                className="group flex flex-row items-center gap-4 md:flex-col md:text-center"
+                whileHover={{ scale: 1.08, transition: { duration: 0.3 } }}
+                className="group flex flex-col items-center text-center"
               >
-                <div className="relative z-10 flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-all duration-300 group-hover:shadow-[0_8px_30px_hsl(207_55%_53%/0.4)]">
+                <div className="relative z-10 mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-shadow duration-300 group-hover:shadow-[0_0_30px_hsl(207_55%_53%/0.5)]">
                   <step.icon className="h-6 w-6" />
                   <span className="absolute -top-2 -right-2 flex h-6 w-6 items-center justify-center rounded-full bg-accent text-accent-foreground text-xs font-bold">
                     {i + 1}
                   </span>
                 </div>
-                <div>
-                  <h3 className="mb-1 text-base font-bold text-foreground">{step.label}</h3>
-                  <p className="text-xs text-muted-foreground">{step.desc}</p>
-                </div>
+                <h3 className="mb-1 text-base font-bold text-foreground">{step.label}</h3>
+                <p className="text-xs text-muted-foreground">{step.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -212,7 +195,7 @@ const Index = () => {
       </div>
     </section>
 
-    {/* Sectors — Color-Blocked Cards */}
+    {/* Sectors — Color-Blocked Cards (Tier1 style) */}
     <section className="relative py-24 md:py-32 overflow-hidden">
       <span className="watermark-text left-1/2 top-8 -translate-x-1/2">SECTORS</span>
       <div className="container relative z-10">
@@ -224,12 +207,11 @@ const Index = () => {
           {sectors.map((s, i) => (
             <motion.div
               key={s.title} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
-              whileHover={{ scale: 1.02, y: -6, transition: { duration: 0.3 } }}
-              className={`group relative overflow-hidden rounded-2xl ${s.bg} ${s.text} p-10 shadow-lg transition-all duration-300 hover:shadow-2xl min-h-[320px] flex flex-col justify-end`}
+              whileHover={{ scale: 1.02, y: -4, transition: { duration: 0.3 } }}
+              className={`group relative overflow-hidden rounded-2xl ${s.bg} ${s.text} p-10 shadow-lg transition-shadow duration-300 hover:shadow-2xl min-h-[280px] flex flex-col justify-end`}
             >
-              {/* Decorative accent line */}
-              <div className="absolute left-0 top-0 h-full w-1 bg-gradient-to-b from-transparent via-white/30 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-              <span className="absolute -right-4 top-1/2 -translate-y-1/2 rotate-90 text-[5rem] font-black uppercase opacity-[0.08] leading-none whitespace-nowrap pointer-events-none select-none" style={{ fontFamily: "'Poppins', system-ui, sans-serif" }}>
+              {/* Large rotated watermark label */}
+              <span className="absolute -right-4 top-1/2 -translate-y-1/2 rotate-90 text-[5rem] font-black uppercase opacity-[0.08] leading-none whitespace-nowrap pointer-events-none select-none" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
                 {s.title}
               </span>
               <div className="relative z-10">
@@ -245,11 +227,8 @@ const Index = () => {
       </div>
     </section>
 
-    {/* Testimonials */}
-    <TestimonialCarousel />
-
-    {/* Client Logos Marquee — Double Row */}
-    <section className="py-16 overflow-hidden">
+    {/* Client Logos Marquee */}
+    <section className="py-16 overflow-hidden bg-secondary/30">
       <div className="container">
         <div className="mb-8 flex items-center gap-4">
           <div className="h-px flex-1 bg-border" />
@@ -259,26 +238,14 @@ const Index = () => {
           <div className="h-px flex-1 bg-border" />
         </div>
       </div>
-      <div className="relative space-y-4">
-        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-24 bg-gradient-to-r from-background to-transparent" />
-        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-background to-transparent" />
-        {/* Row 1 */}
-        <div className="animate-marquee flex w-max gap-6">
+      <div className="relative">
+        <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-24 bg-gradient-to-r from-secondary/30 to-transparent" />
+        <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-secondary/30 to-transparent" />
+        <div className="animate-marquee flex w-max gap-8">
           {[...clientLogos, ...clientLogos].map((name, i) => (
             <div
-              key={`r1-${name}-${i}`}
-              className="shimmer-pill flex h-16 shrink-0 items-center rounded-full border border-border/50 px-8 text-sm font-semibold text-muted-foreground backdrop-blur-sm"
-            >
-              {name}
-            </div>
-          ))}
-        </div>
-        {/* Row 2 — reverse */}
-        <div className="animate-marquee-reverse flex w-max gap-6">
-          {[...clientLogos.slice().reverse(), ...clientLogos.slice().reverse()].map((name, i) => (
-            <div
-              key={`r2-${name}-${i}`}
-              className="shimmer-pill flex h-16 shrink-0 items-center rounded-full border border-border/50 px-8 text-sm font-semibold text-muted-foreground backdrop-blur-sm"
+              key={`${name}-${i}`}
+              className="glass flex h-20 shrink-0 items-center rounded-xl px-10 text-sm font-semibold text-muted-foreground"
             >
               {name}
             </div>
@@ -288,7 +255,7 @@ const Index = () => {
     </section>
 
     {/* About Snippet — Two Column */}
-    <section className="py-24 md:py-32 bg-secondary/20">
+    <section className="py-24 md:py-32">
       <div className="container">
         <div className="mx-auto max-w-5xl">
           <div className="grid items-center gap-12 md:grid-cols-2">
@@ -333,7 +300,7 @@ const Index = () => {
                 to deliver reliable, high-quality linen and laundry services to the region's accommodation,
                 hospitality, and industrial sectors.
               </p>
-              <Button asChild variant="outline" size="lg" className="btn-premium">
+              <Button asChild variant="outline" size="lg">
                 <Link to="/about">Learn More About Us</Link>
               </Button>
             </motion.div>
@@ -346,7 +313,7 @@ const Index = () => {
     <section className="relative bg-primary py-20 overflow-hidden">
       <div className="absolute -top-1 left-0 right-0 overflow-hidden leading-[0] rotate-180">
         <svg className="relative block w-full h-10 md:h-14" viewBox="0 0 1200 120" preserveAspectRatio="none">
-          <path d="M0,80 C300,40 600,100 900,60 C1050,40 1150,70 1200,60 L1200,120 L0,120 Z" className="fill-secondary/20" />
+          <path d="M0,80 C300,40 600,100 900,60 C1050,40 1150,70 1200,60 L1200,120 L0,120 Z" className="fill-background" />
         </svg>
       </div>
       <div className="container text-center relative z-10">
@@ -356,7 +323,7 @@ const Index = () => {
         <p className="mb-8 text-lg text-primary-foreground/80">
           Get in touch today for a tailored solution that fits your business.
         </p>
-        <Button asChild size="lg" variant="secondary" className="text-base font-semibold btn-premium">
+        <Button asChild size="lg" variant="secondary" className="text-base font-semibold">
           <Link to="/contact">Contact Us Today</Link>
         </Button>
       </div>

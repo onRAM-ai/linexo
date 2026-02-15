@@ -3,7 +3,6 @@ import { Button, type ButtonProps } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import React from "react";
 import AnimatedCounter from "./AnimatedCounter";
-import { ChevronDown, Award } from "lucide-react";
 
 interface StatProps {
   value: string;
@@ -32,12 +31,12 @@ const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.15 },
+    transition: { staggerChildren: 0.2 },
   },
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 30, scale: 0.97 },
+  hidden: { opacity: 0, y: 20, scale: 0.97 },
   visible: {
     opacity: 1,
     y: 0,
@@ -51,14 +50,14 @@ const imageVariants = {
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.8, ease: "easeOut" as const },
+    transition: { duration: 0.7, ease: "easeOut" as const },
   },
 };
 
 const floatingVariants = {
   animate: {
-    y: [0, -12, 0],
-    transition: { duration: 5, repeat: Infinity, ease: "easeInOut" as const },
+    y: [0, -10, 0],
+    transition: { duration: 4, repeat: Infinity, ease: "easeInOut" as const },
   },
 };
 
@@ -97,6 +96,7 @@ const WaveDivider = () => (
   </div>
 );
 
+/** Parse stat value like "5,000+" into { num: 5000, suffix: "+" } */
 function parseStatValue(value: string) {
   const match = value.match(/^([^\d]*)(\d[\d,]*)(.*)$/);
   if (!match) return { prefix: "", num: 0, suffix: value };
@@ -109,7 +109,7 @@ function parseStatValue(value: string) {
 
 const HeroSection = ({ title, subtitle, actions, stats, images, className }: HeroSectionProps) => {
   return (
-    <section className={cn("relative overflow-hidden bg-gradient-to-b from-primary/5 via-primary/8 to-primary/12 pb-32 pt-28 md:pb-40 md:pt-36", className)}>
+    <section className={cn("relative overflow-hidden bg-gradient-to-b from-primary/5 via-primary/8 to-primary/12 pb-32 pt-24 md:pb-40 md:pt-32", className)}>
       {/* Soft organic background shapes */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute -right-20 top-10 h-80 w-80 rounded-full bg-accent/5 blur-3xl" />
@@ -145,7 +145,7 @@ const HeroSection = ({ title, subtitle, actions, stats, images, className }: Her
                   variant={action.variant || "default"}
                   size="lg"
                   onClick={action.onClick}
-                  className={cn("text-base btn-premium", action.className)}
+                  className={cn("text-base", action.className)}
                   asChild={!!action.href}
                 >
                   {action.href ? <a href={action.href}>{action.text}</a> : action.text}
@@ -198,8 +198,7 @@ const HeroSection = ({ title, subtitle, actions, stats, images, className }: Her
                 variants={imageVariants}
                 className="absolute left-0 top-0 w-3/5 overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"
               >
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 to-transparent z-10" />
-                <img src={images[0]} alt="Premium linen service" className="h-full w-full object-cover" />
+                <img src={images[0]} alt="Hero 1" className="h-full w-full object-cover" />
               </motion.div>
             )}
             {images[1] && (
@@ -207,8 +206,7 @@ const HeroSection = ({ title, subtitle, actions, stats, images, className }: Her
                 variants={imageVariants}
                 className="absolute right-0 top-16 w-2/5 overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"
               >
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 to-transparent z-10" />
-                <img src={images[1]} alt="Laundry facility" className="h-full w-full object-cover" />
+                <img src={images[1]} alt="Hero 2" className="h-full w-full object-cover" />
               </motion.div>
             )}
             {images[2] && (
@@ -216,45 +214,11 @@ const HeroSection = ({ title, subtitle, actions, stats, images, className }: Her
                 variants={imageVariants}
                 className="absolute bottom-0 left-1/4 w-1/2 overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"
               >
-                <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 to-transparent z-10" />
-                <img src={images[2]} alt="Quality linens" className="h-full w-full object-cover" />
+                <img src={images[2]} alt="Hero 3" className="h-full w-full object-cover" />
               </motion.div>
             )}
-
-            {/* Floating badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1.2, duration: 0.5 }}
-              className="absolute -left-4 bottom-12 z-20 glass rounded-2xl px-5 py-3 shadow-lg"
-            >
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent text-accent-foreground">
-                  <Award className="h-5 w-5" />
-                </div>
-                <div>
-                  <p className="text-sm font-bold text-foreground">Trusted by 50+</p>
-                  <p className="text-xs text-muted-foreground">Goldfields clients</p>
-                </div>
-              </div>
-            </motion.div>
           </motion.div>
         </div>
-      </motion.div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2 }}
-        className="absolute bottom-20 left-1/2 z-10 -translate-x-1/2 md:bottom-28"
-      >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <ChevronDown className="h-6 w-6 text-muted-foreground/50" />
-        </motion.div>
       </motion.div>
 
       <WaveDivider />

@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Phone, Mail, MapPin, Clock, CheckCircle2, Zap } from "lucide-react";
+import { motion } from "framer-motion";
+import { Phone, Mail, MapPin, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
 import Layout from "@/components/Layout";
 
 const serviceOptions = [
@@ -26,42 +27,29 @@ const businessHours = [
 ];
 
 const Contact = () => {
+  const { toast } = useToast();
   const [submitting, setSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitting(true);
     setTimeout(() => {
       setSubmitting(false);
-      setSubmitted(true);
+      toast({ title: "Message sent!", description: "We'll be in touch shortly." });
+      (e.target as HTMLFormElement).reset();
     }, 1000);
   };
 
   return (
     <Layout>
       {/* Hero */}
-      <section className="relative bg-gradient-to-br from-primary/10 via-background to-secondary py-24 md:py-32 overflow-hidden">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -right-20 top-10 h-80 w-80 rounded-full bg-accent/5 blur-3xl" />
-          <div className="absolute -left-20 bottom-20 h-96 w-96 rounded-full bg-primary/5 blur-3xl" />
-        </div>
-        <div className="container relative z-10">
+      <section className="bg-gradient-to-br from-primary/10 via-background to-secondary py-20 md:py-28">
+        <div className="container">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="mx-auto max-w-3xl text-center">
-            <h1 className="mb-4 text-4xl font-extrabold text-foreground md:text-5xl lg:text-6xl">Get In Touch</h1>
+            <h1 className="mb-4 text-4xl font-extrabold text-foreground md:text-5xl">Get In Touch</h1>
             <p className="text-lg text-muted-foreground">
               Ready to streamline your linen supply? Drop us a line and we'll get back to you promptly.
             </p>
-            {/* Response time badge */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.4 }}
-              className="mt-6 inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-5 py-2 text-sm font-medium text-accent"
-            >
-              <Zap className="h-4 w-4" />
-              We typically respond within 2 hours
-            </motion.div>
           </motion.div>
         </div>
       </section>
@@ -72,79 +60,48 @@ const Contact = () => {
             {/* Form */}
             <div className="lg:col-span-3">
               <div className="rounded-2xl border border-border/50 bg-secondary/20 p-6 md:p-8">
-                <AnimatePresence mode="wait">
-                  {submitted ? (
-                    <motion.div
-                      key="success"
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      className="flex flex-col items-center justify-center py-16 text-center"
-                    >
-                      <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ type: "spring", delay: 0.2 }}
-                        className="mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-accent/15"
-                      >
-                        <CheckCircle2 className="h-10 w-10 text-accent" />
-                      </motion.div>
-                      <h3 className="mb-2 text-2xl font-bold text-foreground">Message Sent!</h3>
-                      <p className="mb-6 text-muted-foreground">We'll be in touch shortly. Thank you for reaching out.</p>
-                      <Button variant="outline" onClick={() => setSubmitted(false)}>
-                        Send Another Message
-                      </Button>
-                    </motion.div>
-                  ) : (
-                    <motion.form
-                      key="form"
-                      initial={{ opacity: 1 }}
-                      exit={{ opacity: 0, scale: 0.95 }}
-                      onSubmit={handleSubmit}
-                      className="space-y-6"
-                    >
-                      <div className="grid gap-4 sm:grid-cols-2">
-                        <div className="space-y-2">
-                          <Label htmlFor="name">Name</Label>
-                          <Input id="name" placeholder="Your name" required className="transition-shadow duration-200 focus:shadow-[0_0_0_3px_hsl(var(--primary)/0.1)]" />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="company">Company</Label>
-                          <Input id="company" placeholder="Your company" className="transition-shadow duration-200 focus:shadow-[0_0_0_3px_hsl(var(--primary)/0.1)]" />
-                        </div>
-                      </div>
-                      <div className="grid gap-4 sm:grid-cols-2">
-                        <div className="space-y-2">
-                          <Label htmlFor="email">Email</Label>
-                          <Input id="email" type="email" placeholder="you@example.com" required className="transition-shadow duration-200 focus:shadow-[0_0_0_3px_hsl(var(--primary)/0.1)]" />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="phone">Phone</Label>
-                          <Input id="phone" type="tel" placeholder="04XX XXX XXX" className="transition-shadow duration-200 focus:shadow-[0_0_0_3px_hsl(var(--primary)/0.1)]" />
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <Label>Service Required</Label>
-                        <Select>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Select a service" />
-                          </SelectTrigger>
-                          <SelectContent>
-                            {serviceOptions.map((s) => (
-                              <SelectItem key={s} value={s}>{s}</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="message">Message</Label>
-                        <Textarea id="message" placeholder="Tell us about your requirements…" rows={5} required className="transition-shadow duration-200 focus:shadow-[0_0_0_3px_hsl(var(--primary)/0.1)]" />
-                      </div>
-                      <Button type="submit" size="lg" disabled={submitting} className="w-full sm:w-auto btn-premium">
-                        {submitting ? "Sending…" : "Send Message"}
-                      </Button>
-                    </motion.form>
-                  )}
-                </AnimatePresence>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <Label htmlFor="name">Name</Label>
+                      <Input id="name" placeholder="Your name" required />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="company">Company</Label>
+                      <Input id="company" placeholder="Your company" />
+                    </div>
+                  </div>
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Email</Label>
+                      <Input id="email" type="email" placeholder="you@example.com" required />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="phone">Phone</Label>
+                      <Input id="phone" type="tel" placeholder="04XX XXX XXX" />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>Service Required</Label>
+                    <Select>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a service" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {serviceOptions.map((s) => (
+                          <SelectItem key={s} value={s}>{s}</SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="message">Message</Label>
+                    <Textarea id="message" placeholder="Tell us about your requirements…" rows={5} required />
+                  </div>
+                  <Button type="submit" size="lg" disabled={submitting} className="w-full sm:w-auto">
+                    {submitting ? "Sending…" : "Send Message"}
+                  </Button>
+                </form>
               </div>
             </div>
 
@@ -153,9 +110,9 @@ const Contact = () => {
               <div>
                 <h3 className="mb-4 text-lg font-semibold text-foreground">Contact Details</h3>
                 <div className="space-y-4 text-muted-foreground">
-                  <p className="flex items-center gap-3 transition-colors duration-200 hover:text-foreground"><Phone className="h-5 w-5 text-primary" /> (08) 9000 0000</p>
-                  <p className="flex items-center gap-3 transition-colors duration-200 hover:text-foreground"><Mail className="h-5 w-5 text-primary" /> info@linexo.com.au</p>
-                  <p className="flex items-center gap-3 transition-colors duration-200 hover:text-foreground"><MapPin className="h-5 w-5 text-primary" /> Kalgoorlie-Boulder, WA</p>
+                  <p className="flex items-center gap-3"><Phone className="h-5 w-5 text-primary" /> (08) 9000 0000</p>
+                  <p className="flex items-center gap-3"><Mail className="h-5 w-5 text-primary" /> info@linexo.com.au</p>
+                  <p className="flex items-center gap-3"><MapPin className="h-5 w-5 text-primary" /> Kalgoorlie-Boulder, WA</p>
                 </div>
               </div>
 

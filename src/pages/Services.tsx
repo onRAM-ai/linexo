@@ -1,10 +1,8 @@
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
 import {
-  Bed, Shirt, Layers, Bath, HardHat, Wrench, Package, Truck, Zap, ArrowRight,
+  Bed, Shirt, Layers, Bath, HardHat, Wrench, Package, Truck, Zap,
 } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 
 const services = [
@@ -36,12 +34,8 @@ const fadeUp = {
 const Services = () => (
   <Layout>
     {/* Hero */}
-    <section className="relative bg-gradient-to-br from-primary/10 via-background to-secondary py-28 md:py-36 overflow-hidden">
+    <section className="relative bg-gradient-to-br from-primary/10 via-background to-secondary py-24 md:py-32 overflow-hidden">
       <span className="watermark-text left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">SERVICES</span>
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -right-20 top-10 h-80 w-80 rounded-full bg-accent/5 blur-3xl" />
-        <div className="absolute -left-20 bottom-20 h-96 w-96 rounded-full bg-primary/5 blur-3xl" />
-      </div>
       <div className="container relative z-10">
         <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }} className="mx-auto max-w-3xl text-center">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary font-sans">What We Offer</p>
@@ -68,15 +62,12 @@ const Services = () => (
                 viewport={{ once: true }}
                 variants={fadeUp}
                 whileHover={{ scale: 1.01, transition: { duration: 0.3 } }}
-                className={`group relative flex gap-6 rounded-2xl border border-border/50 bg-card p-8 overflow-hidden transition-all duration-300 hover:shadow-xl hover:border-primary/20 ${
+                className={`group relative flex gap-6 rounded-2xl border border-border/50 bg-card p-8 overflow-hidden transition-all duration-300 hover:shadow-xl ${
                   isEven ? "flex-row" : "flex-row-reverse"
                 }`}
               >
-                {/* Gradient border accent on hover */}
-                <div className={`absolute top-0 h-full w-1 transition-all duration-300 origin-bottom ${isEven ? "left-0" : "right-0"}`}>
-                  <div className="h-full w-full bg-gradient-to-b from-primary to-accent scale-y-0 transition-transform duration-300 origin-bottom group-hover:scale-y-100" />
-                </div>
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-all duration-300 group-hover:bg-primary group-hover:text-primary-foreground group-hover:shadow-[0_0_20px_hsl(207_55%_53%/0.3)]">
+                <div className={`absolute top-0 h-full w-1 bg-primary scale-y-0 transition-transform duration-300 origin-bottom group-hover:scale-y-100 ${isEven ? "left-0" : "right-0"}`} />
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
                   <s.icon className="h-7 w-7" />
                 </div>
                 <div className={isEven ? "" : "text-right"}>
@@ -87,19 +78,6 @@ const Services = () => (
             );
           })}
         </div>
-      </div>
-    </section>
-
-    {/* CTA */}
-    <section className="py-16 bg-secondary/30">
-      <div className="container text-center">
-        <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl">Need a Custom Solution?</h2>
-        <p className="mb-6 text-muted-foreground">We tailor our services to fit your business. Get in touch to discuss your requirements.</p>
-        <Button asChild size="lg" className="btn-premium">
-          <Link to="/contact">
-            Get a Quote <ArrowRight className="ml-2 h-4 w-4" />
-          </Link>
-        </Button>
       </div>
     </section>
 
