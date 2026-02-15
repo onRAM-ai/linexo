@@ -211,10 +211,6 @@ const Index = () => {
               whileHover={{ scale: 1.02, y: -4, transition: { duration: 0.3 } }}
               className={`group relative overflow-hidden rounded-2xl ${s.bg} ${s.text} p-10 shadow-lg transition-shadow duration-300 hover:shadow-2xl min-h-[280px] flex flex-col justify-end`}
             >
-              {/* Large rotated watermark label */}
-              <span className="absolute -right-4 top-1/2 -translate-y-1/2 rotate-90 text-[5rem] font-black uppercase opacity-[0.08] leading-none whitespace-nowrap pointer-events-none select-none" style={{ fontFamily: "'Playfair Display', Georgia, serif" }}>
-                {s.title}
-              </span>
               <div className="relative z-10">
                 <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-background/15">
                   <s.icon className="h-7 w-7" />
