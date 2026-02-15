@@ -232,7 +232,7 @@ const HeroSection = ({ title, subtitle, actions, stats, images, className }: Her
         >
           <path
             d="M0,80 C300,40 600,100 900,60 C1050,40 1150,70 1200,60 L1200,120 L0,120 Z"
-            className="fill-primary/5"
+            className="fill-foreground"
           />
         </svg>
       </div>

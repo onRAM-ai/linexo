@@ -151,19 +151,18 @@ const Index = () => {
         images={[heroImg1, heroImg2, heroImg3]}
       />
 
-      {/* ═══ Services — Soft blue tinted section ═══ */}
-      <SectionDivider variant="wave" from="fill-primary/5" flip />
-      <section className="relative py-24 md:py-32 overflow-hidden bg-primary/5">
+      {/* ═══ Services — DARK section with staggered grid ═══ */}
+      <section className="section-dark relative py-24 md:py-32 overflow-hidden">
         
         {/* Organic background blobs */}
         <div className="pointer-events-none absolute inset-0">
-          <div className="absolute -right-32 top-20 h-96 w-96 rounded-full bg-primary/8 blur-3xl animate-blob" />
-          <div className="absolute -left-20 bottom-10 h-80 w-80 rounded-full bg-primary/8 blur-3xl animate-blob-reverse" />
+          <div className="absolute -right-32 top-20 h-96 w-96 rounded-full bg-primary/5 blur-3xl animate-blob" />
+          <div className="absolute -left-20 bottom-10 h-80 w-80 rounded-full bg-primary/5 blur-3xl animate-blob-reverse" />
         </div>
         <div className="container relative z-10">
           <div className="mx-auto mb-16 max-w-2xl text-center">
             <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary font-sans">What We Do</p>
-            <h2 className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">Our Services</h2>
+            <h2 className="text-4xl font-bold md:text-5xl lg:text-6xl">Our Services</h2>
           </div>
           {/* Staggered masonry-style grid */}
           <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
@@ -176,19 +175,21 @@ const Index = () => {
                 viewport={{ once: true }}
                 variants={scaleIn}
                 whileHover={{ scale: 1.03, y: -4, transition: { duration: 0.3 } }}
-                className="group relative rounded-2xl border border-border/50 bg-background/80 p-7 backdrop-blur-sm transition-all duration-300 hover-glow"
+                className="group relative rounded-2xl border border-border/10 p-7 backdrop-blur-sm transition-all duration-300 hover-glow"
+                style={{
+                  background: "linear-gradient(135deg, hsl(var(--background) / 0.06), hsl(var(--background) / 0.1))",
+                }}
               >
                 <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground transition-transform duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-primary/20">
                   <s.icon className="h-6 w-6" />
                 </div>
-                <h3 className="mb-2 text-lg font-semibold text-foreground">{s.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+                <h3 className="mb-2 text-lg font-semibold text-background">{s.title}</h3>
+                <p className="text-sm text-background/60 leading-relaxed">{s.desc}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
-      <SectionDivider variant="curve" from="fill-background" flip />
 
       {/* ═══ Floating Glass Stat Band ═══ */}
       <div className="relative z-20 -mt-12 mb-8 px-4">
@@ -260,10 +261,10 @@ const Index = () => {
       </section>
 
       {/* ═══ Divider ═══ */}
-      <SectionDivider variant="organic" from="fill-primary/5" />
+      <SectionDivider variant="organic" from="fill-background" />
 
       {/* ═══ Why LinExo — Staggered Left/Right Cards ═══ */}
-      <section className="relative py-24 md:py-32 bg-primary/5 overflow-hidden">
+      <section className="relative py-24 md:py-32 bg-secondary/30 overflow-hidden">
         
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute left-1/3 top-10 h-80 w-80 rounded-full bg-primary/4 blur-3xl animate-blob-reverse" />
@@ -297,7 +298,7 @@ const Index = () => {
       </section>
 
       {/* ═══ Divider ═══ */}
-      <SectionDivider variant="wave" from="fill-background" flip />
+      <SectionDivider variant="wave" from="fill-secondary/30" flip />
 
       {/* ═══ Sectors — Overlapping Cards with Parallax Tilt ═══ */}
       <section className="relative py-24 md:py-32 overflow-hidden">
@@ -342,11 +343,8 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ═══ Divider ═══ */}
-      <SectionDivider variant="curve" from="fill-primary/5" />
-
       {/* ═══ Client Logos Marquee ═══ */}
-      <section className="py-16 overflow-hidden bg-primary/5">
+      <section className="py-16 overflow-hidden bg-secondary/30">
         <div className="container">
           <div className="mb-8 flex items-center gap-4">
             <div className="h-px flex-1 bg-border" />
@@ -357,8 +355,8 @@ const Index = () => {
           </div>
         </div>
         <div className="relative">
-          <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-24 bg-gradient-to-r from-primary/5 to-transparent" />
-          <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-primary/5 to-transparent" />
+          <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-24 bg-gradient-to-r from-secondary/30 to-transparent" />
+          <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-secondary/30 to-transparent" />
           <div className="animate-marquee flex w-max gap-8">
             {[...clientLogos, ...clientLogos].map((name, i) => (
               <div
@@ -371,9 +369,6 @@ const Index = () => {
           </div>
         </div>
       </section>
-
-      {/* ═══ Divider ═══ */}
-      <SectionDivider variant="organic" from="fill-background" flip />
 
       {/* ═══ About Snippet — Asymmetric 40/60 ═══ */}
       <section className="relative py-24 md:py-32 overflow-hidden">

@@ -8,7 +8,6 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import Layout from "@/components/Layout";
-import SectionDivider from "@/components/SectionDivider";
 
 const serviceOptions = [
   "Hotel Linen Hire",
@@ -55,7 +54,6 @@ const Contact = () => {
         </div>
       </section>
 
-      <SectionDivider variant="wave" from="fill-background" flip />
       <section className="py-20">
         <div className="container">
           <div className="mx-auto grid max-w-5xl gap-12 lg:grid-cols-5">

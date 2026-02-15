@@ -178,14 +178,14 @@ h1, h2, h3 {
   background:
     radial-gradient(ellipse at 20% 50%, hsl(207 55% 53% / 0.08) 0%, transparent 60%),
     radial-gradient(ellipse at 80% 20%, hsl(207 55% 53% / 0.05) 0%, transparent 50%),
-    hsl(var(--primary) / 0.05);
+    hsl(var(--secondary) / 0.5);
 }
 
 .bg-mesh-green {
   background:
     radial-gradient(ellipse at 70% 60%, hsl(207 55% 53% / 0.07) 0%, transparent 50%),
     radial-gradient(ellipse at 20% 30%, hsl(207 55% 53% / 0.06) 0%, transparent 50%),
-    hsl(var(--primary) / 0.05);
+    hsl(var(--secondary) / 0.5);
 }
 
 /* ─── Frosted Glass ─── */

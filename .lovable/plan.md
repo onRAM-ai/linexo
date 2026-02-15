@@ -1,14 +1,20 @@
 
-## Fix Hero-to-Services Wave Overlay
 
-The bottom-most wave in the HeroSection currently uses `fill-foreground` (dark navy), which was correct when the Services section below was `section-dark`. Now that Services uses `bg-primary/5` (soft blue tint), the wave color is wrong -- it creates a harsh dark band as shown in the screenshot.
+## Align Sector Cards to Blue Color Theme
 
-### Change
+The three sector cards currently use mismatched colors: blue for Accommodation, slightly lighter blue for Hospitality, and dark (foreground) for Industrial & Mining. The screenshot confirms the green card is still showing for Hospitality. All three should use the primary blue palette for consistency.
 
-**`src/components/HeroSection.tsx` (line 235)**
+### Changes
 
-Update the bottom wave fill from `fill-foreground` to `fill-primary/5` so it blends seamlessly into the Services section's `bg-primary/5` background.
+**`src/pages/Index.tsx` (line 76-78) -- Sector card colors**
 
-The two upper wave layers already use `fill-primary/8` which will create a nice layered effect: `primary/8` -> `primary/8` -> `primary/5`, all flowing into the `bg-primary/5` Services section below.
+Update the `sectors` array so all three cards use graduated shades of the primary blue, creating a cohesive look while still having visual distinction:
 
-One line change total.
+- **Accommodation**: `bg-primary` (full blue) -- stays as-is
+- **Hospitality**: `bg-primary/85` (slightly lighter blue) -- replacing `bg-primary/90` to add a touch more differentiation
+- **Industrial & Mining**: `bg-primary/70` (lighter blue) -- replacing `bg-foreground` (dark navy) to bring it into the blue family
+
+All three cards keep `text-primary-foreground` (white text) for readability.
+
+This creates a subtle gradient effect across the three cards while keeping everything firmly within the blue brand palette.
+
