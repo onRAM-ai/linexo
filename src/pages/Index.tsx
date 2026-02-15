@@ -152,7 +152,7 @@ const Index = () => {
       />
 
       {/* ═══ Services — DARK section with staggered grid ═══ */}
-      <section className="section-dark relative py-24 md:py-32 overflow-hidden">
+      <section className="relative py-24 md:py-32 overflow-hidden bg-gradient-to-b from-secondary/30 to-secondary/50">
         
         {/* Organic background blobs */}
         <div className="pointer-events-none absolute inset-0">
@@ -162,7 +162,7 @@ const Index = () => {
         <div className="container relative z-10">
           <div className="mx-auto mb-16 max-w-2xl text-center">
             <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary font-sans">What We Do</p>
-            <h2 className="text-4xl font-bold md:text-5xl lg:text-6xl">Our Services</h2>
+            <h2 className="text-4xl font-bold md:text-5xl lg:text-6xl text-foreground">Our Services</h2>
           </div>
           {/* Staggered masonry-style grid */}
           <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
@@ -175,16 +175,13 @@ const Index = () => {
                 viewport={{ once: true }}
                 variants={scaleIn}
                 whileHover={{ scale: 1.03, y: -4, transition: { duration: 0.3 } }}
-                className="group relative rounded-2xl border border-border/10 p-7 backdrop-blur-sm transition-all duration-300 hover-glow"
-                style={{
-                  background: "linear-gradient(135deg, hsl(var(--background) / 0.06), hsl(var(--background) / 0.1))",
-                }}
+                className="group relative rounded-2xl border border-border/20 bg-card p-7 shadow-sm transition-all duration-300 hover-glow hover:shadow-md"
               >
                 <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground transition-transform duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-primary/20">
                   <s.icon className="h-6 w-6" />
                 </div>
-                <h3 className="mb-2 text-lg font-semibold text-background">{s.title}</h3>
-                <p className="text-sm text-background/60 leading-relaxed">{s.desc}</p>
+                <h3 className="mb-2 text-lg font-semibold text-foreground">{s.title}</h3>
+                <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
               </motion.div>
             ))}
           </div>
