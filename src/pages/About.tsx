@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { ShieldCheck, Layers, TrendingUp, MapPin, Zap } from "lucide-react";
 import Layout from "@/components/Layout";
+import SectionDivider from "@/components/SectionDivider";
 
 const values = [
   { icon: ShieldCheck, title: "Reliability", desc: "On-time, every time. We understand that your operations depend on consistent linen supply." },
@@ -59,8 +60,11 @@ const About = () => (
       </div>
     </section>
 
-    {/* Capacity Callout — color block */}
-    <section className="section-dark relative py-24 md:py-32 overflow-hidden">
+    {/* Divider */}
+    <SectionDivider variant="wave" from="fill-primary/5" />
+
+    {/* Capacity Callout — blue tinted */}
+    <section className="relative py-24 md:py-32 overflow-hidden bg-primary/5">
       
       <div className="container relative z-10">
         <motion.div
@@ -71,13 +75,16 @@ const About = () => (
           className="mx-auto max-w-3xl text-center"
         >
           <Zap className="mx-auto mb-6 h-12 w-12 text-primary" />
-          <h3 className="mb-4 text-4xl font-bold md:text-5xl">Built for Surge Capacity</h3>
-          <p className="text-lg leading-relaxed opacity-70">
-            Our facility is engineered to process <span className="font-bold opacity-100">5,000+ pieces daily</span>, with the flexibility to scale during peak periods like roster changeovers, seasonal surges, and emergency processing requests — without compromising quality or turnaround time.
+          <h3 className="mb-4 text-4xl font-bold text-foreground md:text-5xl">Built for Surge Capacity</h3>
+          <p className="text-lg leading-relaxed text-muted-foreground">
+            Our facility is engineered to process <span className="font-bold text-foreground">5,000+ pieces daily</span>, with the flexibility to scale during peak periods like roster changeovers, seasonal surges, and emergency processing requests — without compromising quality or turnaround time.
           </p>
         </motion.div>
       </div>
     </section>
+
+    {/* Divider */}
+    <SectionDivider variant="curve" from="fill-background" flip />
 
     {/* Service Area */}
     <section className="py-24 md:py-32">
@@ -105,32 +112,38 @@ const About = () => (
       </div>
     </section>
 
-    {/* Values — color block */}
-    <section className="relative bg-primary py-24 md:py-32 overflow-hidden">
+    {/* Divider */}
+    <SectionDivider variant="organic" from="fill-primary/5" />
+
+    {/* Values — blue tinted */}
+    <section className="relative py-24 md:py-32 overflow-hidden bg-primary/5">
       
       <div className="container relative z-10">
         <div className="mx-auto mb-16 max-w-2xl text-center">
-          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary-foreground/60 font-sans">Our Promise</p>
-          <h2 className="mb-4 text-4xl font-bold text-primary-foreground md:text-5xl">Our Values</h2>
-          <p className="text-primary-foreground/70">The principles that guide every linen we press and every delivery we make.</p>
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary font-sans">Our Promise</p>
+          <h2 className="mb-4 text-4xl font-bold text-foreground md:text-5xl">Our Values</h2>
+          <p className="text-muted-foreground">The principles that guide every linen we press and every delivery we make.</p>
         </div>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {values.map((v, i) => (
             <motion.div
               key={v.title} custom={i} initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
               whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
-              className="group rounded-2xl bg-primary-foreground/10 p-6 text-center backdrop-blur-sm transition-colors duration-300 hover:bg-primary-foreground/15"
+              className="group rounded-2xl bg-background/80 border border-border/50 p-6 text-center backdrop-blur-sm transition-colors duration-300 hover:bg-background"
             >
-              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary-foreground/15 text-primary-foreground">
+              <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 text-primary">
                 <v.icon className="h-6 w-6" />
               </div>
-              <h3 className="mb-2 text-lg font-semibold text-primary-foreground">{v.title}</h3>
-              <p className="text-sm text-primary-foreground/70">{v.desc}</p>
+              <h3 className="mb-2 text-lg font-semibold text-foreground">{v.title}</h3>
+              <p className="text-sm text-muted-foreground">{v.desc}</p>
             </motion.div>
           ))}
         </div>
       </div>
     </section>
+
+    {/* Divider */}
+    <SectionDivider variant="wave" from="fill-background" flip />
 
     {/* Mission */}
     <section className="py-24 md:py-32">

@@ -4,6 +4,7 @@ import {
 } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import Layout from "@/components/Layout";
+import SectionDivider from "@/components/SectionDivider";
 
 const services = [
   { icon: Bed, title: "Hotel & Serviced Apartment Linen Hire", desc: "Premium bed linen, pillowcases, and duvet covers supplied on a hire basis. We maintain, replace, and rotate stock so you never have to worry about linen management." },
@@ -47,6 +48,9 @@ const Services = () => (
       </div>
     </section>
 
+    {/* Divider */}
+    <SectionDivider variant="wave" from="fill-background" flip />
+
     {/* Services list */}
     <section className="py-24 md:py-32">
       <div className="container">
@@ -81,18 +85,21 @@ const Services = () => (
       </div>
     </section>
 
+    {/* Divider */}
+    <SectionDivider variant="organic" from="fill-primary/5" />
+
     {/* FAQ */}
-    <section className="section-dark relative py-24 md:py-32 overflow-hidden">
+    <section className="relative py-24 md:py-32 overflow-hidden bg-primary/5">
       
       <div className="container relative z-10">
         <div className="mx-auto max-w-3xl">
           <p className="mb-3 text-center text-sm font-semibold uppercase tracking-[0.2em] text-primary font-sans">Common Questions</p>
-          <h2 className="mb-10 text-center text-4xl font-bold md:text-5xl">Frequently Asked Questions</h2>
+          <h2 className="mb-10 text-center text-4xl font-bold text-foreground md:text-5xl">Frequently Asked Questions</h2>
           <Accordion type="single" collapsible className="space-y-2">
             {faqs.map((faq, i) => (
-              <AccordionItem key={i} value={`faq-${i}`} className="rounded-lg border border-border/20 bg-background/5 px-4 backdrop-blur-sm">
-                <AccordionTrigger className="text-left text-background/90 hover:no-underline font-sans">{faq.q}</AccordionTrigger>
-                <AccordionContent className="text-background/60">{faq.a}</AccordionContent>
+              <AccordionItem key={i} value={`faq-${i}`} className="rounded-lg border border-border/50 bg-background/80 px-4 backdrop-blur-sm">
+                <AccordionTrigger className="text-left text-foreground hover:no-underline font-sans">{faq.q}</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground">{faq.a}</AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
