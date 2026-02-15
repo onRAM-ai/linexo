@@ -328,10 +328,6 @@ const Index = () => {
                 }`}
                 style={{ perspective: "1000px" }}
               >
-                {/* Large rotated watermark label */}
-                <span className="absolute -right-4 top-1/2 -translate-y-1/2 rotate-90 text-[5rem] font-black uppercase opacity-[0.08] leading-none whitespace-nowrap pointer-events-none select-none" style={{ fontFamily: "'Poppins', system-ui, sans-serif" }}>
-                  {s.title}
-                </span>
                 <div className="relative z-10">
                   <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-background/15 transition-transform duration-300 group-hover:scale-110">
                     <s.icon className="h-7 w-7" />
