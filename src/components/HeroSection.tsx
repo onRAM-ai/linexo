@@ -203,35 +203,15 @@ const HeroSection = ({ title, subtitle, actions, stats, images, className }: Her
         </div>
       </motion.div>
 
-      {/* Multi-layer organic wave divider */}
-      <div className="absolute -bottom-1 left-0 right-0 overflow-hidden leading-[0]">
+      {/* Wave divider */}
+      <div className="absolute -bottom-1 left-0 right-0 leading-[0]">
         <svg
-          className="animate-wave-drift-slow relative block w-[calc(100%+50px)] -ml-[25px] h-20 md:h-28"
-          viewBox="0 0 1200 120"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,40 C150,80 350,0 500,40 C650,80 800,10 1000,50 C1100,70 1150,30 1200,40 L1200,120 L0,120 Z"
-            fill="hsl(207 40% 85%)"
-          />
-        </svg>
-        <svg
-          className="animate-wave-drift absolute bottom-0 left-0 block w-[calc(100%+50px)] -ml-[25px] h-16 md:h-24"
+          className="relative block w-full h-16 md:h-24"
           viewBox="0 0 1200 120"
           preserveAspectRatio="none"
         >
           <path
             d="M0,60 C200,20 400,90 600,50 C800,10 1000,70 1200,40 L1200,120 L0,120 Z"
-            fill="hsl(207 35% 89%)"
-          />
-        </svg>
-        <svg
-          className="absolute bottom-0 left-0 block w-full h-12 md:h-16"
-          viewBox="0 0 1200 120"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,80 C300,40 600,100 900,60 C1050,40 1150,70 1200,60 L1200,120 L0,120 Z"
             fill="hsl(207 30% 93%)"
           />
         </svg>
