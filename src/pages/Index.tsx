@@ -90,10 +90,9 @@ const statBandItems = [
   { value: 100, suffix: "%", label: "Hygiene Compliance" },
 ];
 
-/** Zigzag process step with animated connecting path */
+/** Process step card */
 const ProcessStep = ({ step, index }: { step: typeof processSteps[0]; index: number }) => {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-50px" });
 
   return (
     <motion.div
@@ -104,17 +103,22 @@ const ProcessStep = ({ step, index }: { step: typeof processSteps[0]; index: num
       viewport={{ once: true }}
       variants={fadeUp}
       className={`group flex flex-col items-center text-center ${
-        index % 2 === 1 ? "md:mt-16" : ""
+        index % 2 === 1 ? "md:mt-20" : ""
       }`}
     >
-      <div className="relative z-10 mb-4 flex h-18 w-18 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-all duration-500 group-hover:shadow-[0_0_40px_hsl(207_55%_53%/0.4)] group-hover:scale-110">
-        <step.icon className="h-7 w-7" />
-        <span className="absolute -top-2 -right-2 flex h-7 w-7 items-center justify-center rounded-full bg-accent text-accent-foreground text-xs font-bold shadow-md">
+      {/* Number + icon container */}
+      <div className="relative mb-5">
+        {/* Step number */}
+        <span className="absolute -top-3 -left-3 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-accent text-accent-foreground text-sm font-bold shadow-md">
           {index + 1}
         </span>
+        {/* Glass card icon */}
+        <div className="relative z-10 flex h-20 w-20 items-center justify-center rounded-2xl border border-border/30 bg-card shadow-lg transition-all duration-500 group-hover:shadow-xl group-hover:shadow-primary/15 group-hover:-translate-y-1">
+          <step.icon className="h-8 w-8 text-primary transition-transform duration-300 group-hover:scale-110" />
+        </div>
       </div>
-      <h3 className="mb-1 text-base font-bold text-foreground">{step.label}</h3>
-      <p className="text-xs text-muted-foreground max-w-[120px]">{step.desc}</p>
+      <h3 className="mb-1.5 text-sm font-bold uppercase tracking-wider text-foreground">{step.label}</h3>
+      <p className="text-xs text-muted-foreground max-w-[140px] leading-relaxed">{step.desc}</p>
     </motion.div>
   );
 };
@@ -231,18 +235,18 @@ const Index = () => {
             <h2 className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">How It Works</h2>
           </div>
           <div ref={processRef} className="relative mx-auto max-w-5xl">
-            {/* Animated connecting SVG path */}
+            {/* Animated connecting SVG wave path */}
             <svg
-              className="absolute top-10 left-0 w-full h-24 hidden md:block pointer-events-none"
-              viewBox="0 0 1000 100"
+              className="absolute top-14 left-0 w-full h-20 hidden md:block pointer-events-none z-0"
+              viewBox="0 0 1000 80"
               preserveAspectRatio="none"
               fill="none"
             >
               <path
-                d="M 50 30 C 200 30, 200 70, 300 70 C 400 70, 400 30, 500 30 C 600 30, 600 70, 700 70 C 800 70, 800 30, 950 30"
-                stroke="hsl(207 55% 53% / 0.3)"
+                d="M 50 25 C 175 25, 175 55, 300 55 C 425 55, 425 25, 500 25 C 575 25, 575 55, 700 55 C 825 55, 825 25, 950 25"
+                stroke="hsl(207 55% 53% / 0.2)"
                 strokeWidth="2"
-                strokeDasharray="8 4"
+                strokeDasharray="6 6"
                 className={processInView ? "animate-draw-path" : ""}
                 style={{ strokeDasharray: 1200, strokeDashoffset: processInView ? 0 : 1200, transition: "stroke-dashoffset 2s ease-out" }}
               />
