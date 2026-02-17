@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion";
 import {
   Bed, Layers, Bath, HardHat, Package, Truck, ShieldCheck, TrendingUp, MapPin, Building2, Clock,
   ArrowRight, Hotel, UtensilsCrossed, Pickaxe, Quote, Phone, Mail,
-  AlertTriangle, CheckCircle2, GripVertical,
+  AlertTriangle, CheckCircle2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -191,33 +191,7 @@ const Index = () => {
   const { toast } = useToast();
   const [submitting, setSubmitting] = useState(false);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const [sliderPositions, setSliderPositions] = useState<number[]>([100, 100, 100, 100]);
-  const draggingRef = useRef<number | null>(null);
-  const isDraggingRef = useRef(false);
-  const containerRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  const updateSlider = useCallback((index: number, clientX: number) => {
-    const el = containerRefs.current[index];
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const pct = Math.min(100, Math.max(0, ((clientX - rect.left) / rect.width) * 100));
-    setSliderPositions(prev => { const next = [...prev]; next[index] = pct; return next; });
-  }, []);
-
-  useEffect(() => {
-    const onMove = (e: MouseEvent | TouchEvent) => {
-      if (draggingRef.current === null) return;
-      isDraggingRef.current = true;
-      const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
-      updateSlider(draggingRef.current, clientX);
-    };
-    const onUp = () => { draggingRef.current = null; setTimeout(() => { isDraggingRef.current = false; }, 50); };
-    window.addEventListener('mousemove', onMove);
-    window.addEventListener('mouseup', onUp);
-    window.addEventListener('touchmove', onMove, { passive: true });
-    window.addEventListener('touchend', onUp);
-    return () => { window.removeEventListener('mousemove', onMove); window.removeEventListener('mouseup', onUp); window.removeEventListener('touchmove', onMove); window.removeEventListener('touchend', onUp); };
-  }, [updateSlider]);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const processRef = useRef<HTMLDivElement>(null);
   const processInView = useInView(processRef, { once: true, margin: "-100px" });
 
@@ -265,9 +239,10 @@ const Index = () => {
             <h2 className="text-4xl font-bold md:text-5xl lg:text-6xl text-foreground">Problems We Solve</h2>
             <p className="mt-4 text-muted-foreground text-lg">Every service exists because we've seen what happens when it's done badly.</p>
           </div>
-          <div className="space-y-6 max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {problemSolutions.map((pair, i) => {
-              const sliderPos = sliderPositions[i];
+              const isHovered = hoveredCard === i;
+              const overlayOpacities = ['bg-primary', 'bg-primary/85', 'bg-primary/70', 'bg-primary/60'];
               return (
                 <motion.div
                   key={pair.solutionTitle}
@@ -276,62 +251,59 @@ const Index = () => {
                   whileInView="visible"
                   viewport={{ once: true }}
                   variants={fadeUp}
-                  ref={(el) => { containerRefs.current[i] = el; }}
-                  className="relative rounded-2xl overflow-hidden min-h-[220px] select-none"
-                  onClick={() => {
-                    if (isDraggingRef.current) return;
-                    setSliderPositions(prev => {
-                      const next = [...prev];
-                      next[i] = prev[i] > 50 ? 20 : 100;
-                      return next;
-                    });
-                  }}
+                  className="relative aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer group"
+                  onMouseEnter={() => setHoveredCard(i)}
+                  onMouseLeave={() => setHoveredCard(null)}
+                  onClick={() => setHoveredCard(prev => prev === i ? null : i)}
                 >
-                  {/* Bottom layer: Solution */}
-                  <div className="absolute inset-0 flex flex-col justify-center p-8 md:p-10 bg-primary/5">
-                    <div className="flex items-center gap-2 mb-3">
-                      <CheckCircle2 className="h-5 w-5 text-primary" />
-                      <span className="text-xs font-bold uppercase tracking-[0.15em] text-primary">How LinExo Solves It</span>
-                    </div>
-                    <h3 className="mb-2 text-xl font-bold text-foreground">{pair.solutionTitle}</h3>
-                    <p className="text-muted-foreground leading-relaxed max-w-2xl">{pair.solution}</p>
-                  </div>
+                  {/* Background problem image */}
+                  <img
+                    src={pair.image}
+                    alt={pair.solutionTitle}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  {/* Dark gradient over image */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/20" />
 
-                  {/* Top layer: Problem (clipped) */}
-                  <div
-                    className="absolute inset-0 flex flex-col justify-end p-8 md:p-10"
-                    style={{
-                      backgroundImage: `url(${pair.image})`,
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                      clipPath: `inset(0 ${100 - sliderPos}% 0 0)`,
-                      transition: draggingRef.current === i ? 'none' : 'clip-path 0.4s cubic-bezier(0.22,1,0.36,1)',
+                  {/* Pain-point quote (visible on hover) */}
+                  <motion.div
+                    className="absolute inset-x-0 top-0 p-6 z-10"
+                    initial={false}
+                    animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : -10 }}
+                    transition={{ duration: 0.35, ease: EASE }}
+                  >
+                    <p className="text-primary-foreground text-sm md:text-base font-medium leading-relaxed italic">
+                      "{pair.problem}"
+                    </p>
+                  </motion.div>
+
+                  {/* Colored overlay panel */}
+                  <motion.div
+                    className={`absolute inset-x-0 bottom-0 ${overlayOpacities[i]} rounded-t-2xl p-6 flex flex-col justify-end z-20`}
+                    initial={false}
+                    animate={{
+                      height: isHovered ? '30%' : '65%',
                     }}
+                    transition={{ duration: 0.45, ease: EASE }}
                   >
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/60 to-black/30" />
-                    <div className="relative z-10">
-                      <p className="text-white text-lg md:text-xl font-semibold leading-relaxed mb-4 max-w-2xl">
-                        "{pair.problem}"
-                      </p>
-                      <span className="inline-flex items-center gap-2 text-xs font-medium text-white/60">
-                        <GripVertical className="h-4 w-4" /> Slide to reveal solution
-                      </span>
+                    <div className="flex items-start gap-3">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-2">
+                          <CheckCircle2 className="h-4 w-4 text-primary-foreground/80 shrink-0" />
+                          <span className="text-xs font-bold uppercase tracking-[0.12em] text-primary-foreground/70">Solution</span>
+                        </div>
+                        <h3 className="text-lg font-bold text-primary-foreground leading-tight mb-2">{pair.solutionTitle}</h3>
+                        <motion.p
+                          className="text-primary-foreground/80 text-sm leading-relaxed"
+                          initial={false}
+                          animate={{ opacity: isHovered ? 0 : 1, height: isHovered ? 0 : 'auto' }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          {pair.solution}
+                        </motion.p>
+                      </div>
                     </div>
-                  </div>
-
-                  {/* Slider handle */}
-                  <div
-                    className="absolute top-0 bottom-0 z-20 flex items-center cursor-ew-resize"
-                    style={{ left: `${sliderPos}%`, transform: 'translateX(-50%)', transition: draggingRef.current === i ? 'none' : 'left 0.4s cubic-bezier(0.22,1,0.36,1)' }}
-                    onMouseDown={(e) => { e.stopPropagation(); e.preventDefault(); draggingRef.current = i; }}
-                    onTouchStart={(e) => { e.stopPropagation(); draggingRef.current = i; }}
-                    onClick={(e) => e.stopPropagation()}
-                  >
-                    <div className="w-1 h-full bg-white/80 shadow-lg" />
-                    <div className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-8 h-10 rounded-lg bg-white shadow-md flex items-center justify-center">
-                      <GripVertical className="h-4 w-4 text-muted-foreground" />
-                    </div>
-                  </div>
+                  </motion.div>
                 </motion.div>
               );
             })}
