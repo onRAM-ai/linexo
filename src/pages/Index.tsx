@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion";
 import {
   Bed, Layers, Bath, HardHat, Package, Truck, ShieldCheck, TrendingUp, MapPin, Building2, Clock,
   ArrowRight, Hotel, UtensilsCrossed, Pickaxe, Quote, Phone, Mail,
-  AlertTriangle, CheckCircle2,
+  AlertTriangle, CheckCircle2, GripVertical,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -22,8 +22,7 @@ import problemLinenImg from "@/assets/problem-linen.jpg";
 import problemWorkwearImg from "@/assets/problem-workwear.jpg";
 import problemHygieneImg from "@/assets/problem-hygiene.jpg";
 import problemSurgeImg from "@/assets/problem-surge.jpg";
-import React, { useRef } from "react";
-import { useIsMobile } from "@/hooks/use-mobile";
+import React from "react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -192,9 +191,33 @@ const Index = () => {
   const { toast } = useToast();
   const [submitting, setSubmitting] = useState(false);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const [activeCard, setActiveCard] = useState<number | null>(null);
-  const hoverTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const isMobile = useIsMobile();
+  const [sliderPositions, setSliderPositions] = useState<number[]>([100, 100, 100, 100]);
+  const draggingRef = useRef<number | null>(null);
+  const isDraggingRef = useRef(false);
+  const containerRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  const updateSlider = useCallback((index: number, clientX: number) => {
+    const el = containerRefs.current[index];
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const pct = Math.min(100, Math.max(0, ((clientX - rect.left) / rect.width) * 100));
+    setSliderPositions(prev => { const next = [...prev]; next[index] = pct; return next; });
+  }, []);
+
+  useEffect(() => {
+    const onMove = (e: MouseEvent | TouchEvent) => {
+      if (draggingRef.current === null) return;
+      isDraggingRef.current = true;
+      const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+      updateSlider(draggingRef.current, clientX);
+    };
+    const onUp = () => { draggingRef.current = null; setTimeout(() => { isDraggingRef.current = false; }, 50); };
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+    window.addEventListener('touchmove', onMove, { passive: true });
+    window.addEventListener('touchend', onUp);
+    return () => { window.removeEventListener('mousemove', onMove); window.removeEventListener('mouseup', onUp); window.removeEventListener('touchmove', onMove); window.removeEventListener('touchend', onUp); };
+  }, [updateSlider]);
   const processRef = useRef<HTMLDivElement>(null);
   const processInView = useInView(processRef, { once: true, margin: "-100px" });
 
@@ -244,7 +267,7 @@ const Index = () => {
           </div>
           <div className="space-y-6 max-w-4xl mx-auto">
             {problemSolutions.map((pair, i) => {
-              const isFlipped = activeCard === i;
+              const sliderPos = sliderPositions[i];
               return (
                 <motion.div
                   key={pair.solutionTitle}
@@ -253,70 +276,62 @@ const Index = () => {
                   whileInView="visible"
                   viewport={{ once: true }}
                   variants={fadeUp}
-                  className="relative rounded-2xl overflow-hidden min-h-[220px] cursor-pointer"
-                  onClick={() => setActiveCard(isFlipped ? null : i)}
-                  onMouseEnter={() => {
-                    if (!isMobile) {
-                      hoverTimerRef.current = setTimeout(() => setActiveCard(i), 800);
-                    }
-                  }}
-                  onMouseLeave={() => {
-                    if (!isMobile) {
-                      if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
-                      setActiveCard(null);
-                    }
+                  ref={(el) => { containerRefs.current[i] = el; }}
+                  className="relative rounded-2xl overflow-hidden min-h-[220px] select-none"
+                  onClick={() => {
+                    if (isDraggingRef.current) return;
+                    setSliderPositions(prev => {
+                      const next = [...prev];
+                      next[i] = prev[i] > 50 ? 20 : 100;
+                      return next;
+                    });
                   }}
                 >
-                  <AnimatePresence mode="wait">
-                    {!isFlipped ? (
-                      <motion.div
-                        key="problem"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.35, ease: EASE }}
-                        className="relative flex flex-col justify-end p-8 md:p-10 min-h-[220px]"
-                        style={{
-                          backgroundImage: `url(${pair.image})`,
-                          backgroundSize: "cover",
-                          backgroundPosition: "center",
-                        }}
-                      >
-                        {/* Dark gradient overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/60 to-black/30" />
-                        <div className="relative z-10">
-                          <p className="text-white text-lg md:text-xl font-semibold leading-relaxed mb-5 max-w-2xl">
-                            "{pair.problem}"
-                          </p>
-                          <span className="inline-flex items-center gap-2 text-sm font-medium text-white/80 border border-white/25 rounded-full px-4 py-2 backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-colors">
-                            See How We Solve It <ArrowRight className="h-4 w-4" />
-                          </span>
-                        </div>
-                      </motion.div>
-                    ) : (
-                      <motion.div
-                        key="solution"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.35, ease: EASE }}
-                        className="relative flex flex-col justify-center p-8 md:p-10 min-h-[220px] bg-primary/5 border border-primary/15"
-                      >
-                        <div className="flex items-center gap-2 mb-3">
-                          <CheckCircle2 className="h-5 w-5 text-primary" />
-                          <span className="text-xs font-bold uppercase tracking-[0.15em] text-primary">How LinExo Solves It</span>
-                        </div>
-                        <h3 className="mb-2 text-xl font-bold text-foreground">{pair.solutionTitle}</h3>
-                        <p className="text-muted-foreground leading-relaxed max-w-2xl">{pair.solution}</p>
-                        <button
-                          onClick={(e) => { e.stopPropagation(); setActiveCard(null); }}
-                          className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors self-start"
-                        >
-                          <ArrowRight className="h-4 w-4 rotate-180" /> Back to Problem
-                        </button>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
+                  {/* Bottom layer: Solution */}
+                  <div className="absolute inset-0 flex flex-col justify-center p-8 md:p-10 bg-primary/5">
+                    <div className="flex items-center gap-2 mb-3">
+                      <CheckCircle2 className="h-5 w-5 text-primary" />
+                      <span className="text-xs font-bold uppercase tracking-[0.15em] text-primary">How LinExo Solves It</span>
+                    </div>
+                    <h3 className="mb-2 text-xl font-bold text-foreground">{pair.solutionTitle}</h3>
+                    <p className="text-muted-foreground leading-relaxed max-w-2xl">{pair.solution}</p>
+                  </div>
+
+                  {/* Top layer: Problem (clipped) */}
+                  <div
+                    className="absolute inset-0 flex flex-col justify-end p-8 md:p-10"
+                    style={{
+                      backgroundImage: `url(${pair.image})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      clipPath: `inset(0 ${100 - sliderPos}% 0 0)`,
+                      transition: draggingRef.current === i ? 'none' : 'clip-path 0.4s cubic-bezier(0.22,1,0.36,1)',
+                    }}
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/60 to-black/30" />
+                    <div className="relative z-10">
+                      <p className="text-white text-lg md:text-xl font-semibold leading-relaxed mb-4 max-w-2xl">
+                        "{pair.problem}"
+                      </p>
+                      <span className="inline-flex items-center gap-2 text-xs font-medium text-white/60">
+                        <GripVertical className="h-4 w-4" /> Slide to reveal solution
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Slider handle */}
+                  <div
+                    className="absolute top-0 bottom-0 z-20 flex items-center cursor-ew-resize"
+                    style={{ left: `${sliderPos}%`, transform: 'translateX(-50%)', transition: draggingRef.current === i ? 'none' : 'left 0.4s cubic-bezier(0.22,1,0.36,1)' }}
+                    onMouseDown={(e) => { e.stopPropagation(); e.preventDefault(); draggingRef.current = i; }}
+                    onTouchStart={(e) => { e.stopPropagation(); draggingRef.current = i; }}
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    <div className="w-1 h-full bg-white/80 shadow-lg" />
+                    <div className="absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 w-8 h-10 rounded-lg bg-white shadow-md flex items-center justify-center">
+                      <GripVertical className="h-4 w-4 text-muted-foreground" />
+                    </div>
+                  </div>
                 </motion.div>
               );
             })}
