@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform, useInView, AnimatePresence } from "fra
 import {
   Bed, Layers, Bath, HardHat, Package, Truck, ShieldCheck, TrendingUp, MapPin, Building2, Clock,
   ArrowRight, Hotel, UtensilsCrossed, Pickaxe, Quote, Phone, Mail,
+  AlertTriangle, CheckCircle2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -54,14 +55,27 @@ const scaleIn = {
   }),
 };
 
-const services = [
-  { icon: Bed, title: "Linen Hire & Supply", desc: "Sheets, pillowcases, duvet covers, and full linen packages for hotels, serviced apartments, and short-stay providers." },
-  { icon: Layers, title: "Flatwork Finishing", desc: "Sheets, pillowcases, and duvet covers — pressed, folded, and guest-ready every time." },
-  { icon: Bath, title: "Towels & Hospitality", desc: "Towels, bathmats, and hospitality textiles — washed, dried, and folded to exacting standards." },
-  { icon: HardHat, title: "Industrial Workwear", desc: "PPE, overalls, and heavy-duty garment processing for mining and industrial sites." },
-  { icon: Package, title: "Heat-Sealed Packaging", desc: "Continuous heat-sealed bag packaging so every item arrives hygienically sealed and ready to use." },
-  { icon: Clock, title: "Emergency Processing", desc: "Surge and priority processing when you need it — express turnaround available on demand." },
-  { icon: Truck, title: "Scheduled Delivery", desc: "Fixed-schedule pickup and delivery across the Goldfields, so you always know when to expect us." },
+const problemSolutions = [
+  {
+    problem: "Linen arrives late, wrinkled, or not at all — and you're scrambling before guests check in.",
+    solutionTitle: "Linen Hire, Finishing & Delivery",
+    solution: "Fixed-schedule pickup and delivery with 24–48hr turnaround. Sheets, pillowcases, and duvet covers — pressed, folded, and guest-ready every time.",
+  },
+  {
+    problem: "Your workwear comes back still dirty or takes a week to process — putting your crew and compliance at risk.",
+    solutionTitle: "Industrial Workwear Processing",
+    solution: "Commercial-grade processing for PPE, overalls, and heavy-duty garments. Express turnaround available on demand.",
+  },
+  {
+    problem: "You're never sure if your linen is actually clean — and one hygiene complaint could cost you your contract.",
+    solutionTitle: "Heat-Sealed Hygienic Packaging",
+    solution: "Every item commercially laundered and continuously heat-sealed in packaging — so it arrives hygienically protected and audit-ready.",
+  },
+  {
+    problem: "A sudden booking surge hits and your linen supplier can't keep up — leaving rooms unserviced.",
+    solutionTitle: "Surge & Emergency Processing",
+    solution: "Purpose-built to scale from 50 to 5,000+ pieces daily. Emergency and priority processing available when you need it most.",
+  },
 ];
 
 const values = [
@@ -203,7 +217,7 @@ const Index = () => {
       />
 
       {/* ═══ Services — DARK section with staggered grid ═══ */}
-      <section id="services" className="relative pt-8 md:pt-12 pb-12 md:pb-16 overflow-hidden bg-gradient-to-b from-secondary/30 to-secondary/50">
+      <section id="services" className="relative pt-8 md:pt-12 pb-24 md:pb-28 overflow-hidden bg-gradient-to-b from-secondary/30 to-secondary/50">
         
         {/* Organic background blobs */}
         <div className="pointer-events-none absolute inset-0">
@@ -212,27 +226,46 @@ const Index = () => {
         </div>
         <div className="container relative z-10">
           <div className="mx-auto mb-8 max-w-2xl text-center">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary font-sans">What We Do</p>
-            <h2 className="text-4xl font-bold md:text-5xl lg:text-6xl text-foreground">Our Services</h2>
+            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary font-sans">What We Solve</p>
+            <h2 className="text-4xl font-bold md:text-5xl lg:text-6xl text-foreground">Problems We Solve</h2>
+            <p className="mt-4 text-muted-foreground text-lg">Every service exists because we've seen what happens when it's done badly.</p>
           </div>
-          {/* Staggered masonry-style grid */}
-          <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
-            {services.map((s, i) => (
+          <div className="space-y-6">
+            {problemSolutions.map((pair, i) => (
               <motion.div
-                key={s.title}
+                key={pair.solutionTitle}
                 custom={i}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true }}
-                variants={scaleIn}
-                whileHover={{ scale: 1.03, y: -4, transition: { duration: 0.3 } }}
-                className="group relative rounded-2xl border border-border/20 bg-card p-7 shadow-sm transition-all duration-300 hover-glow hover:shadow-md"
+                variants={fadeUp}
+                className="relative grid gap-4 md:grid-cols-2 md:gap-0 items-stretch"
               >
-                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground transition-transform duration-300 group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-primary/20">
-                  <s.icon className="h-6 w-6" />
+                {/* Problem tile */}
+                <div className="relative rounded-2xl md:rounded-r-none border border-destructive/15 bg-destructive/5 p-6 md:p-8">
+                  <div className="flex items-center gap-2 mb-3">
+                    <AlertTriangle className="h-5 w-5 text-destructive" />
+                    <span className="text-xs font-bold uppercase tracking-[0.15em] text-destructive">The Problem</span>
+                  </div>
+                  <p className="text-foreground leading-relaxed">{pair.problem}</p>
                 </div>
-                <h3 className="mb-2 text-lg font-semibold text-foreground">{s.title}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
+
+                {/* Arrow connector (desktop only) */}
+                <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-card border border-border shadow-md">
+                    <ArrowRight className="h-5 w-5 text-primary" />
+                  </div>
+                </div>
+
+                {/* Solution tile */}
+                <div className="relative rounded-2xl md:rounded-l-none border border-primary/15 bg-primary/5 p-6 md:p-8">
+                  <div className="flex items-center gap-2 mb-3">
+                    <CheckCircle2 className="h-5 w-5 text-primary" />
+                    <span className="text-xs font-bold uppercase tracking-[0.15em] text-primary">How LinExo Solves It</span>
+                  </div>
+                  <h3 className="mb-2 text-lg font-semibold text-foreground">{pair.solutionTitle}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{pair.solution}</p>
+                </div>
               </motion.div>
             ))}
           </div>
