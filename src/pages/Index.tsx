@@ -127,7 +127,6 @@ const statBandItems = [
   { value: 5000, suffix: "+", label: "Pieces Daily" },
   { value: 120, suffix: "+", label: "Rooms Serviced" },
   { value: 24, suffix: "hr", label: "Turnaround" },
-  { value: 100, suffix: "%", label: "Hygiene Compliance" },
 ];
 
 const ProcessStep = ({ step, index }: { step: typeof processSteps[0]; index: number }) => {
