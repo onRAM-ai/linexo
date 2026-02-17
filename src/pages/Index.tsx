@@ -203,7 +203,7 @@ const Index = () => {
       />
 
       {/* ═══ Services — DARK section with staggered grid ═══ */}
-      <section id="services" className="relative pt-8 md:pt-12 pb-24 md:pb-32 overflow-hidden bg-gradient-to-b from-secondary/30 to-secondary/50">
+      <section id="services" className="relative pt-8 md:pt-12 pb-12 md:pb-16 overflow-hidden bg-gradient-to-b from-secondary/30 to-secondary/50">
         
         {/* Organic background blobs */}
         <div className="pointer-events-none absolute inset-0">
@@ -211,7 +211,7 @@ const Index = () => {
           <div className="absolute -left-20 bottom-10 h-80 w-80 rounded-full bg-primary/5 blur-3xl animate-blob-reverse" />
         </div>
         <div className="container relative z-10">
-          <div className="mx-auto mb-16 max-w-2xl text-center">
+          <div className="mx-auto mb-8 max-w-2xl text-center">
             <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary font-sans">What We Do</p>
             <h2 className="text-4xl font-bold md:text-5xl lg:text-6xl text-foreground">Our Services</h2>
           </div>
@@ -240,7 +240,7 @@ const Index = () => {
       </section>
 
       {/* ═══ Floating Glass Stat Band ═══ */}
-      <div className="relative z-20 -mt-20 md:-mt-24 mb-8 px-4">
+      <div className="relative z-20 -mt-20 md:-mt-24 mb-4 px-4">
         <motion.div
           initial={{ opacity: 0, y: 30, scale: 0.97 }}
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
@@ -272,13 +272,13 @@ const Index = () => {
       </div>
 
       {/* ═══ How It Works — Zigzag Process Path ═══ */}
-      <section className="relative py-24 md:py-32 overflow-hidden">
+      <section className="relative py-12 md:py-16 overflow-hidden">
         
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute right-10 top-20 h-72 w-72 rounded-full bg-primary/4 blur-3xl animate-blob" />
         </div>
         <div className="container relative z-10">
-          <div className="mx-auto mb-16 max-w-2xl text-center">
+          <div className="mx-auto mb-8 max-w-2xl text-center">
             <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary font-sans">Our Process</p>
             <h2 className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">How It Works</h2>
           </div>
@@ -312,13 +312,13 @@ const Index = () => {
       <SectionDivider variant="organic" from="fill-background" />
 
       {/* ═══ Why LinExo — Staggered Left/Right Cards ═══ */}
-      <section className="relative py-24 md:py-32 bg-secondary/30 overflow-hidden">
+      <section className="relative py-12 md:py-16 bg-secondary/30 overflow-hidden">
         
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute left-1/3 top-10 h-80 w-80 rounded-full bg-primary/4 blur-3xl animate-blob-reverse" />
         </div>
         <div className="container relative z-10">
-          <div className="mx-auto mb-16 max-w-2xl text-center">
+          <div className="mx-auto mb-8 max-w-2xl text-center">
             <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary font-sans">Our Promise</p>
             <h2 className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">Why <span className="text-primary">LIN</span><span className="text-accent">EXO</span>?</h2>
           </div>
@@ -349,14 +349,14 @@ const Index = () => {
       <SectionDivider variant="wave" from="fill-secondary/30" flip />
 
       {/* ═══ Sectors — Overlapping Cards with Parallax Tilt ═══ */}
-      <section className="relative py-24 md:py-32 overflow-hidden">
+      <section className="relative py-12 md:py-16 overflow-hidden">
         
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -left-20 top-1/3 h-96 w-96 rounded-full bg-primary/3 blur-3xl animate-blob" />
           <div className="absolute -right-20 bottom-1/4 h-80 w-80 rounded-full bg-primary/4 blur-3xl animate-blob-reverse" />
         </div>
         <div className="container relative z-10">
-          <div className="mx-auto mb-16 max-w-2xl text-center">
+          <div className="mx-auto mb-8 max-w-2xl text-center">
             <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary font-sans">Industries</p>
             <h2 className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">Sectors We Serve</h2>
           </div>
@@ -392,7 +392,7 @@ const Index = () => {
       </section>
 
       {/* ═══ Proven Contract Experience Banner ═══ */}
-      <section className="py-16 overflow-hidden bg-secondary/30">
+      <section className="py-8 overflow-hidden bg-secondary/30">
         <div className="container">
           <div className="mb-10 flex items-center gap-4">
             <div className="h-px flex-1 bg-border" />
@@ -420,7 +420,7 @@ const Index = () => {
       </section>
 
       {/* ═══ About Snippet — Asymmetric 40/60 ═══ */}
-      <section id="about" className="relative py-24 md:py-32 overflow-hidden">
+      <section id="about" className="relative py-12 md:py-16 overflow-hidden">
         {/* Flowing gradient shape connecting to CTA */}
         <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-b from-transparent via-primary/3 to-primary/8" />
         <div className="container relative z-10">
@@ -509,7 +509,7 @@ const Index = () => {
             <path d="M0,60 C200,100 400,20 600,60 C800,100 1000,30 1200,50 L1200,120 L0,120 Z" className="fill-secondary/30" />
           </svg>
         </div>
-        <div className="bg-gradient-to-br from-primary via-primary to-primary/90 py-24 md:py-32">
+        <div className="bg-gradient-to-br from-primary via-primary to-primary/90 py-12 md:py-16">
           {/* Floating accent shapes */}
           <div className="pointer-events-none absolute inset-0 overflow-hidden">
             <div className="absolute -right-20 top-10 h-64 w-64 rounded-full bg-primary-foreground/10 blur-3xl animate-blob" />
