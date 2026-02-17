@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin } from "lucide-react";
 import BrandName from "@/components/BrandName";
 
@@ -9,15 +10,16 @@ const Footer = () => (
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-5">
         {/* Brand */}
         <div className="space-y-4 lg:col-span-2">
-          <a href="#" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="text-xl font-bold">
+          <Link to="/" className="text-xl font-bold">
             <BrandName />
-          </a>
+          </Link>
           <p className="text-sm text-primary-foreground/70">
             Goldfields' premier commercial laundry and linen-hire specialist.
           </p>
           <p className="text-xs font-medium uppercase tracking-wider text-primary/80">
             Western Australian Goldfields owned and operated
           </p>
+          {/* Social Icons */}
           <div className="flex gap-3 pt-2">
             {[Facebook, Instagram, Linkedin].map((Icon, i) => (
               <a key={i} href="#" className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-foreground/10 text-primary-foreground/60 transition-colors hover:bg-primary hover:text-primary-foreground">
@@ -32,13 +34,14 @@ const Footer = () => (
           <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-primary">Quick Links</h4>
           <nav className="flex flex-col gap-2">
             {[
-              { label: "Services", to: "#services" },
-              { label: "About", to: "#about" },
-              { label: "Contact", to: "#contact" },
+              { label: "Home", to: "/" },
+              { label: "About", to: "/about" },
+              { label: "Services", to: "/services" },
+              { label: "Contact", to: "/contact" },
             ].map((link) => (
-              <a key={link.to} href={link.to} className="text-sm text-primary-foreground/70 transition-colors hover:text-primary">
+              <Link key={link.to} to={link.to} className="text-sm text-primary-foreground/70 transition-colors hover:text-primary">
                 {link.label}
-              </a>
+              </Link>
             ))}
           </nav>
         </div>

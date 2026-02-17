@@ -1,17 +1,10 @@
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import {
   Bed, Layers, Bath, HardHat, Package, Truck, ShieldCheck, TrendingUp, MapPin, Building2, Clock,
-  ArrowRight, Hotel, UtensilsCrossed, Pickaxe, Quote, Shirt, Wrench, Zap,
-  Phone, Mail,
+  ArrowRight, Hotel, UtensilsCrossed, Pickaxe, Quote,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { useToast } from "@/hooks/use-toast";
 import Layout from "@/components/Layout";
 import HeroSection from "@/components/HeroSection";
 import AnimatedCounter from "@/components/AnimatedCounter";
@@ -23,6 +16,7 @@ import React, { useRef } from "react";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
+/* Cinematic entrance variants */
 const fadeUp = {
   hidden: { opacity: 0, y: 40, scale: 0.96 },
   visible: (i: number) => ({
@@ -64,27 +58,6 @@ const services = [
   { icon: Truck, title: "Scheduled Delivery", desc: "Reliable pickup and delivery across the Goldfields region." },
 ];
 
-const detailedServices = [
-  { icon: Bed, title: "Hotel & Serviced Apartment Linen Hire", desc: "Premium bed linen, pillowcases, and duvet covers supplied on a hire basis. We maintain, replace, and rotate stock so you never have to worry about linen management." },
-  { icon: Shirt, title: "Wash, Dry, Iron, Fold & Pack", desc: "Full-cycle laundering — from receiving soiled linen through to quality-checked, folded, and packed items ready for immediate use." },
-  { icon: Layers, title: "Flatwork Finishing", desc: "Industrial ironing and pressing for flat items including sheets, pillowcases, and duvet covers. Delivered crisp, wrinkle-free, and presentation-ready." },
-  { icon: Bath, title: "Towels, Bathmats & Hospitality Textiles", desc: "Specialist laundering for towels, bathmats, face washers, and other hospitality textiles, maintaining softness and absorbency." },
-  { icon: HardHat, title: "Industrial Workwear & PPE Laundering", desc: "Heavy-duty cleaning for hi-vis, PPE, and industrial workwear. Compliant with safety standards and designed for the mining and resources sector." },
-  { icon: Wrench, title: "Overalls & Heavy-Duty Garment Processing", desc: "Specialised laundering for overalls, coveralls, and heavy-duty garments including stain treatment and repairs." },
-  { icon: Package, title: "Continuous Heat-Sealed Bag Packaging", desc: "Hygienic heat-sealed packaging for processed linen, ensuring items remain contamination-free during transport and storage." },
-  { icon: Truck, title: "Scheduled Pickup & Delivery", desc: "Reliable, scheduled collection and delivery across the Goldfields region. Flexible timetables tailored to your operational needs." },
-  { icon: Zap, title: "Emergency & Surge Processing", desc: "Rapid-response capacity for unexpected volume spikes, event support, or emergency linen requirements — available on short notice." },
-];
-
-const faqs = [
-  { q: "What areas do you service?", a: "We service the entire Goldfields region, including Kalgoorlie-Boulder, Coolgardie, Kambalda, Leonora, Laverton, and surrounding areas." },
-  { q: "What is the typical turnaround time?", a: "Standard turnaround is 24–48 hours. We also offer same-day and emergency processing for urgent requirements." },
-  { q: "Is there a minimum order quantity?", a: "We work with businesses of all sizes. Contact us to discuss a package that suits your volume." },
-  { q: "What hygiene standards do you follow?", a: "We follow AS/NZS 4146:2000 laundry practice standards and maintain strict temperature, chemical, and quality controls throughout our process." },
-  { q: "Can you handle seasonal or event-based surges?", a: "Absolutely. Our facility is purpose-built with surge capacity, and we offer flexible scheduling to accommodate peak periods." },
-  { q: "Do you supply the linen or just launder it?", a: "Both. We offer full linen hire (supply + launder) as well as launder-only services for clients who own their own stock." },
-];
-
 const values = [
   { icon: ShieldCheck, title: "Reliability", desc: "Consistent turnaround you can count on, every single time." },
   { icon: Layers, title: "Hygiene Standards", desc: "Commercial-grade processes meeting the highest hygiene benchmarks." },
@@ -117,20 +90,10 @@ const statBandItems = [
   { value: 100, suffix: "%", label: "Hygiene Compliance" },
 ];
 
-const serviceOptions = [
-  "Hotel Linen Hire", "Flatwork Finishing", "Towels & Hospitality Textiles",
-  "Industrial Workwear & PPE", "Heat-Sealed Packaging", "Scheduled Pickup & Delivery",
-  "Emergency Processing", "Other",
-];
-
-const businessHours = [
-  { day: "Monday – Friday", hours: "6:00 AM – 6:00 PM" },
-  { day: "Saturday", hours: "7:00 AM – 12:00 PM" },
-  { day: "Sunday", hours: "Closed" },
-];
-
+/** Process step card */
 const ProcessStep = ({ step, index }: { step: typeof processSteps[0]; index: number }) => {
   const ref = useRef(null);
+
   return (
     <motion.div
       ref={ref}
@@ -139,12 +102,17 @@ const ProcessStep = ({ step, index }: { step: typeof processSteps[0]; index: num
       whileInView="visible"
       viewport={{ once: true }}
       variants={fadeUp}
-      className={`group flex flex-col items-center text-center ${index % 2 === 1 ? "md:mt-20" : ""}`}
+      className={`group flex flex-col items-center text-center ${
+        index % 2 === 1 ? "md:mt-20" : ""
+      }`}
     >
+      {/* Number + icon container */}
       <div className="relative mb-5">
+        {/* Step number */}
         <span className="absolute -top-3 -left-3 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground text-sm font-bold shadow-md">
           {index + 1}
         </span>
+        {/* Glass card icon */}
         <div className="relative z-10 flex h-20 w-20 items-center justify-center rounded-2xl border border-border/30 bg-card shadow-lg transition-all duration-500 group-hover:shadow-xl group-hover:shadow-primary/15 group-hover:-translate-y-1">
           <step.icon className="h-8 w-8 text-primary transition-transform duration-300 group-hover:scale-110" />
         </div>
@@ -156,20 +124,9 @@ const ProcessStep = ({ step, index }: { step: typeof processSteps[0]; index: num
 };
 
 const Index = () => {
-  const { toast } = useToast();
-  const [submitting, setSubmitting] = useState(false);
+  const navigate = useNavigate();
   const processRef = useRef<HTMLDivElement>(null);
   const processInView = useInView(processRef, { once: true, margin: "-100px" });
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setSubmitting(true);
-    setTimeout(() => {
-      setSubmitting(false);
-      toast({ title: "Message sent!", description: "We'll be in touch shortly." });
-      (e.target as HTMLFormElement).reset();
-    }, 1000);
-  };
 
   return (
     <Layout>
@@ -183,8 +140,8 @@ const Index = () => {
         }
         subtitle="End-to-end linen supply, laundering, finishing, packing, and scheduled delivery — purpose-built for accommodation, hospitality, and industrial clients."
         actions={[
-          { text: "Get In Touch", href: "#contact" },
-          { text: "Our Services", href: "#services", variant: "outline" as const },
+          { text: "Get In Touch", onClick: () => navigate("/contact") },
+          { text: "Our Services", onClick: () => navigate("/services"), variant: "outline" as const },
         ]}
         stats={[
           { value: "5,000+", label: "Pieces Daily", icon: <Layers className="h-5 w-5" /> },
@@ -194,8 +151,10 @@ const Index = () => {
         images={[heroImg1, heroImg2, heroImg3]}
       />
 
-      {/* ═══ Services ═══ */}
-      <section id="services" className="relative py-24 md:py-32 overflow-hidden bg-gradient-to-b from-secondary/30 to-secondary/50 scroll-mt-16">
+      {/* ═══ Services — DARK section with staggered grid ═══ */}
+      <section className="relative py-24 md:py-32 overflow-hidden bg-gradient-to-b from-secondary/30 to-secondary/50">
+        
+        {/* Organic background blobs */}
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -right-32 top-20 h-96 w-96 rounded-full bg-primary/5 blur-3xl animate-blob" />
           <div className="absolute -left-20 bottom-10 h-80 w-80 rounded-full bg-primary/5 blur-3xl animate-blob-reverse" />
@@ -205,6 +164,7 @@ const Index = () => {
             <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary font-sans">What We Do</p>
             <h2 className="text-4xl font-bold md:text-5xl lg:text-6xl text-foreground">Our Services</h2>
           </div>
+          {/* Staggered masonry-style grid */}
           <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-3">
             {services.map((s, i) => (
               <motion.div
@@ -224,56 +184,6 @@ const Index = () => {
                 <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
               </motion.div>
             ))}
-          </div>
-
-          {/* Detailed services list */}
-          <div className="mx-auto mt-20 max-w-4xl space-y-8">
-            <div className="text-center mb-12">
-              <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary font-sans">Full Service List</p>
-              <h3 className="text-3xl font-bold text-foreground md:text-4xl">Everything We Offer</h3>
-            </div>
-            {detailedServices.map((s, i) => {
-              const isEven = i % 2 === 0;
-              return (
-                <motion.div
-                  key={s.title}
-                  custom={i}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={fadeUp}
-                  whileHover={{ scale: 1.01, transition: { duration: 0.3 } }}
-                  className={`group relative flex gap-6 rounded-2xl border border-border/50 bg-card p-8 overflow-hidden transition-all duration-300 hover:shadow-xl ${isEven ? "flex-row" : "flex-row-reverse"}`}
-                >
-                  <div className={`absolute top-0 h-full w-1 bg-primary scale-y-0 transition-transform duration-300 origin-bottom group-hover:scale-y-100 ${isEven ? "left-0" : "right-0"}`} />
-                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
-                    <s.icon className="h-7 w-7" />
-                  </div>
-                  <div className={isEven ? "" : "text-right"}>
-                    <h3 className="mb-2 text-lg font-semibold text-foreground">{s.title}</h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ FAQ ═══ */}
-      <section className="section-dark relative py-24 md:py-32 overflow-hidden">
-        <div className="container relative z-10">
-          <div className="mx-auto max-w-3xl">
-            <p className="mb-3 text-center text-sm font-semibold uppercase tracking-[0.2em] text-primary font-sans">Common Questions</p>
-            <h2 className="mb-10 text-center text-4xl font-bold md:text-5xl">Frequently Asked Questions</h2>
-            <Accordion type="single" collapsible className="space-y-2">
-              {faqs.map((faq, i) => (
-                <AccordionItem key={i} value={`faq-${i}`} className="rounded-lg border border-border/20 bg-background/5 px-4 backdrop-blur-sm">
-                  <AccordionTrigger className="text-left text-background/90 hover:no-underline font-sans">{faq.q}</AccordionTrigger>
-                  <AccordionContent className="text-background/60">{faq.a}</AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
           </div>
         </div>
       </section>
@@ -298,6 +208,7 @@ const Index = () => {
                 variants={fadeUp}
                 className="relative text-center"
               >
+                {/* Subtle radial glow behind each stat */}
                 <div className="pointer-events-none absolute inset-0 glow-primary rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                 <div className="text-4xl font-bold text-primary md:text-5xl">
                   <AnimatedCounter value={stat.value} suffix={stat.suffix} />
@@ -309,8 +220,9 @@ const Index = () => {
         </motion.div>
       </div>
 
-      {/* ═══ How It Works ═══ */}
+      {/* ═══ How It Works — Zigzag Process Path ═══ */}
       <section className="relative py-24 md:py-32 overflow-hidden">
+        
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute right-10 top-20 h-72 w-72 rounded-full bg-primary/4 blur-3xl animate-blob" />
         </div>
@@ -320,6 +232,7 @@ const Index = () => {
             <h2 className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">How It Works</h2>
           </div>
           <div ref={processRef} className="relative mx-auto max-w-5xl">
+            {/* Animated connecting SVG wave path */}
             <svg
               className="absolute top-14 left-0 w-full h-20 hidden md:block pointer-events-none z-0"
               viewBox="0 0 1000 80"
@@ -344,10 +257,12 @@ const Index = () => {
         </div>
       </section>
 
+      {/* ═══ Divider ═══ */}
       <SectionDivider variant="organic" from="fill-background" />
 
-      {/* ═══ Why LinExo ═══ */}
+      {/* ═══ Why LinExo — Staggered Left/Right Cards ═══ */}
       <section className="relative py-24 md:py-32 bg-secondary/30 overflow-hidden">
+        
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute left-1/3 top-10 h-80 w-80 rounded-full bg-primary/4 blur-3xl animate-blob-reverse" />
         </div>
@@ -379,10 +294,12 @@ const Index = () => {
         </div>
       </section>
 
+      {/* ═══ Divider ═══ */}
       <SectionDivider variant="wave" from="fill-secondary/30" flip />
 
-      {/* ═══ Sectors ═══ */}
+      {/* ═══ Sectors — Overlapping Cards with Parallax Tilt ═══ */}
       <section className="relative py-24 md:py-32 overflow-hidden">
+        
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -left-20 top-1/3 h-96 w-96 rounded-full bg-primary/3 blur-3xl animate-blob" />
           <div className="absolute -right-20 bottom-1/4 h-80 w-80 rounded-full bg-primary/4 blur-3xl animate-blob-reverse" />
@@ -402,7 +319,8 @@ const Index = () => {
                 viewport={{ once: true }}
                 variants={scaleIn}
                 whileHover={{
-                  scale: 1.04, y: -8,
+                  scale: 1.04,
+                  y: -8,
                   rotateY: i === 0 ? 2 : i === 2 ? -2 : 0,
                   transition: { duration: 0.4, ease: EASE },
                 }}
@@ -422,12 +340,14 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ═══ Client Logos ═══ */}
+      {/* ═══ Client Logos Marquee ═══ */}
       <section className="py-16 overflow-hidden bg-secondary/30">
         <div className="container">
           <div className="mb-8 flex items-center gap-4">
             <div className="h-px flex-1 bg-border" />
-            <p className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground font-sans">Trusted Across the Goldfields</p>
+            <p className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground font-sans">
+              Trusted Across the Goldfields
+            </p>
             <div className="h-px flex-1 bg-border" />
           </div>
         </div>
@@ -436,7 +356,10 @@ const Index = () => {
           <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-secondary/30 to-transparent" />
           <div className="animate-marquee flex w-max gap-8">
             {[...clientLogos, ...clientLogos].map((name, i) => (
-              <div key={`${name}-${i}`} className="glass-strong flex h-20 shrink-0 items-center rounded-xl px-10 text-sm font-semibold text-muted-foreground">
+              <div
+                key={`${name}-${i}`}
+                className="glass-strong flex h-20 shrink-0 items-center rounded-xl px-10 text-sm font-semibold text-muted-foreground"
+              >
                 {name}
               </div>
             ))}
@@ -444,14 +367,21 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ═══ About ═══ */}
-      <section id="about" className="relative py-24 md:py-32 overflow-hidden scroll-mt-16">
+      {/* ═══ About Snippet — Asymmetric 40/60 ═══ */}
+      <section className="relative py-24 md:py-32 overflow-hidden">
+        {/* Flowing gradient shape connecting to CTA */}
         <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-b from-transparent via-primary/3 to-primary/8" />
         <div className="container relative z-10">
           <div className="mx-auto max-w-6xl">
             <div className="grid items-center gap-12 md:grid-cols-5">
-              {/* Quote card */}
-              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeLeft} className="relative md:col-span-2">
+              {/* 40% quote card */}
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeLeft}
+                className="relative md:col-span-2"
+              >
                 <div className="absolute -left-4 -top-4 h-24 w-24 rounded-2xl bg-primary/10 animate-blob" />
                 <div className="absolute -bottom-4 -right-4 h-32 w-32 rounded-2xl bg-primary/10 animate-blob-reverse" />
                 <div className="glass-strong relative rounded-2xl p-8 shadow-xl md:-mr-8 md:z-10">
@@ -468,8 +398,14 @@ const Index = () => {
                   </div>
                 </div>
               </motion.div>
-              {/* Content */}
-              <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeRight} className="md:col-span-3">
+              {/* 60% content */}
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeRight}
+                className="md:col-span-3"
+              >
                 <div className="mb-4 flex items-center gap-2 text-primary">
                   <MapPin className="h-5 w-5" />
                   <span className="text-sm font-semibold uppercase tracking-[0.2em] font-sans">Locally Owned & Operated</span>
@@ -477,140 +413,30 @@ const Index = () => {
                 <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
                   Born in the Goldfields, Built for the Goldfields
                 </h2>
-                <p className="mb-4 text-muted-foreground leading-relaxed">
-                  <span className="text-primary">LIN</span><span className="text-accent">EXO</span> was founded with a clear mission: to provide the Goldfields region with a commercial laundry and linen-hire service that matches the standards of capital-city operators — without the long lead times and logistical challenges of sourcing from Perth.
+                <p className="mb-6 text-muted-foreground leading-relaxed">
+                  <span className="text-primary">LIN</span><span className="text-accent">EXO</span> is a proudly Western Australian business, purpose-built in the heart of the Goldfields
+                  to deliver reliable, high-quality linen and laundry services to the region's accommodation,
+                  hospitality, and industrial sectors.
                 </p>
-                <p className="mb-4 text-muted-foreground leading-relaxed">
-                  Our purpose-built facility in the heart of the Goldfields is equipped with commercial-grade equipment capable of processing thousands of items daily. From hotel-quality sheets and towels to heavy-duty industrial workwear, we handle it all under one roof.
-                </p>
-                <p className="text-muted-foreground leading-relaxed">
-                  As a locally owned and operated business, we understand the unique demands of operating in remote and regional Western Australia. That understanding drives everything we do — from our flexible scheduling to our surge-capacity capabilities.
-                </p>
+                <Button asChild variant="outline" size="lg">
+                  <Link to="/about">Learn More About Us</Link>
+                </Button>
               </motion.div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ═══ Surge Capacity Callout ═══ */}
-      <section className="section-dark relative py-24 md:py-32 overflow-hidden">
-        <div className="container relative z-10">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-            className="mx-auto max-w-3xl text-center"
-          >
-            <Zap className="mx-auto mb-6 h-12 w-12 text-primary" />
-            <h3 className="mb-4 text-4xl font-bold md:text-5xl">Built for Surge Capacity</h3>
-            <p className="text-lg leading-relaxed opacity-70">
-              Our facility is engineered to process <span className="font-bold opacity-100">5,000+ pieces daily</span>, with the flexibility to scale during peak periods like roster changeovers, seasonal surges, and emergency processing requests — without compromising quality or turnaround time.
-            </p>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* ═══ Contact ═══ */}
-      <section id="contact" className="py-24 md:py-32 scroll-mt-16">
-        <div className="container">
-          <div className="mx-auto mb-16 max-w-2xl text-center">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary font-sans">Get In Touch</p>
-            <h2 className="mb-4 text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">Contact Us</h2>
-            <p className="text-lg text-muted-foreground">
-              Ready to streamline your linen supply? Drop us a line and we'll get back to you promptly.
-            </p>
-          </div>
-          <div className="mx-auto grid max-w-5xl gap-12 lg:grid-cols-5">
-            {/* Form */}
-            <div className="lg:col-span-3">
-              <div className="rounded-2xl border border-border/50 bg-secondary/20 p-6 md:p-8">
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <div className="space-y-2">
-                      <Label htmlFor="name">Name</Label>
-                      <Input id="name" placeholder="Your name" required />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="company">Company</Label>
-                      <Input id="company" placeholder="Your company" />
-                    </div>
-                  </div>
-                  <div className="grid gap-4 sm:grid-cols-2">
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Email</Label>
-                      <Input id="email" type="email" placeholder="you@example.com" required />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="phone">Phone</Label>
-                      <Input id="phone" type="tel" placeholder="04XX XXX XXX" />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <Label>Service Required</Label>
-                    <Select>
-                      <SelectTrigger><SelectValue placeholder="Select a service" /></SelectTrigger>
-                      <SelectContent>
-                        {serviceOptions.map((s) => (
-                          <SelectItem key={s} value={s}>{s}</SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="message">Message</Label>
-                    <Textarea id="message" placeholder="Tell us about your requirements…" rows={5} required />
-                  </div>
-                  <Button type="submit" size="lg" disabled={submitting} className="w-full sm:w-auto">
-                    {submitting ? "Sending…" : "Send Message"}
-                  </Button>
-                </form>
-              </div>
-            </div>
-
-            {/* Contact info */}
-            <div className="space-y-8 lg:col-span-2">
-              <div>
-                <h3 className="mb-4 text-lg font-semibold text-foreground">Contact Details</h3>
-                <div className="space-y-4 text-muted-foreground">
-                  <p className="flex items-center gap-3"><Phone className="h-5 w-5 text-primary" /> (08) 9000 0000</p>
-                  <p className="flex items-center gap-3"><Mail className="h-5 w-5 text-primary" /> info@linexo.com.au</p>
-                  <p className="flex items-center gap-3"><MapPin className="h-5 w-5 text-primary" /> Kalgoorlie-Boulder, WA</p>
-                </div>
-              </div>
-              <div>
-                <h3 className="mb-4 flex items-center gap-2 text-lg font-semibold text-foreground">
-                  <Clock className="h-5 w-5 text-primary" /> Business Hours
-                </h3>
-                <div className="space-y-2">
-                  {businessHours.map((h) => (
-                    <div key={h.day} className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">{h.day}</span>
-                      <span className="font-medium text-foreground">{h.hours}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              <div>
-                <h3 className="mb-4 text-lg font-semibold text-foreground">Service Area</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  We service the entire WA Goldfields region including Kalgoorlie-Boulder, Coolgardie,
-                  Kambalda, Leonora, Laverton, and surrounding communities.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ═══ CTA Banner ═══ */}
+      {/* ═══ CTA Banner — Immersive Full-Width ═══ */}
       <section className="relative overflow-hidden">
+        {/* Top wave divider */}
         <div className="absolute -top-1 left-0 right-0 overflow-hidden leading-[0] rotate-180 z-10">
           <svg className="relative block w-full h-12 md:h-20" viewBox="0 0 1200 120" preserveAspectRatio="none">
             <path d="M0,60 C200,100 400,20 600,60 C800,100 1000,30 1200,50 L1200,120 L0,120 Z" className="fill-background" />
           </svg>
         </div>
         <div className="bg-gradient-to-br from-primary via-primary to-primary/90 py-24 md:py-28">
+          {/* Floating accent shapes */}
           <div className="pointer-events-none absolute inset-0 overflow-hidden">
             <div className="absolute -right-20 top-10 h-64 w-64 rounded-full bg-primary-foreground/10 blur-3xl animate-blob" />
             <div className="absolute -left-20 bottom-10 h-80 w-80 rounded-full bg-background/5 blur-3xl animate-blob-reverse" />
@@ -641,11 +467,12 @@ const Index = () => {
               transition={{ delay: 0.3, duration: 0.6 }}
             >
               <Button asChild size="lg" variant="secondary" className="text-base font-semibold">
-                <a href="#contact">Contact Us Today</a>
+                <Link to="/contact">Contact Us Today</Link>
               </Button>
             </motion.div>
           </div>
         </div>
+        {/* Bottom wave divider */}
         <div className="absolute -bottom-1 left-0 right-0 overflow-hidden leading-[0] z-10">
           <svg className="animate-wave-drift-slow relative block w-[calc(100%+50px)] -ml-[25px] h-12 md:h-20" viewBox="0 0 1200 120" preserveAspectRatio="none">
             <path d="M0,60 C200,100 400,20 600,60 C800,100 1000,30 1200,50 L1200,120 L0,120 Z" fill="hsl(207 55% 53%)" opacity="0.15" />
