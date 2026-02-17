@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion";
 import {
   Bed, Layers, Bath, HardHat, Package, Truck, ShieldCheck, TrendingUp, MapPin, Building2, Clock,
   ArrowRight, Hotel, UtensilsCrossed, Pickaxe, Quote, Phone, Mail,
@@ -164,8 +164,16 @@ const Index = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [submitting, setSubmitting] = useState(false);
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
   const processRef = useRef<HTMLDivElement>(null);
   const processInView = useInView(processRef, { once: true, margin: "-100px" });
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <Layout>
@@ -423,17 +431,37 @@ const Index = () => {
               >
                 <div className="absolute -left-4 -top-4 h-24 w-24 rounded-2xl bg-primary/10 animate-blob" />
                 <div className="absolute -bottom-4 -right-4 h-32 w-32 rounded-2xl bg-primary/10 animate-blob-reverse" />
-                <div className="glass-strong relative rounded-2xl p-8 shadow-xl md:-mr-8 md:z-10">
+                <div className="glass-strong relative rounded-2xl p-8 shadow-xl md:-mr-8 md:z-10 min-h-[240px]">
                   <Quote className="mb-4 h-10 w-10 text-primary/30" />
-                  <p className="text-lg font-medium italic text-foreground leading-relaxed">
-                    "Purpose-built in the heart of the Goldfields to deliver reliable, high-quality linen and laundry services."
-                  </p>
-                  <div className="mt-6 flex items-center gap-3">
-                    <div className="h-px flex-1 bg-border" />
-                    <div className="flex items-center gap-2 text-primary">
-                      <MapPin className="h-4 w-4" />
-                      <span className="text-xs font-semibold uppercase tracking-wider font-sans">Kalgoorlie-Boulder, WA</span>
-                    </div>
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={activeTestimonial}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.5, ease: EASE }}
+                    >
+                      <p className="text-lg font-medium italic text-foreground leading-relaxed">
+                        "{testimonials[activeTestimonial].quote}"
+                      </p>
+                      <div className="mt-6 flex items-center gap-3">
+                        <div className="h-px flex-1 bg-border" />
+                        <div className="text-right">
+                          <span className="block text-sm font-semibold text-foreground">{testimonials[activeTestimonial].name}</span>
+                          <span className="text-xs text-muted-foreground">{testimonials[activeTestimonial].role}, {testimonials[activeTestimonial].company}</span>
+                        </div>
+                      </div>
+                    </motion.div>
+                  </AnimatePresence>
+                  {/* Dots */}
+                  <div className="mt-4 flex justify-center gap-2">
+                    {testimonials.map((_, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setActiveTestimonial(i)}
+                        className={`h-2 rounded-full transition-all duration-300 ${i === activeTestimonial ? "w-6 bg-primary" : "w-2 bg-primary/30"}`}
+                      />
+                    ))}
                   </div>
                 </div>
               </motion.div>
