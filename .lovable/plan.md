@@ -1,42 +1,64 @@
 
 
-## Replace Flip Cards with Slider Reveal
+## Tier1-Style Hover Reveal Cards
 
-Replace the current click/hover flip interaction with a **draggable slider** on each card. The card shows both the problem (image + text) and the solution side-by-side, with a slider handle that the user drags left/right to reveal the solution underneath.
+Replace the current slider-based interaction with a **hover/click reveal layout** inspired by the Tier1 Coatings reference. Each card has a background image depicting the pain point, with a colored overlay panel on top showing the solution. When the user hovers (desktop) or taps (mobile), the overlay panel slides up/shrinks to reveal the full problem image underneath.
 
 ---
 
-### How It Works
-
-Each card is a fixed-height container with two layers:
-
-1. **Bottom layer (Solution)**: The clean `bg-primary/5` solution tile, always rendered
-2. **Top layer (Problem)**: The background image with dark overlay and problem text, clipped by the slider position
-
-A vertical divider handle sits at the slider position. Dragging it to the left reveals more of the solution. Dragging right hides it again.
+### Layout (4 cards in a row on desktop, stacked on mobile)
 
 ```text
-SLIDER AT 100% (default - problem fully visible):
-+------------------------------------------------------------------+
-|  [background image + dark overlay]                                |
-|  "You're scrambling before guests check in..."           |handle| |
-+------------------------------------------------------------------+
+DEFAULT STATE (solution overlay visible):
++-------------------------+
+|  [image partially       |
+|   visible at top]       |
+|                         |
+| +---------------------+ |
+| | SOLUTION TITLE      | |
+| | (vertical large     | |
+| |  text on right)     | |
+| |                     | |
+| | Solution description| |
+| | text here...        | |
+| +---------------------+ |
++-------------------------+
 
-SLIDER AT 40% (solution mostly revealed):
-+------------------------------------------------------------------+
-|  [image]  |handle|  [check] Linen Hire, Finishing & Delivery     |
-|           |      |  Fixed-schedule pickup and delivery...         |
-+------------------------------------------------------------------+
+HOVERED STATE (overlay slides down, image revealed):
++-------------------------+
+|                         |
+|  [Full problem image    |
+|   revealed with dark    |
+|   gradient overlay]     |
+|                         |
+|  "Pain point quote"     |
+|                         |
+| +---smaller overlay---+ |
+| | Solution title      | |
+| +---------------------+ |
++-------------------------+
 ```
 
 ---
 
-### Interaction
+### Design per Card
 
-- **Drag**: User drags the handle left/right to reveal/hide the solution
-- **Touch support**: Works on mobile with touch events
-- **Click shortcut**: Clicking anywhere on the problem side slides it to 30%; clicking the solution side slides back to 100%
-- **Visual cue**: A subtle "Slide to reveal" label with a drag icon near the handle on initial load
+- **Background**: The problem image fills the entire card
+- **Overlay panel**: A colored panel (`bg-primary` for each, varying opacity) sits in the lower portion of the card, containing:
+  - The solution title in large, bold vertical text along the right edge
+  - The solution description text
+- **On hover/tap**: The overlay panel translates downward (shrinks to ~30% height), revealing the problem image and the pain-point quote text overlaid on it
+- **Colors**: Each card gets a slightly different accent color to add visual variety (similar to Tier1's orange/cream/teal pattern), using `bg-primary`, `bg-primary/85`, `bg-primary/70`, and `bg-primary/60`
+
+---
+
+### Grid Layout
+
+- **Desktop**: `grid-cols-4` -- four cards side by side
+- **Tablet**: `grid-cols-2` -- two per row
+- **Mobile**: `grid-cols-1` -- stacked
+
+Each card has a fixed `aspect-[3/4]` ratio for consistent sizing.
 
 ---
 
@@ -44,18 +66,17 @@ SLIDER AT 40% (solution mostly revealed):
 
 **File: `src/pages/Index.tsx`**
 
-1. **Remove** `activeCard` state, `hoverTimerRef`, and `useIsMobile` (no longer needed for this section)
-2. **Add** a `sliderPositions` state: `useState<number[]>([100, 100, 100, 100])` tracking each card's slider percentage (100 = problem fully visible, 0 = solution fully visible)
-3. **Replace the card JSX** (lines 245-322) with a new slider-based layout:
-   - Each card is a `relative` container with `min-h-[220px]`
-   - Solution layer rendered as a normal `div` filling the card
-   - Problem layer rendered with `clipPath: inset(0 ${100 - sliderPos}% 0 0)` to clip from the right based on slider position
-   - A vertical handle bar (`w-1 bg-white` with a drag icon) positioned at the slider percentage
-   - `onMouseDown`/`onTouchStart` on the handle initiates dragging; `onMouseMove`/`onTouchMove` on the container updates the position; `onMouseUp`/`onTouchEnd` stops dragging
-   - Smooth CSS transition on the clip-path when clicking (not dragging) for animated slide
-4. **Remove** `AnimatePresence` usage from this section (no longer flipping)
-5. **Keep** the `fadeUp` scroll-in animation on each card container
-6. **Remove** `useIsMobile` import if not used elsewhere; keep `useRef` for drag tracking
+1. **Remove** all slider state and logic: `sliderPositions`, `draggingRef`, `isDraggingRef`, `containerRefs`, `updateSlider`, the `useEffect` for mouse/touch events
+2. **Add** `hoveredCard` state: `useState<number | null>(null)` to track which card is being hovered
+3. **Replace the card JSX** (lines 268-338) with the new grid layout:
+   - Each card is a `relative` container with `aspect-[3/4]` and `rounded-2xl overflow-hidden`
+   - Background: `img` tag with `object-cover` filling the card, plus a dark gradient overlay
+   - Pain-point quote text positioned over the image (visible when hovered)
+   - Colored overlay panel using `motion.div` that animates `y` position on hover (from covering ~65% of the card to only ~25%)
+   - Solution title and description inside the overlay
+4. **Remove** `GripVertical` import (no longer needed)
+5. **Keep** `fadeUp` scroll-in animation on each card
+6. **Use framer-motion** `animate` prop for smooth overlay transitions
 
-No new dependencies -- uses native pointer/touch events and CSS `clipPath`.
+No new dependencies needed.
 
