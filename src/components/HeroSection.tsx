@@ -203,8 +203,20 @@ const HeroSection = ({ title, subtitle, actions, stats, images, className }: Her
         </div>
       </motion.div>
 
-      {/* Wave divider */}
+      {/* Layered wave divider */}
       <div className="absolute -bottom-1 left-0 right-0 leading-[0]">
+        {/* Back wave — taller, softer, translucent */}
+        <svg
+          className="absolute bottom-0 left-0 block w-full h-24 md:h-36"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,80 C300,40 500,100 700,60 C900,20 1100,70 1200,50 L1200,120 L0,120 Z"
+            fill="hsl(207 30% 93% / 0.6)"
+          />
+        </svg>
+        {/* Front wave — shorter, solid */}
         <svg
           className="relative block w-full h-16 md:h-24"
           viewBox="0 0 1200 120"
