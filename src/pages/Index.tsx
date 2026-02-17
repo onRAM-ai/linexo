@@ -494,40 +494,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ═══ Testimonials ═══ */}
-      <section className="relative py-24 md:py-32 bg-secondary/30 overflow-hidden">
-        <div className="pointer-events-none absolute inset-0">
-          <div className="absolute right-10 bottom-20 h-72 w-72 rounded-full bg-primary/4 blur-3xl animate-blob" />
-        </div>
-        <div className="container relative z-10">
-          <div className="mx-auto mb-16 max-w-2xl text-center">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary font-sans">Testimonials</p>
-            <h2 className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">What Our Clients Say</h2>
-          </div>
-          <div className="grid gap-6 md:grid-cols-3">
-            {testimonials.map((t, i) => (
-              <motion.div
-                key={t.name}
-                custom={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={scaleIn}
-                className="glass-strong rounded-2xl p-8 flex flex-col"
-              >
-                <Quote className="mb-4 h-8 w-8 text-primary/30" />
-                <p className="text-muted-foreground italic leading-relaxed flex-1">"{t.quote}"</p>
-                <div className="mt-6">
-                  <div className="mb-4 h-px bg-border" />
-                  <p className="font-semibold text-foreground">{t.name}</p>
-                  <p className="text-sm text-muted-foreground">{t.role}, {t.company}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ═══ CTA with Inline Contact Form ═══ */}
       <section className="relative overflow-hidden">
         {/* Top wave divider */}
