@@ -201,7 +201,7 @@ const Index = () => {
       />
 
       {/* ═══ Services — DARK section with staggered grid ═══ */}
-      <section id="services" className="relative py-24 md:py-32 overflow-hidden bg-gradient-to-b from-secondary/30 to-secondary/50">
+      <section id="services" className="relative pt-8 md:pt-12 pb-24 md:pb-32 overflow-hidden bg-gradient-to-b from-secondary/30 to-secondary/50">
         
         {/* Organic background blobs */}
         <div className="pointer-events-none absolute inset-0">
