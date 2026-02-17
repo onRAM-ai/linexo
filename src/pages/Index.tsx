@@ -18,7 +18,12 @@ import SectionDivider from "@/components/SectionDivider";
 import heroImg1 from "@/assets/hero-laundry-1.jpg";
 import heroImg2 from "@/assets/hero-laundry-2.jpg";
 import heroImg3 from "@/assets/hero-laundry-3.jpg";
+import problemLinenImg from "@/assets/problem-linen.jpg";
+import problemWorkwearImg from "@/assets/problem-workwear.jpg";
+import problemHygieneImg from "@/assets/problem-hygiene.jpg";
+import problemSurgeImg from "@/assets/problem-surge.jpg";
 import React, { useRef } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -57,24 +62,28 @@ const scaleIn = {
 
 const problemSolutions = [
   {
-    problem: "Linen arrives late, wrinkled, or not at all — and you're scrambling before guests check in.",
+    problem: "You're scrambling before guests check in because linen arrived late, wrinkled, or not at all.",
     solutionTitle: "Linen Hire, Finishing & Delivery",
     solution: "Fixed-schedule pickup and delivery with 24–48hr turnaround. Sheets, pillowcases, and duvet covers — pressed, folded, and guest-ready every time.",
+    image: problemLinenImg,
   },
   {
     problem: "Your workwear comes back still dirty or takes a week to process — putting your crew and compliance at risk.",
     solutionTitle: "Industrial Workwear Processing",
     solution: "Commercial-grade processing for PPE, overalls, and heavy-duty garments. Express turnaround available on demand.",
+    image: problemWorkwearImg,
   },
   {
     problem: "You're never sure if your linen is actually clean — and one hygiene complaint could cost you your contract.",
     solutionTitle: "Heat-Sealed Hygienic Packaging",
     solution: "Every item commercially laundered and continuously heat-sealed in packaging — so it arrives hygienically protected and audit-ready.",
+    image: problemHygieneImg,
   },
   {
     problem: "A sudden booking surge hits and your linen supplier can't keep up — leaving rooms unserviced.",
     solutionTitle: "Surge & Emergency Processing",
     solution: "Purpose-built to scale from 50 to 5,000+ pieces daily. Emergency and priority processing available when you need it most.",
+    image: problemSurgeImg,
   },
 ];
 
@@ -183,6 +192,9 @@ const Index = () => {
   const { toast } = useToast();
   const [submitting, setSubmitting] = useState(false);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [activeCard, setActiveCard] = useState<number | null>(null);
+  const hoverTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isMobile = useIsMobile();
   const processRef = useRef<HTMLDivElement>(null);
   const processInView = useInView(processRef, { once: true, margin: "-100px" });
 
@@ -230,44 +242,84 @@ const Index = () => {
             <h2 className="text-4xl font-bold md:text-5xl lg:text-6xl text-foreground">Problems We Solve</h2>
             <p className="mt-4 text-muted-foreground text-lg">Every service exists because we've seen what happens when it's done badly.</p>
           </div>
-          <div className="space-y-6">
-            {problemSolutions.map((pair, i) => (
-              <motion.div
-                key={pair.solutionTitle}
-                custom={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeUp}
-                className="relative grid gap-4 md:grid-cols-2 md:gap-0 items-stretch"
-              >
-                {/* Problem tile */}
-                <div className="relative rounded-2xl md:rounded-r-none border border-destructive/15 bg-destructive/5 p-6 md:p-8">
-                  <div className="flex items-center gap-2 mb-3">
-                    <AlertTriangle className="h-5 w-5 text-destructive" />
-                    <span className="text-xs font-bold uppercase tracking-[0.15em] text-destructive">The Problem</span>
-                  </div>
-                  <p className="text-foreground leading-relaxed">{pair.problem}</p>
-                </div>
-
-                {/* Arrow connector (desktop only) */}
-                <div className="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-card border border-border shadow-md">
-                    <ArrowRight className="h-5 w-5 text-primary" />
-                  </div>
-                </div>
-
-                {/* Solution tile */}
-                <div className="relative rounded-2xl md:rounded-l-none border border-primary/15 bg-primary/5 p-6 md:p-8">
-                  <div className="flex items-center gap-2 mb-3">
-                    <CheckCircle2 className="h-5 w-5 text-primary" />
-                    <span className="text-xs font-bold uppercase tracking-[0.15em] text-primary">How LinExo Solves It</span>
-                  </div>
-                  <h3 className="mb-2 text-lg font-semibold text-foreground">{pair.solutionTitle}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{pair.solution}</p>
-                </div>
-              </motion.div>
-            ))}
+          <div className="space-y-6 max-w-4xl mx-auto">
+            {problemSolutions.map((pair, i) => {
+              const isFlipped = activeCard === i;
+              return (
+                <motion.div
+                  key={pair.solutionTitle}
+                  custom={i}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={fadeUp}
+                  className="relative rounded-2xl overflow-hidden min-h-[220px] cursor-pointer"
+                  onClick={() => setActiveCard(isFlipped ? null : i)}
+                  onMouseEnter={() => {
+                    if (!isMobile) {
+                      hoverTimerRef.current = setTimeout(() => setActiveCard(i), 800);
+                    }
+                  }}
+                  onMouseLeave={() => {
+                    if (!isMobile) {
+                      if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
+                      setActiveCard(null);
+                    }
+                  }}
+                >
+                  <AnimatePresence mode="wait">
+                    {!isFlipped ? (
+                      <motion.div
+                        key="problem"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.35, ease: EASE }}
+                        className="relative flex flex-col justify-end p-8 md:p-10 min-h-[220px]"
+                        style={{
+                          backgroundImage: `url(${pair.image})`,
+                          backgroundSize: "cover",
+                          backgroundPosition: "center",
+                        }}
+                      >
+                        {/* Dark gradient overlay */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/60 to-black/30" />
+                        <div className="relative z-10">
+                          <p className="text-white text-lg md:text-xl font-semibold leading-relaxed mb-5 max-w-2xl">
+                            "{pair.problem}"
+                          </p>
+                          <span className="inline-flex items-center gap-2 text-sm font-medium text-white/80 border border-white/25 rounded-full px-4 py-2 backdrop-blur-sm bg-white/10 hover:bg-white/20 transition-colors">
+                            See How We Solve It <ArrowRight className="h-4 w-4" />
+                          </span>
+                        </div>
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key="solution"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.35, ease: EASE }}
+                        className="relative flex flex-col justify-center p-8 md:p-10 min-h-[220px] bg-primary/5 border border-primary/15"
+                      >
+                        <div className="flex items-center gap-2 mb-3">
+                          <CheckCircle2 className="h-5 w-5 text-primary" />
+                          <span className="text-xs font-bold uppercase tracking-[0.15em] text-primary">How LinExo Solves It</span>
+                        </div>
+                        <h3 className="mb-2 text-xl font-bold text-foreground">{pair.solutionTitle}</h3>
+                        <p className="text-muted-foreground leading-relaxed max-w-2xl">{pair.solution}</p>
+                        <button
+                          onClick={(e) => { e.stopPropagation(); setActiveCard(null); }}
+                          className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors self-start"
+                        >
+                          <ArrowRight className="h-4 w-4 rotate-180" /> Back to Problem
+                        </button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
