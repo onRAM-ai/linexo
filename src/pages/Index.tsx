@@ -1,10 +1,16 @@
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import {
   Bed, Layers, Bath, HardHat, Package, Truck, ShieldCheck, TrendingUp, MapPin, Building2, Clock,
-  ArrowRight, Hotel, UtensilsCrossed, Pickaxe, Quote,
+  ArrowRight, Hotel, UtensilsCrossed, Pickaxe, Quote, Phone, Mail,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
 import Layout from "@/components/Layout";
 import HeroSection from "@/components/HeroSection";
 import AnimatedCounter from "@/components/AnimatedCounter";
@@ -83,6 +89,38 @@ const clientLogos = [
   "Outback Hospitality", "Pilbara Camps", "WA Resources",
 ];
 
+const serviceOptions = [
+  "Hotel Linen Hire",
+  "Flatwork Finishing",
+  "Towels & Hospitality Textiles",
+  "Industrial Workwear & PPE",
+  "Heat-Sealed Packaging",
+  "Scheduled Pickup & Delivery",
+  "Emergency Processing",
+  "Other",
+];
+
+const testimonials = [
+  {
+    quote: "LinExo transformed our linen operations. Turnaround is consistently under 24 hours, and the quality is impeccable — our guests notice the difference.",
+    name: "Sarah Mitchell",
+    role: "Operations Manager",
+    company: "Goldfields Grand Hotel",
+  },
+  {
+    quote: "We needed a partner who could handle the volume and pace of a busy kitchen and dining room. LinExo delivers every time, without fail.",
+    name: "James Thornton",
+    role: "Head Chef & Owner",
+    company: "The Boulder Bistro",
+  },
+  {
+    quote: "Managing PPE and workwear for 200+ crew across remote sites is no small task. LinExo's surge capacity and scheduled delivery have been a game-changer.",
+    name: "Karen Liu",
+    role: "Camp Services Coordinator",
+    company: "Westgold Resources",
+  },
+];
+
 const statBandItems = [
   { value: 5000, suffix: "+", label: "Pieces Daily" },
   { value: 50, suffix: "+", label: "Clients Served" },
@@ -90,7 +128,6 @@ const statBandItems = [
   { value: 100, suffix: "%", label: "Hygiene Compliance" },
 ];
 
-/** Process step card */
 const ProcessStep = ({ step, index }: { step: typeof processSteps[0]; index: number }) => {
   const ref = useRef(null);
 
@@ -125,6 +162,8 @@ const ProcessStep = ({ step, index }: { step: typeof processSteps[0]; index: num
 
 const Index = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
+  const [submitting, setSubmitting] = useState(false);
   const processRef = useRef<HTMLDivElement>(null);
   const processInView = useInView(processRef, { once: true, margin: "-100px" });
 
@@ -427,49 +466,142 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ═══ CTA Banner — Immersive Full-Width ═══ */}
+      {/* ═══ Testimonials ═══ */}
+      <section className="relative py-24 md:py-32 bg-secondary/30 overflow-hidden">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute right-10 bottom-20 h-72 w-72 rounded-full bg-primary/4 blur-3xl animate-blob" />
+        </div>
+        <div className="container relative z-10">
+          <div className="mx-auto mb-16 max-w-2xl text-center">
+            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary font-sans">Testimonials</p>
+            <h2 className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">What Our Clients Say</h2>
+          </div>
+          <div className="grid gap-6 md:grid-cols-3">
+            {testimonials.map((t, i) => (
+              <motion.div
+                key={t.name}
+                custom={i}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={scaleIn}
+                className="glass-strong rounded-2xl p-8 flex flex-col"
+              >
+                <Quote className="mb-4 h-8 w-8 text-primary/30" />
+                <p className="text-muted-foreground italic leading-relaxed flex-1">"{t.quote}"</p>
+                <div className="mt-6">
+                  <div className="mb-4 h-px bg-border" />
+                  <p className="font-semibold text-foreground">{t.name}</p>
+                  <p className="text-sm text-muted-foreground">{t.role}, {t.company}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ CTA with Inline Contact Form ═══ */}
       <section className="relative overflow-hidden">
         {/* Top wave divider */}
         <div className="absolute -top-1 left-0 right-0 overflow-hidden leading-[0] rotate-180 z-10">
           <svg className="relative block w-full h-12 md:h-20" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M0,60 C200,100 400,20 600,60 C800,100 1000,30 1200,50 L1200,120 L0,120 Z" className="fill-background" />
+            <path d="M0,60 C200,100 400,20 600,60 C800,100 1000,30 1200,50 L1200,120 L0,120 Z" className="fill-secondary/30" />
           </svg>
         </div>
-        <div className="bg-gradient-to-br from-primary via-primary to-primary/90 py-24 md:py-28">
+        <div className="bg-gradient-to-br from-primary via-primary to-primary/90 py-24 md:py-32">
           {/* Floating accent shapes */}
           <div className="pointer-events-none absolute inset-0 overflow-hidden">
             <div className="absolute -right-20 top-10 h-64 w-64 rounded-full bg-primary-foreground/10 blur-3xl animate-blob" />
             <div className="absolute -left-20 bottom-10 h-80 w-80 rounded-full bg-background/5 blur-3xl animate-blob-reverse" />
           </div>
-          <div className="container text-center relative z-10">
-            <motion.h2
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: EASE }}
-              className="mb-4 text-4xl font-bold text-primary-foreground md:text-5xl lg:text-6xl"
-            >
-              Ready to Streamline Your Linen Supply?
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.15, duration: 0.8, ease: EASE }}
-              className="mb-8 text-lg text-primary-foreground/80"
-            >
-              Get in touch today for a tailored solution that fits your business.
-            </motion.p>
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3, duration: 0.6 }}
-            >
-              <Button asChild size="lg" variant="secondary" className="text-base font-semibold">
-                <Link to="/contact">Contact Us Today</Link>
-              </Button>
-            </motion.div>
+          <div className="container relative z-10">
+            <div className="grid items-start gap-12 lg:grid-cols-5">
+              {/* Left column — CTA text + contact details */}
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeLeft}
+                className="lg:col-span-2"
+              >
+                <h2 className="mb-4 text-3xl font-bold text-primary-foreground md:text-4xl lg:text-5xl">
+                  Ready to Streamline Your Linen Supply?
+                </h2>
+                <p className="mb-8 text-primary-foreground/80 leading-relaxed">
+                  Get in touch today for a tailored solution that fits your business. We'll respond within one business day.
+                </p>
+                <div className="space-y-4 text-primary-foreground/90">
+                  <p className="flex items-center gap-3"><Phone className="h-5 w-5 text-primary-foreground/60" /> (08) 9000 0000</p>
+                  <p className="flex items-center gap-3"><Mail className="h-5 w-5 text-primary-foreground/60" /> info@linexo.com.au</p>
+                  <p className="flex items-center gap-3"><MapPin className="h-5 w-5 text-primary-foreground/60" /> Kalgoorlie-Boulder, WA</p>
+                </div>
+              </motion.div>
+
+              {/* Right column — Glass contact form */}
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeRight}
+                className="lg:col-span-3"
+              >
+                <div className="rounded-2xl border border-white/20 bg-white/10 backdrop-blur-lg p-6 md:p-8">
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      setSubmitting(true);
+                      setTimeout(() => {
+                        setSubmitting(false);
+                        toast({ title: "Message sent!", description: "We'll be in touch shortly." });
+                        (e.target as HTMLFormElement).reset();
+                      }, 1000);
+                    }}
+                    className="space-y-5"
+                  >
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <div className="space-y-2">
+                        <Label htmlFor="cta-name" className="text-primary-foreground/90">Name</Label>
+                        <Input id="cta-name" placeholder="Your name" required className="border-white/20 bg-white/15 text-primary-foreground placeholder:text-primary-foreground/50 focus-visible:ring-white/30" />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="cta-company" className="text-primary-foreground/90">Company</Label>
+                        <Input id="cta-company" placeholder="Your company" className="border-white/20 bg-white/15 text-primary-foreground placeholder:text-primary-foreground/50 focus-visible:ring-white/30" />
+                      </div>
+                    </div>
+                    <div className="grid gap-4 sm:grid-cols-2">
+                      <div className="space-y-2">
+                        <Label htmlFor="cta-email" className="text-primary-foreground/90">Email</Label>
+                        <Input id="cta-email" type="email" placeholder="you@example.com" required className="border-white/20 bg-white/15 text-primary-foreground placeholder:text-primary-foreground/50 focus-visible:ring-white/30" />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="cta-phone" className="text-primary-foreground/90">Phone</Label>
+                        <Input id="cta-phone" type="tel" placeholder="04XX XXX XXX" className="border-white/20 bg-white/15 text-primary-foreground placeholder:text-primary-foreground/50 focus-visible:ring-white/30" />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label className="text-primary-foreground/90">Service Required</Label>
+                      <Select>
+                        <SelectTrigger className="border-white/20 bg-white/15 text-primary-foreground [&>svg]:text-primary-foreground/60">
+                          <SelectValue placeholder="Select a service" className="placeholder:text-primary-foreground/50" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {serviceOptions.map((s) => (
+                            <SelectItem key={s} value={s}>{s}</SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="cta-message" className="text-primary-foreground/90">Message</Label>
+                      <Textarea id="cta-message" placeholder="Tell us about your requirements…" rows={4} required className="border-white/20 bg-white/15 text-primary-foreground placeholder:text-primary-foreground/50 focus-visible:ring-white/30" />
+                    </div>
+                    <Button type="submit" size="lg" variant="secondary" disabled={submitting} className="w-full sm:w-auto text-base font-semibold">
+                      {submitting ? "Sending…" : "Send Message"}
+                    </Button>
+                  </form>
+                </div>
+              </motion.div>
+            </div>
           </div>
         </div>
         {/* Bottom wave divider */}
