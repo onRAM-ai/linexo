@@ -55,18 +55,20 @@ const scaleIn = {
 };
 
 const services = [
-  { icon: Bed, title: "Hotel Linen Hire", desc: "Premium sheets, pillowcases, and duvet covers for accommodation providers." },
-  { icon: Layers, title: "Flatwork Finishing", desc: "Professionally pressed and folded flat linens ready for service." },
-  { icon: Bath, title: "Towels & Hospitality", desc: "Towels, bathmats, and hospitality textiles laundered to exacting standards." },
-  { icon: HardHat, title: "Industrial Workwear", desc: "PPE and heavy-duty garment laundering for mining and industrial clients." },
-  { icon: Package, title: "Heat-Sealed Packaging", desc: "Continuous heat-sealed bag packaging for hygienic linen delivery." },
-  { icon: Truck, title: "Scheduled Delivery", desc: "Reliable pickup and delivery across the Goldfields region." },
+  { icon: Bed, title: "Linen Hire & Supply", desc: "Sheets, pillowcases, duvet covers, and full linen packages for hotels, serviced apartments, and short-stay providers." },
+  { icon: Layers, title: "Flatwork Finishing", desc: "Sheets, pillowcases, and duvet covers — pressed, folded, and guest-ready every time." },
+  { icon: Bath, title: "Towels & Hospitality", desc: "Towels, bathmats, and hospitality textiles — washed, dried, and folded to exacting standards." },
+  { icon: HardHat, title: "Industrial Workwear", desc: "PPE, overalls, and heavy-duty garment processing for mining and industrial sites." },
+  { icon: Package, title: "Heat-Sealed Packaging", desc: "Continuous heat-sealed bag packaging so every item arrives hygienically sealed and ready to use." },
+  { icon: Clock, title: "Emergency Processing", desc: "Surge and priority processing when you need it — express turnaround available on demand." },
+  { icon: Truck, title: "Scheduled Delivery", desc: "Fixed-schedule pickup and delivery across the Goldfields, so you always know when to expect us." },
 ];
 
 const values = [
-  { icon: ShieldCheck, title: "Reliability", desc: "Consistent turnaround you can count on, every single time." },
-  { icon: Layers, title: "Hygiene Standards", desc: "Commercial-grade processes meeting the highest hygiene benchmarks." },
-  { icon: TrendingUp, title: "Scalable Capacity", desc: "Purpose-built to handle surges — from 50 to 5,000 pieces daily." },
+  { icon: ShieldCheck, title: "Reliability", desc: "24–48 hour standard turnaround with express and priority processing available. You'll never be left waiting." },
+  { icon: Layers, title: "Hygiene Standards", desc: "Commercial-grade processes meeting the highest hygiene benchmarks — proven through government contract compliance." },
+  { icon: TrendingUp, title: "Scalable Capacity", desc: "Purpose-built to handle surges — from 50 to 5,000+ pieces daily, with emergency processing on demand." },
+  { icon: Clock, title: "Contractual SLAs", desc: "Fixed service schedules and written Service Level Agreements, so you know exactly what you're getting and when." },
 ];
 
 const processSteps = [
@@ -83,9 +85,10 @@ const sectors = [
   { icon: Pickaxe, title: "Industrial & Mining", desc: "Mining camps and industrial sites — heavy-duty workwear, PPE, and overalls with surge capacity.", bg: "bg-primary/70", text: "text-primary-foreground" },
 ];
 
-const clientLogos = [
-  "Goldfields Hotel Group", "Kalgoorlie Resorts", "Boulder Mining Co",
-  "Outback Hospitality", "Pilbara Camps", "WA Resources",
+const contractCredentials = [
+  "Trusted by WACHS — Kalgoorlie Regional Health Campus",
+  "Government accommodation & work safety garment contracts",
+  "120+ rooms serviced with highest-level hygiene compliance",
 ];
 
 const serviceOptions = [
@@ -101,28 +104,28 @@ const serviceOptions = [
 
 const testimonials = [
   {
-    quote: "LinExo transformed our linen operations. Turnaround is consistently under 24 hours, and the quality is impeccable — our guests notice the difference.",
-    name: "Sarah Mitchell",
+    quote: "We stopped worrying about linen the day LinExo took over. Fixed schedule, consistent quality, no surprises — exactly what we needed.",
+    name: "",
     role: "Operations Manager",
-    company: "Goldfields Grand Hotel",
+    company: "Goldfields Accommodation Provider",
   },
   {
-    quote: "We needed a partner who could handle the volume and pace of a busy kitchen and dining room. LinExo delivers every time, without fail.",
-    name: "James Thornton",
-    role: "Head Chef & Owner",
-    company: "The Boulder Bistro",
+    quote: "Our guests notice the difference. Every sheet pressed, every towel fresh — and we never have to chase a delivery.",
+    name: "",
+    role: "Hospitality Manager",
+    company: "Regional Hotel",
   },
   {
-    quote: "Managing PPE and workwear for 200+ crew across remote sites is no small task. LinExo's surge capacity and scheduled delivery have been a game-changer.",
-    name: "Karen Liu",
+    quote: "Managing PPE and workwear for 200+ crew across remote sites is no small task. LinExo's surge capacity and scheduled delivery changed everything for us.",
+    name: "",
     role: "Camp Services Coordinator",
-    company: "Westgold Resources",
+    company: "Mining & Resources",
   },
 ];
 
 const statBandItems = [
   { value: 5000, suffix: "+", label: "Pieces Daily" },
-  { value: 50, suffix: "+", label: "Clients Served" },
+  { value: 120, suffix: "+", label: "Rooms Serviced" },
   { value: 24, suffix: "hr", label: "Turnaround" },
   { value: 100, suffix: "%", label: "Hygiene Compliance" },
 ];
@@ -187,14 +190,14 @@ const Index = () => {
             <span className="text-primary">Linen & Laundry</span> Specialists
           </>
         }
-        subtitle="End-to-end linen supply, laundering, finishing, packing, and scheduled delivery — purpose-built for accommodation, hospitality, and industrial clients."
+        subtitle="You shouldn't have to chase your linen supplier. We handle the pickup, laundering, finishing, packing, and delivery on a fixed schedule — so you can focus on running your business."
         actions={[
           { text: "Get In Touch", onClick: () => scrollTo("contact") },
           { text: "Our Services", onClick: () => scrollTo("services"), variant: "outline" as const },
         ]}
         stats={[
           { value: "5,000+", label: "Pieces Daily", icon: <Layers className="h-5 w-5" /> },
-          { value: "50+", label: "Clients Served", icon: <Building2 className="h-5 w-5" /> },
+          { value: "120+", label: "Rooms Serviced", icon: <Building2 className="h-5 w-5" /> },
           { value: "24hr", label: "Turnaround", icon: <Clock className="h-5 w-5" /> },
         ]}
         images={[heroImg1, heroImg2, heroImg3]}
@@ -389,28 +392,29 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ═══ Client Logos Marquee ═══ */}
+      {/* ═══ Proven Contract Experience Banner ═══ */}
       <section className="py-16 overflow-hidden bg-secondary/30">
         <div className="container">
-          <div className="mb-8 flex items-center gap-4">
+          <div className="mb-10 flex items-center gap-4">
             <div className="h-px flex-1 bg-border" />
             <p className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground font-sans">
-              Trusted Across the Goldfields
+              Proven Contract Experience
             </p>
             <div className="h-px flex-1 bg-border" />
           </div>
-        </div>
-        <div className="relative">
-          <div className="pointer-events-none absolute left-0 top-0 z-10 h-full w-24 bg-gradient-to-r from-secondary/30 to-transparent" />
-          <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-24 bg-gradient-to-l from-secondary/30 to-transparent" />
-          <div className="animate-marquee flex w-max gap-8">
-            {[...clientLogos, ...clientLogos].map((name, i) => (
-              <div
-                key={`${name}-${i}`}
-                className="glass-strong flex h-20 shrink-0 items-center rounded-xl px-10 text-sm font-semibold text-muted-foreground"
+          <div className="mx-auto max-w-4xl grid gap-5 sm:grid-cols-3">
+            {contractCredentials.map((item, i) => (
+              <motion.div
+                key={i}
+                custom={i}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                variants={fadeUp}
+                className="glass-strong flex items-center justify-center rounded-2xl p-6 text-center text-sm font-semibold text-foreground leading-relaxed min-h-[100px]"
               >
-                {name}
-              </div>
+                {item}
+              </motion.div>
             ))}
           </div>
         </div>
@@ -449,7 +453,7 @@ const Index = () => {
                       <div className="mt-6 flex items-center gap-3">
                         <div className="h-px flex-1 bg-border" />
                         <div className="text-right">
-                          <span className="block text-sm font-semibold text-foreground">{testimonials[activeTestimonial].name}</span>
+                          {testimonials[activeTestimonial].name && <span className="block text-sm font-semibold text-foreground">{testimonials[activeTestimonial].name}</span>}
                           <span className="text-xs text-muted-foreground">{testimonials[activeTestimonial].role}, {testimonials[activeTestimonial].company}</span>
                         </div>
                       </div>
@@ -485,7 +489,9 @@ const Index = () => {
                 <p className="mb-6 text-muted-foreground leading-relaxed">
                   <span className="text-primary">LIN</span><span className="text-accent">EXO</span> is a proudly Western Australian business, purpose-built in the heart of the Goldfields
                   to deliver reliable, high-quality linen and laundry services to the region's accommodation,
-                  hospitality, and industrial sectors.
+                  hospitality, and industrial sectors. With proven government contract experience — including servicing
+                  WACHS at Kalgoorlie Regional Health Campus — we bring the compliance, capacity, and consistency
+                  that larger operations demand.
                 </p>
                 <Button variant="outline" size="lg" onClick={() => scrollTo("services")}>
                   Explore Our Services
@@ -521,10 +527,10 @@ const Index = () => {
                 className="lg:col-span-2"
               >
                 <h2 className="mb-4 text-3xl font-bold text-primary-foreground md:text-4xl lg:text-5xl">
-                  Ready to Streamline Your Linen Supply?
+                  What If Your Linen Just… Showed Up?
                 </h2>
                 <p className="mb-8 text-primary-foreground/80 leading-relaxed">
-                  Get in touch today for a tailored solution that fits your business. We'll respond within one business day.
+                  Fixed schedules. 24–48 hour turnaround. Express when you need it. Hygiene compliance handled. SLAs in writing. Tell us what you need and we'll put together a plan that actually works for your operation — no lock-in, no runaround.
                 </p>
                 <div className="space-y-4 text-primary-foreground/90">
                   <p className="flex items-center gap-3"><Phone className="h-5 w-5 text-primary-foreground/60" /> (08) 9000 0000</p>
