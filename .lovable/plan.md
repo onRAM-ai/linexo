@@ -1,74 +1,98 @@
 
 
-## Problem/Solution Services Section
+## Make Problem/Solution Section More Interactive and Visual
 
-Replace the current 7-card services grid with a **paired problem/solution tile layout** that clearly communicates the pain points LinExo solves. Each row shows a "problem" tile on the left and a "LinExo solves it" tile on the right, creating a compelling before/after narrative.
+Replace the static side-by-side tiles with an interactive **reveal-based layout** where the problem side uses a vivid scene-setting image with overlay text (instead of the word "Problem"), and clicking/hovering reveals the solution. This creates engagement and speaks directly to the pain point visually.
 
 ---
 
-### Layout
+### New Interaction Model
+
+Each pair becomes a single wide card with two states:
+
+1. **Default state (Problem)**: A background image relevant to the pain point (e.g., a messy hotel room, a worker in dirty overalls) with a dark gradient overlay. The pain-point text sits on top in bold white. A "See How We Solve It" button invites interaction.
+
+2. **Revealed state (Solution)**: Clicking the button (or hovering on desktop) flips/slides the card to show the clean LinExo solution tile with the green/blue styling.
+
+On mobile, the card starts showing the problem and tapping toggles to the solution.
+
+---
+
+### Visual Layout (per card)
 
 ```text
-+-------------------------------+    +-------------------------------+
-| [!] THE PROBLEM               |    | [check] HOW LINEXO SOLVES IT  |
-|                                |    |                                |
-| Linen arrives late, wrinkled,  |    | Fixed-schedule pickup and     |
-| or not at all -- and you're    |    | delivery with 24-48hr         |
-| scrambling before guests       |    | turnaround. Sheets, towels,   |
-| check in.                      |    | and duvet covers pressed,     |
-|                                |    | folded, and guest-ready.      |
-+-------------------------------+    +-------------------------------+
+DEFAULT STATE:
++------------------------------------------------------------------+
+|  [background image with dark gradient overlay]                    |
+|                                                                   |
+|  "You're scrambling before guests check in                       |
+|   because linen arrived late, wrinkled, or not at all."          |
+|                                                                   |
+|              [ See How We Solve It -> ]                           |
++------------------------------------------------------------------+
 
-+-------------------------------+    +-------------------------------+
-| [!] THE PROBLEM               |    | [check] HOW LINEXO SOLVES IT  |
-|                                |    |                                |
-| Workwear comes back still      |    | Commercial-grade processing   |
-| dirty or takes a week to       |    | for PPE, overalls, and heavy- |
-| process -- putting your crew   |    | duty garments. Express        |
-| and compliance at risk.        |    | turnaround available on       |
-|                                |    | demand.                       |
-+-------------------------------+    +-------------------------------+
+CLICKED/HOVERED STATE:
++------------------------------------------------------------------+
+|  [bg-primary/5 clean tile]                                        |
+|                                                                   |
+|  [check] Linen Hire, Finishing & Delivery                        |
+|                                                                   |
+|  Fixed-schedule pickup and delivery with 24-48hr turnaround.     |
+|  Sheets, pillowcases, and duvet covers -- pressed, folded,      |
+|  and guest-ready every time.                                      |
+|                                                                   |
+|              [ <- Back to Problem ]                               |
++------------------------------------------------------------------+
 ```
 
-On mobile, the problem tile stacks above the solution tile.
+---
+
+### AI-Generated Images
+
+Generate 4 images using the Nano banana model that depict each pain point scenario. These will be used as background images with a dark gradient overlay:
+
+| # | Image Prompt | Pain Point |
+|---|---|---|
+| 1 | A stressed hotel housekeeper looking at an empty linen closet with unmade beds visible, commercial photography style | Late/missing linen delivery |
+| 2 | A pile of dirty industrial workwear and PPE overalls on a warehouse floor, gritty industrial photography | Dirty workwear, slow processing |
+| 3 | A close-up of questionable stained hotel towels stacked on a shelf, editorial photography | Hygiene uncertainty |
+| 4 | An overwhelmed hotel front desk with a line of waiting guests and a "No Rooms Available" sign, commercial photography | Surge capacity failure |
 
 ---
 
-### Content Pairs
+### Interactivity Features
 
-| # | Problem | Solution Title | Solution |
-|---|---------|---------------|----------|
-| 1 | Linen arrives late, wrinkled, or not at all -- and you're scrambling before guests check in. | Linen Hire, Finishing & Delivery | Fixed-schedule pickup and delivery with 24-48hr turnaround. Sheets, pillowcases, and duvet covers -- pressed, folded, and guest-ready every time. |
-| 2 | Your workwear comes back still dirty or takes a week to process -- putting your crew and compliance at risk. | Industrial Workwear Processing | Commercial-grade processing for PPE, overalls, and heavy-duty garments. Express turnaround available on demand. |
-| 3 | You're never sure if your linen is actually clean -- and one hygiene complaint could cost you your contract. | Heat-Sealed Hygienic Packaging | Every item commercially laundered and continuously heat-sealed in packaging -- so it arrives hygienically protected and audit-ready. |
-| 4 | A sudden booking surge hits and your linen supplier can't keep up -- leaving rooms unserviced. | Surge & Emergency Processing | Purpose-built to scale from 50 to 5,000+ pieces daily. Emergency and priority processing available when you need it most. |
-
-This consolidates the 7 service cards into 4 problem/solution pairs, which is more focused and persuasive.
+- **Flip animation**: Each card uses framer-motion's `AnimatePresence` to smoothly transition between problem and solution states
+- **State toggle**: `useState` tracks which card is "flipped" -- clicking toggles the state
+- **Auto-close**: When one card is opened, the previously opened card closes (accordion behavior)
+- **Hover preview on desktop**: On desktop, hovering for 800ms also triggers the flip (with `onMouseEnter`/`onMouseLeave` timers)
+- **Staggered entrance**: Cards animate in with the existing `fadeUp` variants as they scroll into view
 
 ---
 
-### Visual Design
+### Content Updates
 
-- **Problem tile**: Light red/warm tinted background (`bg-destructive/5`), with an `AlertTriangle` icon and "THE PROBLEM" label. Text in a conversational, pain-focused tone.
-- **Solution tile**: Light green/blue tinted background (`bg-primary/5`), with a `CheckCircle` icon and "HOW LINEXO SOLVES IT" label. Text stacks the value clearly.
-- **Connected feel**: A small arrow or connector between the tiles on desktop to show the transformation.
-- **Section heading**: Change from "Our Services" to "Problems We Solve" with a subtitle like "Every service exists because we've seen what happens when it's done badly."
+Remove "THE PROBLEM" label entirely. Instead, the problem text speaks for itself against the evocative image background. The solution side keeps the `CheckCircle2` icon and "HOW LINEXO SOLVES IT" label.
 
----
-
-### Overlap Fix
-
-The stat band overlap will also be fixed by increasing the services section bottom padding from `pb-12 md:pb-16` to `pb-24 md:pb-28` to accommodate the `-mt-20 md:-mt-24` negative margin.
+Update the `problemSolutions` array to include an `image` field for each pair pointing to the generated image.
 
 ---
 
 ### Technical Details
 
-All changes in `src/pages/Index.tsx`:
+**Files modified:** `src/pages/Index.tsx`
 
-- **Replace `services` array** (lines 57-65) with a new `problemSolutions` array of 4 objects, each with `problem`, `solutionTitle`, and `solution` fields
-- **Replace services grid JSX** (lines 218-238) with a new layout: a vertical stack of rows, each row being a 2-column grid (problem tile + solution tile)
-- **Update section heading** (lines 214-216) to "Problems We Solve"
-- **Fix section padding** (line 206) from `pb-12 md:pb-16` to `pb-24 md:pb-28`
-- Uses existing icons from lucide-react (`AlertTriangle`, `CheckCircle2`), no new dependencies
+1. **Generate 4 images** using the AI image generation API and save them to `src/assets/` (e.g., `problem-linen.jpg`, `problem-workwear.jpg`, `problem-hygiene.jpg`, `problem-surge.jpg`)
+
+2. **Update `problemSolutions` array** (lines 58-79): Add an `image` field to each object with the imported image path
+
+3. **Replace services grid JSX** (lines 233-271): New interactive card component with:
+   - `useState` to track the active/flipped card index (`activeCard: number | null`)
+   - Each card renders conditionally based on whether it's flipped
+   - Problem state: `div` with background image, dark gradient overlay (`bg-gradient-to-r from-black/70 to-black/50`), white text, and a "See How We Solve It" button
+   - Solution state: Clean tile with `bg-primary/5`, solution content, and a "Back" button
+   - `AnimatePresence` with `motion.div` for smooth enter/exit transitions between states
+   - Cards use `rounded-2xl overflow-hidden` with `min-h-[200px]` for consistent sizing
+
+4. **No new dependencies** -- uses existing framer-motion and lucide-react
 
