@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { motion, useScroll, useTransform, useInView, AnimatePresence } from "framer-motion";
 import {
   Bed, Layers, Bath, HardHat, Package, Truck, ShieldCheck, TrendingUp, MapPin, Building2, Clock,
@@ -160,8 +159,11 @@ const ProcessStep = ({ step, index }: { step: typeof processSteps[0]; index: num
   );
 };
 
+const scrollTo = (target: string) => {
+  document.getElementById(target)?.scrollIntoView({ behavior: "smooth" });
+};
+
 const Index = () => {
-  const navigate = useNavigate();
   const { toast } = useToast();
   const [submitting, setSubmitting] = useState(false);
   const [activeTestimonial, setActiveTestimonial] = useState(0);
@@ -187,8 +189,8 @@ const Index = () => {
         }
         subtitle="End-to-end linen supply, laundering, finishing, packing, and scheduled delivery — purpose-built for accommodation, hospitality, and industrial clients."
         actions={[
-          { text: "Get In Touch", onClick: () => navigate("/contact") },
-          { text: "Our Services", onClick: () => navigate("/services"), variant: "outline" as const },
+          { text: "Get In Touch", onClick: () => scrollTo("contact") },
+          { text: "Our Services", onClick: () => scrollTo("services"), variant: "outline" as const },
         ]}
         stats={[
           { value: "5,000+", label: "Pieces Daily", icon: <Layers className="h-5 w-5" /> },
@@ -199,7 +201,7 @@ const Index = () => {
       />
 
       {/* ═══ Services — DARK section with staggered grid ═══ */}
-      <section className="relative py-24 md:py-32 overflow-hidden bg-gradient-to-b from-secondary/30 to-secondary/50">
+      <section id="services" className="relative py-24 md:py-32 overflow-hidden bg-gradient-to-b from-secondary/30 to-secondary/50">
         
         {/* Organic background blobs */}
         <div className="pointer-events-none absolute inset-0">
@@ -415,7 +417,7 @@ const Index = () => {
       </section>
 
       {/* ═══ About Snippet — Asymmetric 40/60 ═══ */}
-      <section className="relative py-24 md:py-32 overflow-hidden">
+      <section id="about" className="relative py-24 md:py-32 overflow-hidden">
         {/* Flowing gradient shape connecting to CTA */}
         <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-b from-transparent via-primary/3 to-primary/8" />
         <div className="container relative z-10">
@@ -485,8 +487,8 @@ const Index = () => {
                   to deliver reliable, high-quality linen and laundry services to the region's accommodation,
                   hospitality, and industrial sectors.
                 </p>
-                <Button asChild variant="outline" size="lg">
-                  <Link to="/about">Learn More About Us</Link>
+                <Button variant="outline" size="lg" onClick={() => scrollTo("services")}>
+                  Explore Our Services
                 </Button>
               </motion.div>
             </div>
@@ -495,7 +497,7 @@ const Index = () => {
       </section>
 
       {/* ═══ CTA with Inline Contact Form ═══ */}
-      <section className="relative overflow-hidden">
+      <section id="contact" className="relative overflow-hidden">
         {/* Top wave divider */}
         <div className="absolute -top-1 left-0 right-0 overflow-hidden leading-[0] rotate-180 z-10">
           <svg className="relative block w-full h-12 md:h-20" viewBox="0 0 1200 120" preserveAspectRatio="none">

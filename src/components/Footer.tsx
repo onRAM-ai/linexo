@@ -1,8 +1,22 @@
-import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin, Facebook, Instagram, Linkedin } from "lucide-react";
 import BrandName from "@/components/BrandName";
 
 const serviceAreas = ["Kalgoorlie-Boulder", "Coolgardie", "Kambalda", "Leonora", "Laverton"];
+
+const scrollTo = (target: string) => {
+  if (target === "top") {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  } else {
+    document.getElementById(target)?.scrollIntoView({ behavior: "smooth" });
+  }
+};
+
+const quickLinks = [
+  { label: "Home", target: "top" },
+  { label: "Services", target: "services" },
+  { label: "About", target: "about" },
+  { label: "Contact", target: "contact" },
+];
 
 const Footer = () => (
   <footer className="bg-foreground text-primary-foreground">
@@ -10,9 +24,9 @@ const Footer = () => (
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-5">
         {/* Brand */}
         <div className="space-y-4 lg:col-span-2">
-          <Link to="/" className="text-xl font-bold">
+          <button onClick={() => scrollTo("top")} className="text-xl font-bold">
             <BrandName />
-          </Link>
+          </button>
           <p className="text-sm text-primary-foreground/70">
             Goldfields' premier commercial laundry and linen-hire specialist.
           </p>
@@ -33,15 +47,14 @@ const Footer = () => (
         <div>
           <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-primary">Quick Links</h4>
           <nav className="flex flex-col gap-2">
-            {[
-              { label: "Home", to: "/" },
-              { label: "About", to: "/about" },
-              { label: "Services", to: "/services" },
-              { label: "Contact", to: "/contact" },
-            ].map((link) => (
-              <Link key={link.to} to={link.to} className="text-sm text-primary-foreground/70 transition-colors hover:text-primary">
+            {quickLinks.map((link) => (
+              <button
+                key={link.target}
+                onClick={() => scrollTo(link.target)}
+                className="text-sm text-primary-foreground/70 transition-colors hover:text-primary text-left"
+              >
                 {link.label}
-              </Link>
+              </button>
             ))}
           </nav>
         </div>
