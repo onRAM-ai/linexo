@@ -1,19 +1,17 @@
 
 
-## Sharpen Pain Points & Solutions (Dan Kennedy Style)
+## Unify Solution Overlay Background & Full-Tile Hover Slide
 
-Rewrite the `problemSolutions` array in `src/pages/Index.tsx` (lines 63-88) with shorter, punchier copy. Dan Kennedy's approach: lead with the emotional cost, make it sting, then deliver a clear, specific solution promise.
+### What Changes
 
-### Updated Copy
+1. **Consistent overlay background**: All four cards currently use varying opacities (`bg-primary`, `bg-primary/85`, `bg-primary/70`, `bg-primary/60`). Remove the `overlayOpacities` array and use `bg-primary` (solid, 100% opacity) for all cards -- matching the Linen Hire card.
 
-| # | Pain Point (Problem) | Solution Title | Solution |
-|---|---|---|---|
-| 1 | "Late linen. Wrinkled sheets. Guests checking in — and you've got nothing ready." | Linen Hire & Delivery | Scheduled pickup and delivery. 24-48hr turnaround. Guest-ready every time. |
-| 2 | "Workwear comes back dirty. Or takes a week. Either way, you're exposed." | Industrial Workwear Processing | Commercial-grade cleaning for PPE and overalls. Express turnaround on demand. |
-| 3 | "One hygiene complaint could cost you the contract. Are you sure it's actually clean?" | Hygienic Sealed Packaging | Commercially laundered and heat-sealed in packaging. Audit-ready on arrival. |
-| 4 | "Bookings surge. Your supplier can't keep up. Rooms sit empty." | Surge & Emergency Processing | Built to scale from 50 to 5,000+ pieces daily. Emergency processing when you need it. |
+2. **Full-tile slide on hover**: Change the solution overlay animation so it slides from `30%` height (default) to `100%` height on hover, covering the entire card instead of stopping at `65%`.
 
-### Technical Change
+### Technical Details (src/pages/Index.tsx)
 
-- Edit the `problemSolutions` array (lines 63-88) in `src/pages/Index.tsx` with the updated copy above. No structural or component changes needed.
+- **Line 247**: Remove the `overlayOpacities` array entirely.
+- **Line 288**: Replace `${overlayOpacities[i]}` with just `bg-primary` so all cards share the same solid background.
+- **Line 291**: Change the hover height from `'65%'` to `'100%'` so the overlay slides across the full tile.
+- **Line 288**: Remove `rounded-t-2xl` from the overlay since at 100% height the card's own `rounded-2xl` handles the corners.
 
