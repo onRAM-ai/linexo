@@ -23,6 +23,7 @@ import problemWorkwearImg from "@/assets/problem-workwear.jpg";
 import problemHygieneImg from "@/assets/problem-hygiene.jpg";
 import problemSurgeImg from "@/assets/problem-surge.jpg";
 import React from "react";
+import linexoLogoFull from "@/assets/linexo-logo-full.png";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -206,6 +207,7 @@ const Index = () => {
     <Layout>
       {/* Hero */}
       <HeroSection
+        logo={linexoLogoFull}
         title={
           <>
             Goldfields' Premier{" "}
