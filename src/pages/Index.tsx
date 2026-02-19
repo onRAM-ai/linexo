@@ -238,8 +238,10 @@ const Index = () => {
         <div className="container relative z-10">
           <div className="mx-auto mb-8 max-w-2xl text-center">
             
-            <h2 className="text-4xl font-bold md:text-5xl lg:text-6xl text-foreground">Problems We Solve</h2>
-            <div className="mx-auto mt-3 h-1 w-24 rounded-full bg-primary" />
+            <div className="inline-block">
+              <h2 className="text-4xl font-bold md:text-5xl lg:text-6xl text-foreground">Problems We Solve</h2>
+              <div className="mt-3 h-1 w-full rounded-full bg-primary" />
+            </div>
             <p className="mt-4 text-muted-foreground text-lg">Every service exists because we've seen what happens when it's done badly.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -359,8 +361,10 @@ const Index = () => {
         <div className="container relative z-10">
           <div className="mx-auto mb-8 max-w-2xl text-center">
             
-            <h2 className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">How It Works</h2>
-            <div className="mx-auto mt-3 h-1 w-24 rounded-full bg-primary" />
+            <div className="inline-block">
+              <h2 className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">How It Works</h2>
+              <div className="mt-3 h-1 w-full rounded-full bg-primary" />
+            </div>
           </div>
           <div ref={processRef} className="relative mx-auto max-w-5xl">
             {/* Animated connecting SVG wave path */}
@@ -400,8 +404,10 @@ const Index = () => {
         <div className="container relative z-10">
           <div className="mx-auto mb-8 max-w-2xl text-center">
             
-            <h2 className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">Why <span className="text-primary">LIN</span><span className="text-accent">EXO</span>?</h2>
-            <div className="mx-auto mt-3 h-1 w-24 rounded-full bg-primary" />
+            <div className="inline-block">
+              <h2 className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">Why <span className="text-primary">LIN</span><span className="text-accent">EXO</span>?</h2>
+              <div className="mt-3 h-1 w-full rounded-full bg-primary" />
+            </div>
           </div>
           <div className="mx-auto max-w-3xl space-y-8">
             {values.map((v, i) => (
@@ -439,8 +445,10 @@ const Index = () => {
         <div className="container relative z-10">
           <div className="mx-auto mb-8 max-w-2xl text-center">
             
-            <h2 className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">Sectors We Serve</h2>
-            <div className="mx-auto mt-3 h-1 w-24 rounded-full bg-primary" />
+            <div className="inline-block">
+              <h2 className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">Sectors We Serve</h2>
+              <div className="mt-3 h-1 w-full rounded-full bg-primary" />
+            </div>
           </div>
           <div className="grid gap-6 md:grid-cols-3 md:-space-x-3">
             {sectors.map((s, i) => (
