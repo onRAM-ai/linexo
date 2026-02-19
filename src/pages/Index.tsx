@@ -465,7 +465,7 @@ const Index = () => {
                   rotateY: i === 0 ? 2 : i === 2 ? -2 : 0,
                   transition: { duration: 0.4, ease: EASE },
                 }}
-                className={`group relative overflow-hidden rounded-2xl ${s.bg} ${s.text} p-10 shadow-xl transition-shadow duration-500 hover:shadow-2xl min-h-[300px] flex flex-col justify-end`}
+                className={`group relative overflow-hidden rounded-2xl ${s.bg} ${s.text} p-10 shadow-xl transition-shadow duration-500 hover:shadow-2xl min-h-[300px] flex flex-col justify-start`}
                 style={{ perspective: "1000px" }}
               >
                 <div className="relative z-10">
