@@ -487,7 +487,7 @@ const Index = () => {
           <div className="mb-10 flex items-center gap-4">
             <div className="h-px flex-1 bg-border" />
             <p className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground font-sans">
-              Proven Contract Experience
+              Trusted by the Goldfields
             </p>
             <div className="h-px flex-1 bg-border" />
           </div>
