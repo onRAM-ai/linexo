@@ -60,32 +60,32 @@ const scaleIn = {
   }),
 };
 
-const problemSolutions = [
-  {
-    problem: "You're scrambling before guests check in because linen arrived late, wrinkled, or not at all.",
-    solutionTitle: "Linen Hire, Finishing & Delivery",
-    solution: "Fixed-schedule pickup and delivery with 24–48hr turnaround. Sheets, pillowcases, and duvet covers — pressed, folded, and guest-ready every time.",
-    image: problemLinenImg,
-  },
-  {
-    problem: "Your workwear comes back still dirty or takes a week to process — putting your crew and compliance at risk.",
-    solutionTitle: "Industrial Workwear Processing",
-    solution: "Commercial-grade processing for PPE, overalls, and heavy-duty garments. Express turnaround available on demand.",
-    image: problemWorkwearImg,
-  },
-  {
-    problem: "You're never sure if your linen is actually clean — and one hygiene complaint could cost you your contract.",
-    solutionTitle: "Heat-Sealed Hygienic Packaging",
-    solution: "Every item commercially laundered and continuously heat-sealed in packaging — so it arrives hygienically protected and audit-ready.",
-    image: problemHygieneImg,
-  },
-  {
-    problem: "A sudden booking surge hits and your linen supplier can't keep up — leaving rooms unserviced.",
-    solutionTitle: "Surge & Emergency Processing",
-    solution: "Purpose-built to scale from 50 to 5,000+ pieces daily. Emergency and priority processing available when you need it most.",
-    image: problemSurgeImg,
-  },
-];
+  const problemSolutions = [
+    {
+      problem: "Late linen. Wrinkled sheets. Guests checking in — and you've got nothing ready.",
+      solutionTitle: "Linen Hire & Delivery",
+      solution: "Scheduled pickup and delivery. 24-48hr turnaround. Guest-ready every time.",
+      image: problemLinenImg,
+    },
+    {
+      problem: "Workwear comes back dirty. Or takes a week. Either way, you're exposed.",
+      solutionTitle: "Industrial Workwear Processing",
+      solution: "Commercial-grade cleaning for PPE and overalls. Express turnaround on demand.",
+      image: problemWorkwearImg,
+    },
+    {
+      problem: "One hygiene complaint could cost you the contract. Are you sure it's actually clean?",
+      solutionTitle: "Hygienic Sealed Packaging",
+      solution: "Commercially laundered and heat-sealed in packaging. Audit-ready on arrival.",
+      image: problemHygieneImg,
+    },
+    {
+      problem: "Bookings surge. Your supplier can't keep up. Rooms sit empty.",
+      solutionTitle: "Surge & Emergency Processing",
+      solution: "Built to scale from 50 to 5,000+ pieces daily. Emergency processing when you need it.",
+      image: problemSurgeImg,
+    },
+  ];
 
 const values = [
   { icon: ShieldCheck, title: "Reliability", desc: "24–48 hour standard turnaround with express and priority processing available. You'll never be left waiting." },
