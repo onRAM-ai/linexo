@@ -99,7 +99,7 @@ const processSteps = [
   { icon: Bath, label: "Wash", desc: "Commercial-grade laundering" },
   { icon: Layers, label: "Finish", desc: "Quality checked & finished to spec" },
   { icon: Package, label: "Pack", desc: "Hygienic packaging" },
-  { icon: ArrowRight, label: "Deliver", desc: "On-time return to your door" },
+  { icon: ArrowRight, label: "Deliver or Pickup", desc: "Delivered to your site or ready for pickup at our facility" },
 ];
 
 const sectors = [
