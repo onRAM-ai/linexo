@@ -244,7 +244,7 @@ const Index = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {problemSolutions.map((pair, i) => {
               const isHovered = hoveredCard === i;
-              const overlayOpacities = ['bg-primary', 'bg-primary/85', 'bg-primary/70', 'bg-primary/60'];
+              
               return (
                 <motion.div
                   key={pair.solutionTitle}
@@ -285,10 +285,10 @@ const Index = () => {
 
                   {/* Colored solution overlay panel */}
                   <motion.div
-                    className={`absolute inset-x-0 bottom-0 ${overlayOpacities[i]} rounded-t-2xl p-6 flex flex-col justify-end z-20`}
+                    className="absolute inset-x-0 bottom-0 bg-primary p-6 flex flex-col justify-end z-20"
                     initial={false}
                     animate={{
-                      height: isHovered ? '65%' : '30%',
+                      height: isHovered ? '100%' : '30%',
                     }}
                     transition={{ duration: 0.45, ease: EASE }}
                   >
