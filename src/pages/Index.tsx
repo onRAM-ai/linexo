@@ -285,7 +285,7 @@ const Index = () => {
 
                   {/* Colored solution overlay panel */}
                   <motion.div
-                    className="absolute inset-x-0 bottom-0 bg-primary p-6 flex flex-col justify-end z-20"
+                    className="absolute inset-x-0 bottom-0 bg-primary p-6 flex flex-col justify-center z-20"
                     initial={false}
                     animate={{
                       height: isHovered ? '100%' : '30%',
