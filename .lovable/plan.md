@@ -1,17 +1,17 @@
 
 
-## Update "How It Works" to Include Drop-Off Option
+## Update "Deliver" Step to Include Pickup Option
 
-Currently the first step says "Collect" with "Scheduled pickup from your premises". We'll update it to communicate both collection and drop-off options.
+Update the last process step in the "How It Works" section to communicate that customers can also pick up their items, not just have them delivered.
 
 ### Change in `src/pages/Index.tsx`
 
-Update the first process step (line 98) from:
+Update the "Deliver" step (line 100) from:
 
 | Field | Current | New |
 |-------|---------|-----|
-| label | "Collect" | "Collect or Drop Off" |
-| desc | "Scheduled pickup from your premises" | "We collect from your site or accept drop-offs at our facility" |
+| label | "Deliver" | "Deliver or Pickup" |
+| desc | "Returned on your schedule" | "Delivered to your site or ready for pickup at our facility" |
 
-The icon (`Truck`) stays the same. All other steps remain unchanged.
+The icon (`RotateCcw`) and all other steps remain unchanged.
 
