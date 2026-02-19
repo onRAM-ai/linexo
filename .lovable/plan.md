@@ -1,13 +1,17 @@
 
 
-## Update Hero Truck Image
+## Update "Deliver" Step to Include Pickup Option
 
-Replace the current `src/assets/hero-laundry-3.jpg` with a new AI-generated image of a commercial laundry delivery truck driving on an open outback road with the iconic Kalgoorlie red desert landscape in the background.
+Update the last process step in the "How It Works" section to communicate that customers can also pick up their items, not just have them delivered.
 
-### Steps
+### Change in `src/pages/Index.tsx`
 
-1. **Generate new image** using the Nano banana pro model with a prompt describing a commercial delivery truck on an open Australian outback highway, red dirt/desert terrain, clear blue sky -- styled to match the Kalgoorlie/Goldfields region.
-2. **Replace** the file `src/assets/hero-laundry-3.jpg` with the generated image.
+Update the "Deliver" step (line 100) from:
 
-No code changes are needed since the file path remains the same.
+| Field | Current | New |
+|-------|---------|-----|
+| label | "Deliver" | "Deliver or Pickup" |
+| desc | "Returned on your schedule" | "Delivered to your site or ready for pickup at our facility" |
+
+The icon (`RotateCcw`) and all other steps remain unchanged.
 
