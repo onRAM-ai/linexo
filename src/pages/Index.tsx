@@ -267,24 +267,28 @@ const Index = () => {
                   {/* Dark gradient over image */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-black/20" />
 
-                  {/* Pain-point quote (visible on hover) */}
+                  {/* Pain-point quote (visible by default, hidden on hover) */}
                   <motion.div
                     className="absolute inset-x-0 top-0 p-6 z-10"
                     initial={false}
-                    animate={{ opacity: isHovered ? 1 : 0, y: isHovered ? 0 : -10 }}
+                    animate={{ opacity: isHovered ? 0 : 1, y: isHovered ? -10 : 0 }}
                     transition={{ duration: 0.35, ease: EASE }}
                   >
+                    <div className="flex items-center gap-2 mb-2">
+                      <AlertTriangle className="h-4 w-4 text-yellow-400 shrink-0" />
+                      <span className="text-xs font-bold uppercase tracking-[0.12em] text-primary-foreground/70">Pain Point</span>
+                    </div>
                     <p className="text-primary-foreground text-sm md:text-base font-medium leading-relaxed italic">
                       "{pair.problem}"
                     </p>
                   </motion.div>
 
-                  {/* Colored overlay panel */}
+                  {/* Colored solution overlay panel */}
                   <motion.div
                     className={`absolute inset-x-0 bottom-0 ${overlayOpacities[i]} rounded-t-2xl p-6 flex flex-col justify-end z-20`}
                     initial={false}
                     animate={{
-                      height: isHovered ? '30%' : '65%',
+                      height: isHovered ? '65%' : '30%',
                     }}
                     transition={{ duration: 0.45, ease: EASE }}
                   >
@@ -298,7 +302,7 @@ const Index = () => {
                         <motion.p
                           className="text-primary-foreground/80 text-sm leading-relaxed"
                           initial={false}
-                          animate={{ opacity: isHovered ? 0 : 1, height: isHovered ? 0 : 'auto' }}
+                          animate={{ opacity: isHovered ? 1 : 0, height: isHovered ? 'auto' : 0 }}
                           transition={{ duration: 0.3 }}
                         >
                           {pair.solution}
