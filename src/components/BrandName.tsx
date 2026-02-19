@@ -1,8 +1,7 @@
+import linexoIcon from "@/assets/linexo-icon-logo.png";
+
 const BrandName = ({ className = "" }: { className?: string }) => (
-  <span className={className}>
-    <span className="text-primary">LIN</span>
-    <span className="text-accent">EXO</span>
-  </span>
+  <img src={linexoIcon} alt="LinExo" className={`h-10 w-auto ${className}`} />
 );
 
 export default BrandName;
