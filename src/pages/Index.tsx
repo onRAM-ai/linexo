@@ -237,7 +237,7 @@ const Index = () => {
         </div>
         <div className="container relative z-10">
           <div className="mx-auto mb-8 max-w-2xl text-center">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary font-sans">What We Solve</p>
+            
             <h2 className="text-4xl font-bold md:text-5xl lg:text-6xl text-foreground">Problems We Solve</h2>
             <p className="mt-4 text-muted-foreground text-lg">Every service exists because we've seen what happens when it's done badly.</p>
           </div>
@@ -357,7 +357,7 @@ const Index = () => {
         </div>
         <div className="container relative z-10">
           <div className="mx-auto mb-8 max-w-2xl text-center">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary font-sans">Our Process</p>
+            
             <h2 className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">How It Works</h2>
           </div>
           <div ref={processRef} className="relative mx-auto max-w-5xl">
@@ -397,7 +397,7 @@ const Index = () => {
         </div>
         <div className="container relative z-10">
           <div className="mx-auto mb-8 max-w-2xl text-center">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary font-sans">Our Promise</p>
+            
             <h2 className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">Why <span className="text-primary">LIN</span><span className="text-accent">EXO</span>?</h2>
           </div>
           <div className="mx-auto max-w-3xl space-y-8">
@@ -435,7 +435,7 @@ const Index = () => {
         </div>
         <div className="container relative z-10">
           <div className="mx-auto mb-8 max-w-2xl text-center">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-primary font-sans">Industries</p>
+            
             <h2 className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">Sectors We Serve</h2>
           </div>
           <div className="grid gap-6 md:grid-cols-3 md:-space-x-3">
