@@ -1,23 +1,19 @@
 
 
-## Add Blue Underline to Section Headings
+## Remove Section Label Headers
 
-Add a decorative blue underline beneath each section's `<h2>` heading, matching the primary blue used across the site.
+Remove the small uppercase label text that appears above each section's main heading. These are the blue "WHAT WE SOLVE", "OUR PROCESS", "OUR PROMISE", and "INDUSTRIES" labels.
 
 ### Changes in `src/pages/Index.tsx`
 
-For each of the 4 section headings ("Problems We Solve", "How It Works", "Why LinExo?", "Sectors We Serve"), wrap or follow the `<h2>` with a centered blue bar element:
+Remove the following 4 lines (the `<p>` tags with uppercase tracking labels):
 
-```html
-<div className="mx-auto mt-3 h-1 w-24 rounded-full bg-primary" />
-```
+| Line | Text to Remove |
+|------|---------------|
+| 240 | `What We Solve` |
+| 360 | `Our Process` |
+| 400 | `Our Promise` |
+| 438 | `Industries` |
 
-This adds a small, rounded, primary-blue bar centered below each heading. The lines to modify are approximately:
-
-- After the "Problems We Solve" `<h2>` (~line 238)
-- After the "How It Works" `<h2>` (~line 359)
-- After the "Why LinExo?" `<h2>` (~line 399)
-- After the "Sectors We Serve" `<h2>` (~line 437)
-
-No new dependencies or files needed.
+Each section will keep its main `<h2>` heading (e.g., "Problems We Solve", "How It Works", "Why LinExo?", "Sectors We Serve") and any subtitle text below it. Only the small blue uppercase labels above them will be removed.
 

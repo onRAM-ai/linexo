@@ -95,17 +95,17 @@ const values = [
 ];
 
 const processSteps = [
-  { icon: Truck, label: "Collect or Drop Off", desc: "We collect from your site or accept drop-offs at our facility" },
+  { icon: Truck, label: "Collect", desc: "Scheduled pickup from your premises" },
   { icon: Bath, label: "Wash", desc: "Commercial-grade laundering" },
   { icon: Layers, label: "Finish", desc: "Quality checked & finished to spec" },
   { icon: Package, label: "Pack", desc: "Hygienic packaging" },
-  { icon: ArrowRight, label: "Deliver or Pickup", desc: "Delivered to your site or ready for pickup at our facility" },
+  { icon: ArrowRight, label: "Deliver", desc: "On-time return to your door" },
 ];
 
 const sectors = [
-  { icon: Pickaxe, title: "Industrial & Mining", desc: "Mining camps and industrial sites — heavy-duty workwear, PPE, and overalls with surge capacity.", bg: "bg-primary", text: "text-primary-foreground" },
-  { icon: Hotel, title: "Accommodation", desc: "Hotels, serviced apartments, and short-stay providers — premium linen hire with reliable turnaround.", bg: "bg-primary/85", text: "text-primary-foreground" },
-  { icon: UtensilsCrossed, title: "Hospitality", desc: "Restaurants, pubs, and event venues — tablecloths, napkins, and service textiles laundered to standard.", bg: "bg-primary/70", text: "text-primary-foreground" },
+  { icon: Hotel, title: "Accommodation", desc: "Hotels, serviced apartments, and short-stay providers — premium linen hire with reliable turnaround.", bg: "bg-primary", text: "text-primary-foreground" },
+  { icon: UtensilsCrossed, title: "Hospitality", desc: "Restaurants, pubs, and event venues — tablecloths, napkins, and service textiles laundered to standard.", bg: "bg-primary/85", text: "text-primary-foreground" },
+  { icon: Pickaxe, title: "Industrial & Mining", desc: "Mining camps and industrial sites — heavy-duty workwear, PPE, and overalls with surge capacity.", bg: "bg-primary/70", text: "text-primary-foreground" },
 ];
 
 const contractCredentials = [
@@ -238,10 +238,7 @@ const Index = () => {
         <div className="container relative z-10">
           <div className="mx-auto mb-8 max-w-2xl text-center">
             
-            <div className="inline-block">
-              <h2 className="text-4xl font-bold md:text-5xl lg:text-6xl text-foreground">Problems We Solve</h2>
-              <div className="mt-3 h-1 w-full rounded-full bg-primary" />
-            </div>
+            <h2 className="text-4xl font-bold md:text-5xl lg:text-6xl text-foreground">Problems We Solve</h2>
             <p className="mt-4 text-muted-foreground text-lg">Every service exists because we've seen what happens when it's done badly.</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -361,10 +358,7 @@ const Index = () => {
         <div className="container relative z-10">
           <div className="mx-auto mb-8 max-w-2xl text-center">
             
-            <div className="inline-block">
-              <h2 className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">How It Works</h2>
-              <div className="mt-3 h-1 w-full rounded-full bg-primary" />
-            </div>
+            <h2 className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">How It Works</h2>
           </div>
           <div ref={processRef} className="relative mx-auto max-w-5xl">
             {/* Animated connecting SVG wave path */}
@@ -404,10 +398,7 @@ const Index = () => {
         <div className="container relative z-10">
           <div className="mx-auto mb-8 max-w-2xl text-center">
             
-            <div className="inline-block">
-              <h2 className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">Why <span className="text-primary">LIN</span><span className="text-accent">EXO</span>?</h2>
-              <div className="mt-3 h-1 w-full rounded-full bg-primary" />
-            </div>
+            <h2 className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">Why <span className="text-primary">LIN</span><span className="text-accent">EXO</span>?</h2>
           </div>
           <div className="mx-auto max-w-3xl space-y-8">
             {values.map((v, i) => (
@@ -445,10 +436,7 @@ const Index = () => {
         <div className="container relative z-10">
           <div className="mx-auto mb-8 max-w-2xl text-center">
             
-            <div className="inline-block">
-              <h2 className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">Sectors We Serve</h2>
-              <div className="mt-3 h-1 w-full rounded-full bg-primary" />
-            </div>
+            <h2 className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">Sectors We Serve</h2>
           </div>
           <div className="grid gap-6 md:grid-cols-3 md:-space-x-3">
             {sectors.map((s, i) => (
@@ -465,7 +453,7 @@ const Index = () => {
                   rotateY: i === 0 ? 2 : i === 2 ? -2 : 0,
                   transition: { duration: 0.4, ease: EASE },
                 }}
-                className={`group relative overflow-hidden rounded-2xl ${s.bg} ${s.text} p-10 shadow-xl transition-shadow duration-500 hover:shadow-2xl min-h-[300px] flex flex-col justify-start`}
+                className={`group relative overflow-hidden rounded-2xl ${s.bg} ${s.text} p-10 shadow-xl transition-shadow duration-500 hover:shadow-2xl min-h-[300px] flex flex-col justify-end`}
                 style={{ perspective: "1000px" }}
               >
                 <div className="relative z-10">
@@ -487,7 +475,7 @@ const Index = () => {
           <div className="mb-10 flex items-center gap-4">
             <div className="h-px flex-1 bg-border" />
             <p className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground font-sans">
-              Trusted by the Goldfields
+              Proven Contract Experience
             </p>
             <div className="h-px flex-1 bg-border" />
           </div>
