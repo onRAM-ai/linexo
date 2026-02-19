@@ -15,7 +15,7 @@ import Layout from "@/components/Layout";
 import HeroSection from "@/components/HeroSection";
 import AnimatedCounter from "@/components/AnimatedCounter";
 import SectionDivider from "@/components/SectionDivider";
-import heroImg1 from "@/assets/hero-laundry-1.jpg";
+import heroImg1 from "@/assets/hero-laundry-1.png";
 import heroImg2 from "@/assets/hero-laundry-2.jpg";
 import heroImg3 from "@/assets/hero-laundry-3.jpg";
 import problemLinenImg from "@/assets/problem-linen.jpg";
