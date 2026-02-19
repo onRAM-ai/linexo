@@ -326,7 +326,7 @@ const Index = () => {
           transition={{ duration: 0.8, ease: EASE }}
           className="glass-strong mx-auto max-w-5xl rounded-3xl px-8 py-10 md:py-12"
         >
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+          <div className="flex flex-wrap justify-center gap-8 md:gap-16">
             {statBandItems.map((stat, i) => (
               <motion.div
                 key={stat.label}
