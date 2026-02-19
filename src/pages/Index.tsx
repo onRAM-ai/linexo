@@ -95,7 +95,7 @@ const values = [
 ];
 
 const processSteps = [
-  { icon: Truck, label: "Collect", desc: "Scheduled pickup from your premises" },
+  { icon: Truck, label: "Collect or Drop Off", desc: "We collect from your site or accept drop-offs at our facility" },
   { icon: Bath, label: "Wash", desc: "Commercial-grade laundering" },
   { icon: Layers, label: "Finish", desc: "Quality checked & finished to spec" },
   { icon: Package, label: "Pack", desc: "Hygienic packaging" },
