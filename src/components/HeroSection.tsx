@@ -25,6 +25,7 @@ interface HeroSectionProps {
   actions: ActionProps[];
   stats: StatProps[];
   images: string[];
+  logo?: string;
   className?: string;
 }
 
@@ -67,7 +68,7 @@ function parseStatValue(value: string) {
   };
 }
 
-const HeroSection = ({ title, subtitle, actions, stats, images, className }: HeroSectionProps) => {
+const HeroSection = ({ title, subtitle, actions, stats, images, logo, className }: HeroSectionProps) => {
   const sectionRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -115,6 +116,15 @@ const HeroSection = ({ title, subtitle, actions, stats, images, className }: Her
         <div className="grid items-center gap-12 lg:grid-cols-2">
           {/* Left Column */}
           <div className="flex flex-col gap-7">
+            {logo && (
+              <motion.div variants={itemVariants}>
+                <img
+                  src={logo}
+                  alt="LinExo logo"
+                  className="max-w-[200px] md:max-w-[280px] h-auto"
+                />
+              </motion.div>
+            )}
             <motion.h1
               variants={itemVariants}
               className="text-4xl font-extrabold leading-[1.05] tracking-tight text-foreground md:text-5xl lg:text-6xl xl:text-7xl"
