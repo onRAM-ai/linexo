@@ -12,14 +12,14 @@ const scrollTo = (target: string) => {
 };
 
 const quickLinks = [
-  { label: "Home", target: "top" },
-  { label: "Services", target: "services" },
-  { label: "About", target: "about" },
-  { label: "Contact", target: "contact" },
-];
+{ label: "Home", target: "top" },
+{ label: "Services", target: "services" },
+{ label: "About", target: "about" },
+{ label: "Contact", target: "contact" }];
 
-const Footer = () => (
-  <footer className="bg-foreground text-primary-foreground">
+
+const Footer = () =>
+<footer className="bg-foreground text-primary-foreground">
     <div className="container py-12">
       <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-5">
         {/* Brand */}
@@ -35,11 +35,11 @@ const Footer = () => (
           </p>
           {/* Social Icons */}
           <div className="flex gap-3 pt-2">
-            {[Facebook, Instagram, Linkedin].map((Icon, i) => (
-              <a key={i} href="#" className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-foreground/10 text-primary-foreground/60 transition-colors hover:bg-primary hover:text-primary-foreground">
+            {[Facebook, Instagram, Linkedin].map((Icon, i) =>
+          <a key={i} href="#" className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-foreground/10 text-primary-foreground/60 transition-colors hover:bg-primary hover:text-primary-foreground">
                 <Icon className="h-4 w-4" />
               </a>
-            ))}
+          )}
           </div>
         </div>
 
@@ -47,15 +47,15 @@ const Footer = () => (
         <div>
           <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-primary">Quick Links</h4>
           <nav className="flex flex-col gap-2">
-            {quickLinks.map((link) => (
-              <button
-                key={link.target}
-                onClick={() => scrollTo(link.target)}
-                className="text-sm text-primary-foreground/70 transition-colors hover:text-primary text-left"
-              >
+            {quickLinks.map((link) =>
+          <button
+            key={link.target}
+            onClick={() => scrollTo(link.target)}
+            className="text-sm text-primary-foreground/70 transition-colors hover:text-primary text-left">
+
                 {link.label}
               </button>
-            ))}
+          )}
           </nav>
         </div>
 
@@ -63,9 +63,9 @@ const Footer = () => (
         <div>
           <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-primary">Service Area</h4>
           <ul className="flex flex-col gap-2">
-            {serviceAreas.map((area) => (
-              <li key={area} className="text-sm text-primary-foreground/70">{area}</li>
-            ))}
+            {serviceAreas.map((area) =>
+          <li key={area} className="text-sm text-primary-foreground/70">{area}</li>
+          )}
           </ul>
         </div>
 
@@ -80,11 +80,11 @@ const Footer = () => (
         </div>
       </div>
 
-      <div className="mt-10 border-t border-primary-foreground/10 pt-6 text-center text-xs text-primary-foreground/50">
-        © {new Date().getFullYear()} <BrandName />. All rights reserved.
-      </div>
+      
+
+
     </div>
-  </footer>
-);
+  </footer>;
+
 
 export default Footer;
