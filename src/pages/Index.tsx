@@ -75,8 +75,8 @@ const scaleIn = {
     },
     {
       problem: "One hygiene complaint could cost you the contract. Are you sure it's actually clean?",
-      solutionTitle: "Hygienic Sealed Packaging",
-      solution: "Commercially laundered and heat-sealed in packaging. Audit-ready on arrival.",
+      solutionTitle: "Hygienic Packaging",
+      solution: "Commercially laundered in hygienic packaging. Audit-ready on arrival.",
       image: problemHygieneImg,
     },
     {
@@ -98,7 +98,7 @@ const processSteps = [
   { icon: Truck, label: "Collect", desc: "Scheduled pickup from your premises" },
   { icon: Bath, label: "Wash", desc: "Commercial-grade laundering" },
   { icon: Layers, label: "Finish", desc: "Ironed, folded & pressed" },
-  { icon: Package, label: "Pack", desc: "Heat-sealed hygienic packaging" },
+  { icon: Package, label: "Pack", desc: "Hygienic packaging" },
   { icon: ArrowRight, label: "Deliver", desc: "On-time return to your door" },
 ];
 
@@ -119,7 +119,7 @@ const serviceOptions = [
   "Flatwork Finishing",
   "Towels & Hospitality Textiles",
   "Industrial Workwear & PPE",
-  "Heat-Sealed Packaging",
+  "Hygienic Packaging",
   "Scheduled Pickup & Delivery",
   "Emergency Processing",
   "Other",
