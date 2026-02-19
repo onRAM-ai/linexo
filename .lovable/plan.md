@@ -1,17 +1,16 @@
 
 
-## Remove "Heat-Sealed" References Across Codebase
+## Update "Finish" Step Description
 
-All instances are in `src/pages/Index.tsx`. Three changes needed:
+Only one line needs changing in `src/pages/Index.tsx`:
 
-### Changes
+### Change
 
 | Line | Current | Updated |
 |------|---------|---------|
-| 78 | `"Hygienic Sealed Packaging"` | `"Hygienic Packaging"` |
-| 79 | `"Commercially laundered and heat-sealed in packaging. Audit-ready on arrival."` | `"Commercially laundered in hygienic packaging. Audit-ready on arrival."` |
-| 101 | `"Heat-sealed hygienic packaging"` | `"Hygienic packaging"` |
-| 122 | `"Heat-Sealed Packaging"` | `"Hygienic Packaging"` |
+| 100 | `"Ironed, folded & pressed"` | `"Quality checked & finished to spec"` |
 
-No structural or component changes -- just text updates across four lines in one file.
+This replaces the inaccurate "ironed, folded & pressed" with language that still communicates professional finishing and quality without claiming specific processes they don't offer.
+
+No other files or structural changes needed.
 
