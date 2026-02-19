@@ -1,16 +1,19 @@
 
 
-## Update "Finish" Step Description
+## Remove Section Label Headers
 
-Only one line needs changing in `src/pages/Index.tsx`:
+Remove the small uppercase label text that appears above each section's main heading. These are the blue "WHAT WE SOLVE", "OUR PROCESS", "OUR PROMISE", and "INDUSTRIES" labels.
 
-### Change
+### Changes in `src/pages/Index.tsx`
 
-| Line | Current | Updated |
-|------|---------|---------|
-| 100 | `"Ironed, folded & pressed"` | `"Quality checked & finished to spec"` |
+Remove the following 4 lines (the `<p>` tags with uppercase tracking labels):
 
-This replaces the inaccurate "ironed, folded & pressed" with language that still communicates professional finishing and quality without claiming specific processes they don't offer.
+| Line | Text to Remove |
+|------|---------------|
+| 240 | `What We Solve` |
+| 360 | `Our Process` |
+| 400 | `Our Promise` |
+| 438 | `Industries` |
 
-No other files or structural changes needed.
+Each section will keep its main `<h2>` heading (e.g., "Problems We Solve", "How It Works", "Why LinExo?", "Sectors We Serve") and any subtitle text below it. Only the small blue uppercase labels above them will be removed.
 
