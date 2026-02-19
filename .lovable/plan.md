@@ -1,15 +1,17 @@
 
 
-## Fix: Solution Overlay Should Fit Content, Not Fill Entire Card
+## Remove "Heat-Sealed" References Across Codebase
 
-The blue solution overlay currently animates to `100%` height on hover, but the text content only occupies the bottom portion -- leaving a large empty blue area at the top (as shown in the screenshot).
+All instances are in `src/pages/Index.tsx`. Three changes needed:
 
-### Change
+### Changes
 
-In `src/pages/Index.tsx` line 288, swap the layout from `justify-end` (content pinned to bottom) to `justify-center` (content vertically centered) when the overlay expands. This way the text fills the visible blue area without awkward empty space above it.
+| Line | Current | Updated |
+|------|---------|---------|
+| 78 | `"Hygienic Sealed Packaging"` | `"Hygienic Packaging"` |
+| 79 | `"Commercially laundered and heat-sealed in packaging. Audit-ready on arrival."` | `"Commercially laundered in hygienic packaging. Audit-ready on arrival."` |
+| 101 | `"Heat-sealed hygienic packaging"` | `"Hygienic packaging"` |
+| 122 | `"Heat-Sealed Packaging"` | `"Hygienic Packaging"` |
 
-Specifically:
-- **Line 288**: Change `flex flex-col justify-end` to `flex flex-col justify-center`
-
-This keeps the default (collapsed) state looking the same since the overlay is small and the content fills it. When expanded to 100%, the content centers vertically instead of leaving dead space at the top.
+No structural or component changes -- just text updates across four lines in one file.
 
