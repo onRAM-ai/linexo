@@ -84,7 +84,7 @@ const HeroSection = ({ title, subtitle, actions, stats, images, logo, className 
     <section
       ref={sectionRef}
       className={cn(
-        "relative overflow-hidden bg-gradient-to-b from-primary/5 via-primary/8 to-primary/12 pb-0 pt-24 md:pt-32",
+        "relative overflow-hidden bg-gradient-to-b from-primary/5 via-primary/8 to-primary/12 pb-0 pt-12 md:pt-16",
         className
       )}
     >
