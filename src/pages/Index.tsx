@@ -224,7 +224,7 @@ const Index = () => {
           { value: "120+", label: "Rooms Serviced", icon: <Building2 className="h-5 w-5" /> },
           { value: "24hr", label: "Turnaround", icon: <Clock className="h-5 w-5" /> },
         ]}
-        images={[heroImg2, heroImg1, heroImg3]}
+        images={[heroImg1, heroImg2, heroImg3]}
       />
 
       {/* ═══ Services — DARK section with staggered grid ═══ */}
