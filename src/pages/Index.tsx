@@ -95,11 +95,11 @@ const values = [
 
 
 const processSteps = [
-{ icon: Truck, label: "Collect", desc: "Scheduled pickup from your premises" },
+{ icon: Truck, label: "Collect", desc: "Scheduled pickup from your premises — or drop off at our facility if that works better for you" },
 { icon: Bath, label: "Wash", desc: "Commercial-grade laundering" },
 { icon: Layers, label: "Finish", desc: "Quality checked & finished to spec" },
 { icon: Package, label: "Pack", desc: "Hygienic packaging" },
-{ icon: ArrowRight, label: "Deliver", desc: "On-time return to your door" }];
+{ icon: ArrowRight, label: "Deliver", desc: "On-time delivery back to your door — or available for collection from our facility at your convenience" }];
 
 
 const sectors = [
