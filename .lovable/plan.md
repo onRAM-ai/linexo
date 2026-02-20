@@ -1,22 +1,27 @@
 
-## Fix Bottom Image Overlap with Right Laundry Image
+## Center the Bottom Image to Overlap Both Side Photos
 
-### Problem
-The bottom image (`images[2]`) is currently `w-3/4` starting at `left-1/4`, meaning it spans from 25% to 100% of the container — completely covering the right-side laundry image (`images[1]` at `right-0 w-2/5`).
+### Current State
+- `images[0]` (truck): `left-0 w-3/5` → occupies 0%–60% horizontally
+- `images[1]` (laundry): `right-0 w-2/5` → occupies 60%–100% horizontally
+- `images[2]` (aerial/town): currently `left-0 w-3/5` → sits flush left, not centered
+
+### Goal
+Place the bottom image centered between both photos, covering roughly half of each — the right half of the truck and the left half of the laundry panel.
 
 ### Fix in `src/components/HeroSection.tsx` — Line 207
 
-Reduce the bottom image width and shift it left so it sits beneath the truck image (top-left) without overlapping the right laundry panel:
-
 ```tsx
 // Before
-className="absolute bottom-0 left-1/4 w-3/4 overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"
+className="absolute bottom-0 left-0 w-3/5 overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"
 
 // After
-className="absolute bottom-0 left-0 w-3/5 overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"
+className="absolute bottom-0 left-1/4 w-1/2 overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"
 ```
 
-- `left-0` — anchors it to the left edge, under the truck image
-- `w-3/5` — matches the top-left image width (60%), keeping it from overlapping the right laundry column
+- `left-1/4` (25%) + `w-1/2` (50%) = spans from 25% to 75%
+- The truck image covers 0–60%, so the bottom image overlaps the right 35% of it
+- The laundry image covers 60–100%, so the bottom image overlaps the left 15% of it
+- Both side images remain clearly visible above and to either side
 
-This keeps the bottom image roughly the same size as the previous "50% larger" request (vs the original `w-1/2`) while freeing up the right side for the laundry image to remain visible.
+This gives the classic layered collage look — the bottom image sits in the middle, partially covering both flanking images.
