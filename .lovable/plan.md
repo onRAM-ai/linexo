@@ -1,22 +1,22 @@
 
-## Swap Hero Image Positions
+## Fix Bottom Image Overlap with Right Laundry Image
 
-The hero collage in `src/pages/Index.tsx` passes images as an ordered array to `HeroSection`. The positions are fixed by index:
+### Problem
+The bottom image (`images[2]`) is currently `w-3/4` starting at `left-1/4`, meaning it spans from 25% to 100% of the container — completely covering the right-side laundry image (`images[1]` at `right-0 w-2/5`).
 
-- `images[0]` → top-left, large (currently the aerial/town photo — `heroImg1`)
-- `images[1]` → right-center (currently the industrial laundry — `heroImg2`)
-- `images[2]` → bottom-center (currently the LinExo truck — `heroImg3`)
+### Fix in `src/components/HeroSection.tsx` — Line 207
 
-The user wants to swap `images[0]` and `images[2]`, putting the truck at top-left and the aerial photo at bottom-center.
-
-### Change in `src/pages/Index.tsx` — Line 227
+Reduce the bottom image width and shift it left so it sits beneath the truck image (top-left) without overlapping the right laundry panel:
 
 ```tsx
 // Before
-images={[heroImg1, heroImg2, heroImg3]}
+className="absolute bottom-0 left-1/4 w-3/4 overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"
 
 // After
-images={[heroImg3, heroImg2, heroImg1]}
+className="absolute bottom-0 left-0 w-3/5 overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"
 ```
 
-That's the only change needed — a single line edit.
+- `left-0` — anchors it to the left edge, under the truck image
+- `w-3/5` — matches the top-left image width (60%), keeping it from overlapping the right laundry column
+
+This keeps the bottom image roughly the same size as the previous "50% larger" request (vs the original `w-1/2`) while freeing up the right side for the laundry image to remain visible.
