@@ -398,7 +398,7 @@ const Index = () => {
         <div className="container relative z-10">
           <div className="mx-auto mb-8 max-w-2xl text-center">
             
-            <h2 className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">Why <span className="text-primary">LIN</span><span className="text-accent">EXO</span>?</h2>
+            <h2 className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">Why <span className="text-primary">Lin</span><span className="text-accent">Exo</span>?</h2>
           </div>
           <div className="mx-auto max-w-3xl space-y-8">
             {values.map((v, i) => (
