@@ -1,19 +1,22 @@
 
+## Swap Hero Image Positions
 
-## Remove Section Label Headers
+The hero collage in `src/pages/Index.tsx` passes images as an ordered array to `HeroSection`. The positions are fixed by index:
 
-Remove the small uppercase label text that appears above each section's main heading. These are the blue "WHAT WE SOLVE", "OUR PROCESS", "OUR PROMISE", and "INDUSTRIES" labels.
+- `images[0]` → top-left, large (currently the aerial/town photo — `heroImg1`)
+- `images[1]` → right-center (currently the industrial laundry — `heroImg2`)
+- `images[2]` → bottom-center (currently the LinExo truck — `heroImg3`)
 
-### Changes in `src/pages/Index.tsx`
+The user wants to swap `images[0]` and `images[2]`, putting the truck at top-left and the aerial photo at bottom-center.
 
-Remove the following 4 lines (the `<p>` tags with uppercase tracking labels):
+### Change in `src/pages/Index.tsx` — Line 227
 
-| Line | Text to Remove |
-|------|---------------|
-| 240 | `What We Solve` |
-| 360 | `Our Process` |
-| 400 | `Our Promise` |
-| 438 | `Industries` |
+```tsx
+// Before
+images={[heroImg1, heroImg2, heroImg3]}
 
-Each section will keep its main `<h2>` heading (e.g., "Problems We Solve", "How It Works", "Why LinExo?", "Sectors We Serve") and any subtitle text below it. Only the small blue uppercase labels above them will be removed.
+// After
+images={[heroImg3, heroImg2, heroImg1]}
+```
 
+That's the only change needed — a single line edit.
