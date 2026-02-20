@@ -239,7 +239,7 @@ const Index = () => {
           <div className="mx-auto mb-8 max-w-2xl text-center">
             
             <h2 className="text-4xl font-bold md:text-5xl lg:text-6xl text-foreground">Problems We Solve</h2>
-            <p className="mt-4 text-muted-foreground text-lg">Every service exists because we've seen what happens when it's done badly.</p>
+            
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {problemSolutions.map((pair, i) => {
