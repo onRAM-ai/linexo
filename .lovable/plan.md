@@ -1,27 +1,29 @@
 
-## Center the Bottom Image to Overlap Both Side Photos
+## Replace "LINEXO" with "LinExo" in the Section Heading
 
-### Current State
-- `images[0]` (truck): `left-0 w-3/5` → occupies 0%–60% horizontally
-- `images[1]` (laundry): `right-0 w-2/5` → occupies 60%–100% horizontally
-- `images[2]` (aerial/town): currently `left-0 w-3/5` → sits flush left, not centered
+### Finding
+The codebase already uses correct `LinExo` casing everywhere — in `index.html`, `BrandName.tsx`, `HeroSection.tsx`, testimonials, and comments — **except one place**:
 
-### Goal
-Place the bottom image centered between both photos, covering roughly half of each — the right half of the truck and the left half of the laundry panel.
+`src/pages/Index.tsx`, line 401:
+```tsx
+<h2 className="text-4xl font-bold text-foreground md:text-5xl lg:text-6xl">
+  Why <span className="text-primary">LIN</span><span className="text-accent">EXO</span>?
+</h2>
+```
+This renders as **"Why LINEXO?"** with all-caps text split across two styled spans.
 
-### Fix in `src/components/HeroSection.tsx` — Line 207
+### Fix
+Update the two spans to use mixed-case text matching the brand name `LinExo`:
 
 ```tsx
 // Before
-className="absolute bottom-0 left-0 w-3/5 overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"
+<span className="text-primary">LIN</span><span className="text-accent">EXO</span>
 
 // After
-className="absolute bottom-0 left-1/4 w-1/2 overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"
+<span className="text-primary">Lin</span><span className="text-accent">Exo</span>
 ```
 
-- `left-1/4` (25%) + `w-1/2` (50%) = spans from 25% to 75%
-- The truck image covers 0–60%, so the bottom image overlaps the right 35% of it
-- The laundry image covers 60–100%, so the bottom image overlaps the left 15% of it
-- Both side images remain clearly visible above and to either side
+This renders as **"Why LinExo?"** — consistent with the brand name used everywhere else in the codebase.
 
-This gives the classic layered collage look — the bottom image sits in the middle, partially covering both flanking images.
+### Files to Change
+- `src/pages/Index.tsx` — line 401 only
