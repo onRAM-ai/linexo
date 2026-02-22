@@ -1,50 +1,43 @@
 
-## Add Slim Blue Underline to Section Headings
 
-### Reference
-The uploaded image shows a bold section heading ("Problems We Solve") with a slim, solid primary-blue line directly beneath the text, spanning the full width of the text — not the container.
+## Replace "Proven Contract Experience" with "Trusted by the Goldfields" Logo Carousel
 
-### Approach
-Add a reusable CSS utility class `.heading-underline` in `src/index.css` that uses `display: inline-block` with a `border-bottom` in the primary blue color. Then apply this class to all 4 main section `h2` headings in `src/pages/Index.tsx`.
+### What Changes
 
-This is cleaner than inline Tailwind because the underline must match the text width (not the full container width), which requires `inline-block` — a behaviour that's consistent with the reference image.
+The current section shows 3 text tiles listing contract credentials. It will be replaced with a horizontally scrolling logo carousel showcasing customer logos.
 
-### 1. Add utility class to `src/index.css`
+### Assets to Add
 
+Copy the 4 uploaded logos into `src/assets/`:
+- `client-logo-1.png` (blue circle logo - image-23)
+- `client-logo-mcd.png` (MCD Group - image-24)
+- `client-logo-toyota.png` (Toyota - image-25)
+- `client-logo-az.png` (A-Z Panel & Paint - image-26)
+
+### Implementation
+
+**1. Remove the `contractCredentials` array** from `src/pages/Index.tsx` (lines 111-115) since it's no longer needed.
+
+**2. Replace the section content** (lines 472-498):
+- Change heading text from "Proven Contract Experience" to "Trusted by the Goldfields"
+- Remove the 3-column grid of text tiles
+- Add an auto-scrolling infinite logo carousel using CSS animation (no JS library needed)
+- Logos displayed in a horizontal strip that continuously scrolls left, with duplicated items to create seamless looping
+- Each logo rendered as a grayscale image with hover-to-color effect for a polished look
+- Logos sized consistently (e.g., max-height ~60px) with `object-contain` to handle different aspect ratios
+
+**3. Add CSS keyframes** in `src/index.css` for the infinite scroll animation:
 ```css
-/* ─── Section Heading Underline ─── */
-.heading-underline {
-  display: inline-block;
-  border-bottom: 3px solid hsl(var(--primary));
-  padding-bottom: 6px;
+@keyframes scroll-logos {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 ```
 
-- `inline-block` ensures the border only spans the text width
-- `3px solid` gives a slim but visible line (matching the reference)
-- `hsl(var(--primary))` uses the existing Primary Blue CSS variable
-
-### 2. Apply class to section headings in `src/pages/Index.tsx`
-
-There are 4 main centered section headings to update:
-
-| Line | Heading |
-|------|---------|
-| 241 | Problems We Solve |
-| 361 | How It Works |
-| 401 | Why LinExo? |
-| 439 | Sectors We Serve |
-
-Each `h2` gets the `heading-underline` class added. The parent `div` is already `text-center`, so the `inline-block` heading will naturally center itself.
-
-For the "Why LinExo?" heading (line 401), the `<span>` children inside will inherit the inline layout correctly, so the underline will span the full heading text including the colored spans.
-
-### 3. Headings NOT updated
-- Line 563 ("Born in the Goldfields…") — this is a left-aligned content block, not a centered section header
-- Line 606 ("What If Your Linen Just… Showed Up?") — this is on a dark background CTA section with different styling
-
-These two are styled differently from the main section headers and will be left unchanged to preserve the existing visual design.
+The carousel will auto-scroll continuously. The logo strip is duplicated so when the first set scrolls off-screen, the second set seamlessly takes over, creating an infinite loop effect.
 
 ### Files Changed
-- `src/index.css` — add `.heading-underline` utility class
-- `src/pages/Index.tsx` — add `heading-underline` to 4 section `h2` elements (lines 241, 361, 401, 439)
+- `src/assets/` -- 4 new logo files copied from uploads
+- `src/index.css` -- add scroll animation keyframe
+- `src/pages/Index.tsx` -- replace contract credentials section with logo carousel
+
