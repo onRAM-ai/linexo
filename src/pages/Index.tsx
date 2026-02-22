@@ -496,7 +496,7 @@ const Index = () => {
                   key={i}
                   src={logo.src}
                   alt={logo.alt}
-                  className="h-14 w-auto object-contain grayscale opacity-60 transition-all duration-300 hover:grayscale-0 hover:opacity-100"
+                  className="h-16 w-32 object-contain grayscale opacity-60 transition-all duration-300 hover:grayscale-0 hover:opacity-100"
                 />
               ))}
             </div>
