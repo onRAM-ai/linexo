@@ -1,30 +1,22 @@
 
 
-## Add Capability Statement View and Download
+## Add Capability Statement to Navigation Bar
 
-### Approach
+### What Changes
 
-Since you have a PDF ready, we'll take the simplest approach: place the PDF in the project's `public/` folder so it's served as a static file. Then add a call-to-action on the site with two options:
-
-1. **"View" button** -- opens the PDF in a new browser tab (browsers have built-in PDF viewers)
-2. **"Download" button** -- triggers a direct file download
-
-### Where It Appears
-
-Add a small section or banner near the "About" / "Born in the Goldfields" area with a heading like **"Our Capability Statement"** and the two buttons (View / Download). This keeps it visible without disrupting the page flow.
+Add a new nav link in `src/components/Navbar.tsx` that smooth-scrolls to the capability statement section. We also need to add an `id` to the capability statement section in `src/pages/Index.tsx` so the scroll target works.
 
 ### Steps
 
-1. **You upload the PDF** -- after approving this plan, you'll upload your capability statement PDF. It will be saved to `public/linexo-capability-statement.pdf`.
+1. **`src/components/Navbar.tsx`** -- Add a new entry to the `navLinks` array:
+   ```
+   { label: "Capability Statement", target: "capability" }
+   ```
+   Placed after "About" and before "Contact".
 
-2. **Add a Capability Statement section** in `src/pages/Index.tsx`:
-   - Placed after the "Born in the Goldfields" about section
-   - A compact card/banner with a brief description and two buttons:
-     - "View Statement" -- opens `/linexo-capability-statement.pdf` in a new tab
-     - "Download PDF" -- uses an anchor tag with the `download` attribute to trigger a file download
-   - Styled consistently with the rest of the page using existing motion animations
+2. **`src/pages/Index.tsx`** -- Add `id="capability"` to the capability statement `<section>` element so smooth-scroll can find it.
 
 ### Files Changed
-- `public/linexo-capability-statement.pdf` -- your uploaded PDF
-- `src/pages/Index.tsx` -- add capability statement section with view/download buttons
+- `src/components/Navbar.tsx` -- add nav link
+- `src/pages/Index.tsx` -- add section id
 
