@@ -587,7 +587,7 @@ const Index = () => {
       </section>
 
       {/* ═══ Capability Statement ═══ */}
-      <section className="relative py-12 md:py-16 bg-secondary/30 overflow-hidden">
+      <section id="capability" className="relative py-12 md:py-16 bg-secondary/30 overflow-hidden">
         <div className="container relative z-10">
           <motion.div
             initial="hidden"

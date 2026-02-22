@@ -7,6 +7,7 @@ const navLinks = [
   { label: "Home", target: "top" },
   { label: "Services", target: "services" },
   { label: "About", target: "about" },
+  { label: "Capability Statement", target: "capability" },
   { label: "Contact", target: "contact" },
 ];
 
