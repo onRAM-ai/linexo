@@ -571,7 +571,7 @@ const Index = () => {
                   Born in the Goldfields, Built for the Goldfields
                 </h2>
                 <p className="mb-6 text-muted-foreground leading-relaxed">
-                  <span className="text-primary">Lin</span><span className="text-accent">EXO</span> is a proudly Western Australian business, purpose-built in the heart of the Goldfields
+                  <span className="text-primary">Lin</span><span className="text-accent">Exo</span> is a proudly Western Australian business, purpose-built in the heart of the Goldfields
                   to deliver reliable, high-quality linen and laundry services to the region's accommodation,
                   hospitality, and industrial sectors. With proven government contract experience — including servicing
                   WACHS at Kalgoorlie Regional Health Campus — we bring the compliance, capacity, and consistency
