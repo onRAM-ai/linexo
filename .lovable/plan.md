@@ -1,22 +1,17 @@
 
 
-## Fix "LinEXO" Spelling to "LinExo"
+## Replace client-logo-1.png with New Logo
 
 ### What Changes
 
-One instance of incorrect spelling found in `src/pages/Index.tsx`:
+Replace the existing `src/assets/client-logo-1.png` (blue circle logo) with the uploaded "Lakes Electrical Distributors (LED)" logo.
 
-**Line 574** (Born in the Goldfields section): The brand name is rendered as "LinEXO" using two spans:
-```html
-<span class="text-primary">Lin</span><span class="text-accent">EXO</span>
-```
-This will be corrected to:
-```html
-<span class="text-primary">Lin</span><span class="text-accent">Exo</span>
-```
+### Steps
 
-All other instances across the codebase already use the correct "LinExo" spelling (including the "Why LinExo?" heading, meta tags, alt text, and email addresses).
+1. Copy `user-uploads://image-29.png` to `src/assets/client-logo-1.png`, overwriting the existing file.
+
+No code changes needed -- the file is already imported and used in the logo carousel.
 
 ### Files Changed
-- `src/pages/Index.tsx` — fix "EXO" to "Exo" on line 574
+- `src/assets/client-logo-1.png` -- replaced with LED logo
 
