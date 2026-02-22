@@ -586,6 +586,42 @@ const Index = () => {
         </div>
       </section>
 
+      {/* ═══ Capability Statement ═══ */}
+      <section className="relative py-12 md:py-16 bg-secondary/30 overflow-hidden">
+        <div className="container relative z-10">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeUp}
+            className="mx-auto max-w-3xl"
+          >
+            <div className="glass-strong rounded-2xl p-8 md:p-10 text-center shadow-xl">
+              <div className="mb-4 flex items-center justify-center gap-2 text-primary">
+                <Layers className="h-5 w-5" />
+                <span className="text-sm font-semibold uppercase tracking-[0.2em] font-sans">Resources</span>
+              </div>
+              <h2 className="mb-3 text-2xl font-bold text-foreground md:text-3xl">Our Capability Statement</h2>
+              <p className="mb-6 text-muted-foreground leading-relaxed">
+                Learn more about our services, capacity, and credentials. View our capability statement online or download a copy for your records.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <Button size="lg" asChild>
+                  <a href="/linexo-capability-statement.pdf" target="_blank" rel="noopener noreferrer">
+                    View Statement
+                  </a>
+                </Button>
+                <Button variant="outline" size="lg" asChild>
+                  <a href="/linexo-capability-statement.pdf" download="LinExo-Capability-Statement.pdf">
+                    Download PDF
+                  </a>
+                </Button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* ═══ CTA with Inline Contact Form ═══ */}
       <section id="contact" className="relative overflow-hidden">
         {/* Top wave divider */}
