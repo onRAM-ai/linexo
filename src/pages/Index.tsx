@@ -24,6 +24,10 @@ import problemHygieneImg from "@/assets/problem-hygiene.jpg";
 import problemSurgeImg from "@/assets/problem-surge.jpg";
 import React from "react";
 import linexoLogoFull from "@/assets/linexo-logo-full.png";
+import clientLogo1 from "@/assets/client-logo-1.png";
+import clientLogoMcd from "@/assets/client-logo-mcd.png";
+import clientLogoToyota from "@/assets/client-logo-toyota.png";
+import clientLogoAz from "@/assets/client-logo-az.png";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -108,10 +112,12 @@ const sectors = [
 { icon: UtensilsCrossed, title: "Hospitality", desc: "Restaurants, pubs, and event venues — tablecloths, napkins, and service textiles laundered to standard.", bg: "bg-primary", text: "text-primary-foreground" }];
 
 
-const contractCredentials = [
-"Trusted by WACHS — Kalgoorlie Regional Health Campus",
-"Government accommodation & work safety garment contracts",
-"120+ rooms serviced with highest-level hygiene compliance"];
+const clientLogos = [
+  { src: clientLogo1, alt: "Client" },
+  { src: clientLogoMcd, alt: "MCD Group" },
+  { src: clientLogoToyota, alt: "Toyota" },
+  { src: clientLogoAz, alt: "A-Z Panel & Paint" },
+];
 
 
 const serviceOptions = [
@@ -469,30 +475,31 @@ const Index = () => {
         </div>
       </section>
 
-      {/* ═══ Proven Contract Experience Banner ═══ */}
+      {/* ═══ Trusted by the Goldfields — Logo Carousel ═══ */}
       <section className="py-8 overflow-hidden bg-secondary/30">
         <div className="container">
           <div className="mb-10 flex items-center gap-4">
             <div className="h-px flex-1 bg-border" />
             <p className="text-sm font-medium uppercase tracking-[0.2em] text-muted-foreground font-sans">
-              Proven Contract Experience
+              Trusted by the Goldfields
             </p>
             <div className="h-px flex-1 bg-border" />
           </div>
-          <div className="mx-auto max-w-4xl grid gap-5 sm:grid-cols-3">
-            {contractCredentials.map((item, i) =>
-            <motion.div
-              key={i}
-              custom={i}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={fadeUp}
-              className="glass-strong flex items-center justify-center rounded-2xl p-6 text-center text-sm font-semibold text-foreground leading-relaxed min-h-[100px]">
-
-                {item}
-              </motion.div>
-            )}
+          <div className="relative mx-auto max-w-5xl overflow-hidden">
+            {/* Fade edges */}
+            <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-secondary/30 to-transparent" />
+            <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-secondary/30 to-transparent" />
+            {/* Scrolling strip */}
+            <div className="flex animate-marquee items-center gap-16 py-4" style={{ width: 'max-content' }}>
+              {[...clientLogos, ...clientLogos].map((logo, i) => (
+                <img
+                  key={i}
+                  src={logo.src}
+                  alt={logo.alt}
+                  className="h-14 w-auto object-contain grayscale opacity-60 transition-all duration-300 hover:grayscale-0 hover:opacity-100"
+                />
+              ))}
+            </div>
           </div>
         </div>
       </section>
