@@ -1,43 +1,22 @@
 
 
-## Replace "Proven Contract Experience" with "Trusted by the Goldfields" Logo Carousel
+## Fix "LinEXO" Spelling to "LinExo"
 
 ### What Changes
 
-The current section shows 3 text tiles listing contract credentials. It will be replaced with a horizontally scrolling logo carousel showcasing customer logos.
+One instance of incorrect spelling found in `src/pages/Index.tsx`:
 
-### Assets to Add
-
-Copy the 4 uploaded logos into `src/assets/`:
-- `client-logo-1.png` (blue circle logo - image-23)
-- `client-logo-mcd.png` (MCD Group - image-24)
-- `client-logo-toyota.png` (Toyota - image-25)
-- `client-logo-az.png` (A-Z Panel & Paint - image-26)
-
-### Implementation
-
-**1. Remove the `contractCredentials` array** from `src/pages/Index.tsx` (lines 111-115) since it's no longer needed.
-
-**2. Replace the section content** (lines 472-498):
-- Change heading text from "Proven Contract Experience" to "Trusted by the Goldfields"
-- Remove the 3-column grid of text tiles
-- Add an auto-scrolling infinite logo carousel using CSS animation (no JS library needed)
-- Logos displayed in a horizontal strip that continuously scrolls left, with duplicated items to create seamless looping
-- Each logo rendered as a grayscale image with hover-to-color effect for a polished look
-- Logos sized consistently (e.g., max-height ~60px) with `object-contain` to handle different aspect ratios
-
-**3. Add CSS keyframes** in `src/index.css` for the infinite scroll animation:
-```css
-@keyframes scroll-logos {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
+**Line 574** (Born in the Goldfields section): The brand name is rendered as "LinEXO" using two spans:
+```html
+<span class="text-primary">Lin</span><span class="text-accent">EXO</span>
+```
+This will be corrected to:
+```html
+<span class="text-primary">Lin</span><span class="text-accent">Exo</span>
 ```
 
-The carousel will auto-scroll continuously. The logo strip is duplicated so when the first set scrolls off-screen, the second set seamlessly takes over, creating an infinite loop effect.
+All other instances across the codebase already use the correct "LinExo" spelling (including the "Why LinExo?" heading, meta tags, alt text, and email addresses).
 
 ### Files Changed
-- `src/assets/` -- 4 new logo files copied from uploads
-- `src/index.css` -- add scroll animation keyframe
-- `src/pages/Index.tsx` -- replace contract credentials section with logo carousel
+- `src/pages/Index.tsx` — fix "EXO" to "Exo" on line 574
 
