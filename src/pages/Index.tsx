@@ -203,6 +203,7 @@ const scrollTo = (target: string) => {
 const Index = () => {
   const { toast } = useToast();
   const [submitting, setSubmitting] = useState(false);
+  const [selectedService, setSelectedService] = useState("");
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const processRef = useRef<HTMLDivElement>(null);
@@ -670,14 +671,34 @@ const Index = () => {
 
                 <div className="rounded-2xl border border-white/20 bg-white/10 backdrop-blur-lg p-6 md:p-8">
                   <form
-                    onSubmit={(e) => {
+                    onSubmit={async (e) => {
                       e.preventDefault();
                       setSubmitting(true);
-                      setTimeout(() => {
-                        setSubmitting(false);
+                      const form = e.target as HTMLFormElement;
+                      const body = {
+                        name: (form.querySelector('#cta-name') as HTMLInputElement).value,
+                        company: (form.querySelector('#cta-company') as HTMLInputElement).value,
+                        email: (form.querySelector('#cta-email') as HTMLInputElement).value,
+                        phone: (form.querySelector('#cta-phone') as HTMLInputElement).value,
+                        service: selectedService,
+                        message: (form.querySelector('#cta-message') as HTMLTextAreaElement).value,
+                      };
+                      try {
+                        const res = await fetch('/api/send-email', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify(body),
+                        });
+                        const data = await res.json();
+                        if (!res.ok) throw new Error(data.error || 'Something went wrong.');
                         toast({ title: "Message sent!", description: "We'll be in touch shortly." });
-                        (e.target as HTMLFormElement).reset();
-                      }, 1000);
+                        form.reset();
+                        setSelectedService("");
+                      } catch (err: any) {
+                        toast({ title: "Failed to send", description: err.message || "Please try again later.", variant: "destructive" });
+                      } finally {
+                        setSubmitting(false);
+                      }
                     }}
                     className="space-y-5">
 
@@ -703,7 +724,7 @@ const Index = () => {
                     </div>
                     <div className="space-y-2">
                       <Label className="text-primary-foreground/90">Service Required</Label>
-                      <Select>
+                      <Select value={selectedService} onValueChange={setSelectedService}>
                         <SelectTrigger className="border-white/20 bg-white/15 text-primary-foreground [&>svg]:text-primary-foreground/60">
                           <SelectValue placeholder="Select a service" className="placeholder:text-primary-foreground/50" />
                         </SelectTrigger>
