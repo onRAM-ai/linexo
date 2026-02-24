@@ -1,16 +1,27 @@
 
 
-## Fix Footer Copyright Section
+## Add GWA Logo to Carousel and Fix Logo Styling
 
-### Problem
-The copyright line at the bottom of the footer uses the `BrandName` component, which renders a logo image. This causes the copyright text to break into separate lines with the logo appearing disconnected (as shown in the red-highlighted area of the screenshot).
+### What Changes
 
-### Solution
-Replace the `BrandName` component in the copyright line with plain text "LinExo" so it renders inline as a single clean line: "© 2026 LinExo. All rights reserved."
+1. **Add GWA Automotive logo** to the "Trusted by the Goldfields" carousel
+2. **Remove grayscale filter** so all logos show in full color
+3. **Standardize logo sizing** so all logos appear the same size
 
-### Changes
+### Steps
 
-**`src/components/Footer.tsx`** (line 84):
-- Change `© {new Date().getFullYear()} <BrandName />. All rights reserved.` to `© {new Date().getFullYear()} LinExo. All rights reserved.`
-- This keeps the copyright integrated within the footer's dark background section rather than appearing as a separate block with a misaligned logo.
+1. **Copy the uploaded GWA logo** from `user-uploads://image-31.png` to `src/assets/client-logo-gwa.png`
+
+2. **`src/pages/Index.tsx`** -- Import and add the new logo:
+   - Add import: `import clientLogoGwa from "@/assets/client-logo-gwa.png";`
+   - Add `{ src: clientLogoGwa, alt: "GWA Automotive" }` to the `clientLogos` array
+
+3. **`src/pages/Index.tsx`** -- Update logo `<img>` styling (line 499):
+   - Remove `grayscale` and `opacity-60` classes
+   - Keep consistent sizing (`h-16 w-32 object-contain`) and hover transition
+   - Final classes: `"h-16 w-32 object-contain transition-all duration-300 hover:scale-105"`
+
+### Files Changed
+- `src/assets/client-logo-gwa.png` -- new file (uploaded GWA logo)
+- `src/pages/Index.tsx` -- new import, updated `clientLogos` array, updated logo styling
 
