@@ -1,17 +1,16 @@
 
 
-## Update Contact Phone Number
+## Link Capability Statement to Uploaded PDF
 
 ### What Changes
 
-Update the phone number from `(08) 9000 0000` to `0435 808 804` wherever it appears in the codebase.
+Copy the uploaded PDF to `public/linexo-capability-statement.pdf` so the existing "View Statement" and "Download PDF" buttons work with the real document. The code already references this path -- only the file needs to be added.
 
 ### Steps
 
-1. **`src/components/Footer.tsx`** (line 78) -- Change `(08) 9000 0000` to `0435 808 804`
-2. **`src/pages/Index.tsx`** -- Update any phone number references to `0435 808 804`
+1. **Copy the uploaded PDF** from `user-uploads://LINEXO_Capability_Statement.pdf` to `public/linexo-capability-statement.pdf`
 
 ### Files Changed
-- `src/components/Footer.tsx` -- update phone number
-- `src/pages/Index.tsx` -- update phone number (if present)
+- `public/linexo-capability-statement.pdf` -- new file (the uploaded PDF)
+- No code changes needed -- the buttons in `Index.tsx` already point to `/linexo-capability-statement.pdf`
 
