@@ -1,68 +1,97 @@
 
 
-## Set Up Resend Email Integration via Vercel API Route
+## SEO Improvements (No Content Changes)
 
 ### Overview
-Wire up the contact form to send real emails using Resend, via a Vercel serverless API route. The API key stays secure on the server side (Vercel environment variable), never exposed in the browser.
+Add missing SEO infrastructure to improve search engine discoverability, especially for local search (Kalgoorlie-Boulder area). No visible content changes.
 
-### Architecture
+---
 
-```text
-Browser (contact form)
-   |
-   POST /api/send-email  (JSON body)
-   |
-Vercel Serverless Function (api/send-email.ts)
-   |
-   Resend API  -->  Email to info@linexo.com.au
+### 1. Create `public/sitemap.xml`
+A static sitemap for the single-page site pointing to the production URL.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://linexo.com.au/</loc>
+    <lastmod>2026-02-24</lastmod>
+    <priority>1.0</priority>
+  </url>
+</urlset>
 ```
 
-### Changes
+---
 
-**1. Create `api/send-email.ts`** (Vercel serverless function)
-- Reads `RESEND_API_KEY` from environment variables
-- Validates incoming form fields (name, email, message, optional company/phone/service)
-- Calls Resend API to send a formatted email to `info@linexo.com.au`
-- From address: `LinExo Website <noreply@linexo.com.au>` (uses your verified domain)
-- Also sends the submitter's email as `reply-to` so you can reply directly
-- Returns success/error JSON response
+### 2. Update `public/robots.txt`
+Add the Sitemap directive at the bottom:
 
-**2. Update `src/pages/Index.tsx`**
-- Replace the fake `setTimeout` submission with a real `fetch('/api/send-email', ...)` call
-- Collect all form field values (name, company, email, phone, service, message) using controlled state or FormData
-- Show success/error toast based on the API response
-- Add basic client-side validation with length limits
+```
+Sitemap: https://linexo.com.au/sitemap.xml
+```
 
-**3. Install `resend` package**
-- Add `resend` as a dependency for use in the API route
+---
 
-### After Deployment (Manual Steps)
-1. In your **Vercel project settings**, go to **Settings > Environment Variables**
-2. Add `RESEND_API_KEY` with your Resend API key value (`re_xxxxxxxxx`)
-3. Deploy — the contact form will then send real emails
+### 3. Update `index.html` -- Add missing meta tags
 
-### Technical Details
+Add the following inside `<head>`:
 
-**API route (`api/send-email.ts`):**
-```typescript
-import { Resend } from 'resend';
+- **Canonical URL**: `<link rel="canonical" href="https://linexo.com.au/" />`
+- **og:url**: `<meta property="og:url" content="https://linexo.com.au/" />`
+- **Geo tags** for local SEO:
+  - `<meta name="geo.region" content="AU-WA" />`
+  - `<meta name="geo.placename" content="Kalgoorlie-Boulder" />`
+- **Update OG image URL** to use the production domain (e.g., `https://linexo.com.au/og-image.png`) -- you will need to place an OG image in `public/` at that path
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+---
 
-export default async function handler(req, res) {
-  // Validate POST method and fields
-  // Call resend.emails.send()
-  // Return JSON response
+### 4. Add JSON-LD Structured Data to `index.html`
+
+Add a `LocalBusiness` schema script in the `<head>`. This helps Google show rich results (address, phone, service area) for local searches.
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "LinExo",
+  "description": "Goldfields' premier commercial laundry and linen-hire specialist",
+  "url": "https://linexo.com.au",
+  "telephone": "0435 808 804",
+  "email": "info@linexo.com.au",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Kalgoorlie-Boulder",
+    "addressRegion": "WA",
+    "addressCountry": "AU"
+  },
+  "areaServed": [
+    "Kalgoorlie-Boulder",
+    "Coolgardie",
+    "Kambalda",
+    "Leonora",
+    "Laverton"
+  ],
+  "serviceType": [
+    "Commercial Laundry",
+    "Linen Hire",
+    "Industrial Workwear Processing"
+  ]
 }
 ```
 
-**Email format:**
-- From: `LinExo Website <noreply@linexo.com.au>`
-- To: `info@linexo.com.au`
-- Reply-To: submitter's email
-- Subject: `New Enquiry from [Name] — [Service]`
-- Body: HTML-formatted with all form fields
+---
 
-**Form update in Index.tsx:**
-- Replace setTimeout mock with async fetch to `/api/send-email`
-- Handle loading state and error/success feedback via existing toast system
+### 5. OG Image Asset
+
+You will need to provide or screenshot a branded OG image (1200x630px recommended) and place it at `public/og-image.png`. The current OG image points to a Lovable CDN URL that will stop working once you move to your own domain.
+
+---
+
+### Files Changed
+- `public/sitemap.xml` (new)
+- `public/robots.txt` (updated -- add Sitemap line)
+- `index.html` (updated -- canonical, og:url, geo tags, JSON-LD, OG image path)
+
+### Manual Step
+- Create/export a branded OG image (1200x630px) and save it as `public/og-image.png`
+
