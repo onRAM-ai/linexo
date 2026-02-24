@@ -196,7 +196,7 @@ const HeroSection = ({ title, subtitle, actions, stats, images, logo, className 
             {images[1] && (
               <motion.div
                 variants={imageVariants}
-                className="absolute right-0 top-0 w-[48%] h-[200px] z-[5] overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"
+                className="absolute right-0 top-[30px] w-[48%] h-[200px] z-[5] overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"
               >
                 <img src={images[1]} alt="Hero 2" className="h-full w-full object-cover" loading="eager" />
               </motion.div>
