@@ -1,17 +1,17 @@
 
 
-## Update Linen Hire & Delivery Image
+## Update Contact Phone Number
 
 ### What Changes
 
-Replace the current `src/assets/problem-linen.jpg` image with an AI-generated image depicting a hotel-style share house with multiple rooms -- think neatly made beds, clean linen, and a hospitality/accommodation feel.
+Update the phone number from `(08) 9000 0000` to `0435 808 804` wherever it appears in the codebase.
 
 ### Steps
 
-1. **Generate image** using the AI image generation model with a prompt like: "Professional photo of a clean hotel room interior with neatly made beds and fresh white linen, multiple rooms visible, share house or serviced apartment style, warm lighting, hospitality industry feel"
-
-2. **Save the generated image** as `src/assets/problem-linen.jpg` (overwriting the existing file), so no code changes are needed -- the import in `Index.tsx` already references this file.
+1. **`src/components/Footer.tsx`** (line 78) -- Change `(08) 9000 0000` to `0435 808 804`
+2. **`src/pages/Index.tsx`** -- Update any phone number references to `0435 808 804`
 
 ### Files Changed
-- `src/assets/problem-linen.jpg` -- replaced with new hotel/share house room image (no code changes required)
+- `src/components/Footer.tsx` -- update phone number
+- `src/pages/Index.tsx` -- update phone number (if present)
 
