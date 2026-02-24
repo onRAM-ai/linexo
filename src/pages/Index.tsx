@@ -29,6 +29,7 @@ import clientLogoMcd from "@/assets/client-logo-mcd.png";
 import clientLogoToyota from "@/assets/client-logo-toyota.png";
 import clientLogoAz from "@/assets/client-logo-az.png";
 import clientLogoGwa from "@/assets/client-logo-gwa.png";
+import clientLogoAes from "@/assets/client-logo-aes.png";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -119,6 +120,7 @@ const clientLogos = [
   { src: clientLogoToyota, alt: "Toyota", className: "h-16 w-32" },
   { src: clientLogoAz, alt: "A-Z Panel & Paint", className: "h-16 w-32" },
   { src: clientLogoGwa, alt: "GWA Automotive", className: "h-24 w-48" },
+  { src: clientLogoAes, alt: "AES Seal Environmental Technology", className: "h-16 w-32" },
 ];
 
 
