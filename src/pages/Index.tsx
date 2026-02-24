@@ -28,6 +28,7 @@ import clientLogo1 from "@/assets/client-logo-1.png";
 import clientLogoMcd from "@/assets/client-logo-mcd.png";
 import clientLogoToyota from "@/assets/client-logo-toyota.png";
 import clientLogoAz from "@/assets/client-logo-az.png";
+import clientLogoGwa from "@/assets/client-logo-gwa.png";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -117,6 +118,7 @@ const clientLogos = [
   { src: clientLogoMcd, alt: "MCD Group" },
   { src: clientLogoToyota, alt: "Toyota" },
   { src: clientLogoAz, alt: "A-Z Panel & Paint" },
+  { src: clientLogoGwa, alt: "GWA Automotive" },
 ];
 
 
@@ -496,7 +498,7 @@ const Index = () => {
                   key={i}
                   src={logo.src}
                   alt={logo.alt}
-                  className="h-16 w-32 object-contain grayscale opacity-60 transition-all duration-300 hover:grayscale-0 hover:opacity-100"
+                  className="h-16 w-32 object-contain transition-all duration-300 hover:scale-105"
                 />
               ))}
             </div>
