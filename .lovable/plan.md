@@ -1,30 +1,30 @@
 
 
-## Update Hero Section Image Collage Layout
+## Tighten Hero Image Collage Overlap
 
 ### What Changes
-Adjust the three hero images so they are more similarly sized, with the Kalgoorlie aerial photo (bottom center, `images[2]`) being the largest and most prominent — acting as the focal point of the collage.
+Bring all three images closer together so they visually overlap each other, creating a tighter, more cohesive collage.
 
-### Layout Changes in `src/components/HeroSection.tsx`
+### How
 
-**Current sizes:**
-- Truck (top-left): `w-3/5` — too dominant
-- Laundry (top-right): `w-2/5` — too small
-- Kalgoorlie (bottom-center): `w-1/2` — should be the focus
+Currently the top two images sit at `top-0` with a gap between them, and the bottom image sits at `bottom-0` with space above. To create overlap:
 
-**New sizes and positions:**
-1. **Truck image** (`images[0]`): Reduce from `w-3/5` to `w-[48%]`, keep at top-left. Add a fixed aspect ratio height (~220px) so it doesn't stretch too tall.
-2. **Laundry image** (`images[1]`): Increase from `w-2/5` to `w-[44%]`, keep at top-right. Match similar height to the truck image.
-3. **Kalgoorlie image** (`images[2]`): Increase from `w-1/2` to `w-[58%]`, keep bottom-center. Add a slightly higher z-index and stronger shadow to emphasize it as the focal point. Adjust positioning so it overlaps the bottom portions of both flanking images.
+1. **Truck image** (`images[0]`): Keep at `top-0 left-0`. Increase width slightly to `w-[52%]` so it extends further right, overlapping with the laundry image.
+2. **Laundry image** (`images[1]`): Keep at `top-0 right-0`. Increase width to `w-[48%]` so it extends further left, overlapping with the truck image. Add `z-[5]` so it layers on top of the truck.
+3. **Kalgoorlie image** (`images[2]`): Move it up by changing from `bottom-0` to `top-[160px]` so it overlaps the bottom portions of both top images. Keep `z-10` so it sits on top of both. Adjust to `left-[12%] w-[65%]` for better centering and more overlap.
+
+### Reduce container min-height
+Reduce `min-h-[420px]` to `min-h-[380px]` since the images are now tighter together.
 
 ### Technical Details
 
-**File: `src/components/HeroSection.tsx`** -- 3 class changes (lines 191, 199, 207):
+**File: `src/components/HeroSection.tsx`** -- 4 edits:
 
-1. **Line 191** (Truck): Change class from `"absolute left-0 top-0 w-3/5 overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"` to `"absolute left-0 top-0 w-[48%] h-[220px] overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"`
-2. **Line 199** (Laundry): Change class from `"absolute right-0 top-16 w-2/5 overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"` to `"absolute right-0 top-0 w-[44%] h-[200px] overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"`
-3. **Line 207** (Kalgoorlie): Change class from `"absolute bottom-0 left-1/4 w-1/2 overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"` to `"absolute bottom-0 left-[18%] w-[60%] h-[200px] z-10 overflow-hidden rounded-2xl shadow-2xl ring-1 ring-primary/10"`
+1. **Line 181** (container): Change `min-h-[420px]` to `min-h-[380px]`
+2. **Line 191** (Truck): Change to `w-[52%] h-[220px]` (wider, creates horizontal overlap)
+3. **Line 199** (Laundry): Change to `w-[48%] h-[200px] z-[5]` (wider + z-index for layering)
+4. **Line 207** (Kalgoorlie): Change from `bottom-0 left-[18%] w-[60%]` to `top-[160px] left-[12%] w-[65%]` (moved up to overlap both top images)
 
 ### Files Changed
-- `src/components/HeroSection.tsx` -- adjust image sizing classes for balanced collage with Kalgoorlie as focal point
+- `src/components/HeroSection.tsx`
 
