@@ -114,11 +114,11 @@ const sectors = [
 
 
 const clientLogos = [
-  { src: clientLogo1, alt: "Client" },
-  { src: clientLogoMcd, alt: "MCD Group" },
-  { src: clientLogoToyota, alt: "Toyota" },
-  { src: clientLogoAz, alt: "A-Z Panel & Paint" },
-  { src: clientLogoGwa, alt: "GWA Automotive" },
+  { src: clientLogo1, alt: "Client", className: "h-20 w-40" },
+  { src: clientLogoMcd, alt: "MCD Group", className: "h-16 w-32" },
+  { src: clientLogoToyota, alt: "Toyota", className: "h-16 w-32" },
+  { src: clientLogoAz, alt: "A-Z Panel & Paint", className: "h-16 w-32" },
+  { src: clientLogoGwa, alt: "GWA Automotive", className: "h-24 w-48" },
 ];
 
 
@@ -498,7 +498,7 @@ const Index = () => {
                   key={i}
                   src={logo.src}
                   alt={logo.alt}
-                  className="h-16 w-32 object-contain transition-all duration-300 hover:scale-105"
+                  className={`${logo.className} object-contain transition-all duration-300 hover:scale-105`}
                 />
               ))}
             </div>
