@@ -73,7 +73,7 @@ const Footer = () => (
         <div>
           <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-primary">Contact</h4>
           <div className="flex flex-col gap-3 text-sm text-primary-foreground/70">
-            <span className="flex items-center gap-2"><Phone className="h-4 w-4 text-primary" /> (08) 9000 0000</span>
+            <span className="flex items-center gap-2"><Phone className="h-4 w-4 text-primary" /> 0435 808 804</span>
             <span className="flex items-center gap-2"><Mail className="h-4 w-4 text-primary" /> info@linexo.com.au</span>
             <span className="flex items-center gap-2"><MapPin className="h-4 w-4 text-primary" /> Kalgoorlie-Boulder, WA</span>
           </div>

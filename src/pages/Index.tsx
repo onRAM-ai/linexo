@@ -653,7 +653,7 @@ const Index = () => {
                   Fixed schedules. 24–48 hour turnaround. Express when you need it. Hygiene compliance handled. SLAs in writing. Tell us what you need and we'll put together a plan that actually works for your operation — no lock-in, no runaround.
                 </p>
                 <div className="space-y-4 text-primary-foreground/90">
-                  <p className="flex items-center gap-3"><Phone className="h-5 w-5 text-primary-foreground/60" /> (08) 9000 0000</p>
+                  <p className="flex items-center gap-3"><Phone className="h-5 w-5 text-primary-foreground/60" /> 0435 808 804</p>
                   <p className="flex items-center gap-3"><Mail className="h-5 w-5 text-primary-foreground/60" /> info@linexo.com.au</p>
                   <p className="flex items-center gap-3"><MapPin className="h-5 w-5 text-primary-foreground/60" /> Kalgoorlie-Boulder, WA</p>
                 </div>
