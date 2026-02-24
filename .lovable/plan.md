@@ -1,19 +1,16 @@
 
 
-## Remove "View Statement" Button and Center "Download PDF"
+## Fix Footer Copyright Section
 
-### What Changes
+### Problem
+The copyright line at the bottom of the footer uses the `BrandName` component, which renders a logo image. This causes the copyright text to break into separate lines with the logo appearing disconnected (as shown in the red-highlighted area of the screenshot).
 
-Remove the "View Statement" button and center the remaining "Download PDF" button. Also update the description text since viewing online is no longer an option.
+### Solution
+Replace the `BrandName` component in the copyright line with plain text "LinExo" so it renders inline as a single clean line: "© 2026 LinExo. All rights reserved."
 
-### Steps
+### Changes
 
-1. **`src/pages/Index.tsx`** (lines 608-618):
-   - Remove the "View Statement" button
-   - Change the "Download PDF" button from `variant="outline"` to default (primary) styling
-   - Center it by simplifying the flex container
-   - Update the description text on line 606 to remove mention of viewing online
-
-### Files Changed
-- `src/pages/Index.tsx` -- remove View Statement button, center Download PDF button, update description text
+**`src/components/Footer.tsx`** (line 84):
+- Change `© {new Date().getFullYear()} <BrandName />. All rights reserved.` to `© {new Date().getFullYear()} LinExo. All rights reserved.`
+- This keeps the copyright integrated within the footer's dark background section rather than appearing as a separate block with a misaligned logo.
 
