@@ -188,7 +188,7 @@ const HeroSection = ({ title, subtitle, actions, stats, images, logo, className 
             {images[0] && (
               <motion.div
                 variants={imageVariants}
-                className="absolute left-0 top-0 w-3/5 overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"
+                className="absolute left-0 top-0 w-[48%] h-[220px] overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"
               >
                 <img src={images[0]} alt="Hero 1" className="h-full w-full object-cover" loading="eager" />
               </motion.div>
@@ -196,7 +196,7 @@ const HeroSection = ({ title, subtitle, actions, stats, images, logo, className 
             {images[1] && (
               <motion.div
                 variants={imageVariants}
-                className="absolute right-0 top-16 w-2/5 overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"
+                className="absolute right-0 top-0 w-[44%] h-[200px] overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"
               >
                 <img src={images[1]} alt="Hero 2" className="h-full w-full object-cover" loading="eager" />
               </motion.div>
@@ -204,7 +204,7 @@ const HeroSection = ({ title, subtitle, actions, stats, images, logo, className 
             {images[2] && (
               <motion.div
                 variants={imageVariants}
-            className="absolute bottom-0 left-1/4 w-1/2 overflow-hidden rounded-2xl shadow-xl ring-1 ring-primary/10"
+            className="absolute bottom-0 left-[18%] w-[60%] h-[200px] z-10 overflow-hidden rounded-2xl shadow-2xl ring-1 ring-primary/10"
               >
                 <img src={images[2]} alt="Hero 3" className="h-full w-full object-cover" loading="eager" />
               </motion.div>
