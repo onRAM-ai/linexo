@@ -155,7 +155,7 @@ const testimonials = [
 
 
 const statBandItems = [
-{ value: 5000, suffix: "+", label: "Pieces Daily" },
+{ value: 5000, suffix: "+", label: "Pieces Weekly" },
 { value: 120, suffix: "+", label: "Rooms Serviced" },
 { value: 24, suffix: "hr", label: "Turnaround" }];
 
