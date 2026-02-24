@@ -603,15 +603,10 @@ const Index = () => {
               </div>
               <h2 className="mb-3 text-2xl font-bold text-foreground md:text-3xl">Our Capability Statement</h2>
               <p className="mb-6 text-muted-foreground leading-relaxed">
-                Learn more about our services, capacity, and credentials. View our capability statement online or download a copy for your records.
+                Learn more about our services, capacity, and credentials. Download a copy of our capability statement for your records.
               </p>
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <div className="flex items-center justify-center">
                 <Button size="lg" asChild>
-                  <a href="/linexo-capability-statement.pdf" target="_blank" rel="noopener noreferrer">
-                    View Statement
-                  </a>
-                </Button>
-                <Button variant="outline" size="lg" asChild>
                   <a href="/linexo-capability-statement.pdf" download="LinExo-Capability-Statement.pdf">
                     Download PDF
                   </a>
