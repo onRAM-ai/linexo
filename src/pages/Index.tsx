@@ -87,7 +87,7 @@ const problemSolutions = [
 {
   problem: "Bookings surge. Your supplier can't keep up. Rooms sit empty.",
   solutionTitle: "Surge & Emergency Processing",
-  solution: "Built to scale from 50 to 5,000+ pieces daily. Emergency processing when you need it.",
+  solution: "Built to scale from 50 to 5,000+ pieces weekly. Emergency processing when you need it.",
   image: problemSurgeImg
 }];
 
@@ -95,7 +95,7 @@ const problemSolutions = [
 const values = [
 { icon: ShieldCheck, title: "Reliability", desc: "24–48 hour standard turnaround with express and priority processing available. You'll never be left waiting." },
 { icon: Layers, title: "Hygiene Standards", desc: "Commercial-grade processes meeting the highest hygiene benchmarks — proven through government contract compliance." },
-{ icon: TrendingUp, title: "Scalable Capacity", desc: "Purpose-built to handle surges — from 50 to 5,000+ pieces daily, with emergency processing on demand." },
+{ icon: TrendingUp, title: "Scalable Capacity", desc: "Purpose-built to handle surges — from 50 to 5,000+ pieces weekly, with emergency processing on demand." },
 { icon: Clock, title: "Contractual SLAs", desc: "Fixed service schedules and written Service Level Agreements, so you know exactly what you're getting and when." }];
 
 
@@ -228,7 +228,7 @@ const Index = () => {
         { text: "Our Services", onClick: () => scrollTo("services"), variant: "outline" as const }]
         }
         stats={[
-        { value: "5,000+", label: "Pieces Daily", icon: <Layers className="h-5 w-5" /> },
+        { value: "5,000+", label: "Pieces Weekly", icon: <Layers className="h-5 w-5" /> },
         { value: "120+", label: "Rooms Serviced", icon: <Building2 className="h-5 w-5" /> },
         { value: "24hr", label: "Turnaround", icon: <Clock className="h-5 w-5" /> }]
         }
