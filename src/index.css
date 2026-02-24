@@ -286,3 +286,11 @@ h1, h2, h3 {
   stroke-dashoffset: 1000;
   animation: draw-path 2s ease-out forwards;
 }
+
+/* ─── Scroll Offset for Sticky Navbar ─── */
+#services,
+#about,
+#capability,
+#contact {
+  scroll-margin-top: 5rem;
+}
