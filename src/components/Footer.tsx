@@ -81,7 +81,7 @@ const Footer = () => (
       </div>
 
       <div className="mt-10 border-t border-primary-foreground/10 pt-6 text-center text-xs text-primary-foreground/50">
-        © {new Date().getFullYear()} <BrandName />. All rights reserved.
+        © {new Date().getFullYear()} LinExo. All rights reserved.
       </div>
     </div>
   </footer>
